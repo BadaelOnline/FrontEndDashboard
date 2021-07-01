@@ -7,35 +7,35 @@
       :sidebar-background-image="sidebarBackgroundImage"
     >
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
+      <sidebar-link to="/admin/dashboard">
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/allproducts">
+      <sidebar-link to="/admin/allproducts">
         <md-icon>person</md-icon>
         <p>All Products</p>
       </sidebar-link>
-      <sidebar-link to="/allstores">
+      <sidebar-link to="/admin/allstores">
         <md-icon>person</md-icon>
         <p>All Stores</p>
       </sidebar-link>
-      <sidebar-link to="/allcategories">
+      <sidebar-link to="/admin/allcategories">
         <md-icon>person</md-icon>
         <p>All Categories</p>
       </sidebar-link>
-      <sidebar-link to="/allbrands">
+      <sidebar-link to="/admin/allbrands">
         <md-icon>person</md-icon>
         <p>All Brands</p>
       </sidebar-link>
-      <sidebar-link to="/alldoctors">
+      <sidebar-link to="/admin/alldoctors">
         <md-icon>person</md-icon>
         <p>All Doctors</p>
       </sidebar-link>
-      <sidebar-link to="/allrestaurant">
+      <sidebar-link to="/admin/allrestaurant">
         <md-icon>person</md-icon>
         <p>All Restaurant</p>
       </sidebar-link>
-      <sidebar-link to="/allOffers">
+      <sidebar-link to="/admin/allOffers">
         <md-icon>person</md-icon>
         <p>All Offers</p>
       </sidebar-link>

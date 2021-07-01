@@ -12,14 +12,14 @@
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>Name</label>
-              <md-input v-model="Brands.brands[2].name"></md-input>
+              <md-input v-model="Brands.brands[1].name"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
               <label>Description</label>
               <md-input
-                v-model="Brands.brands[2].description"
+                v-model="Brands.brands[1].description"
                 type="text"
               ></md-input>
             </md-field>
@@ -79,31 +79,40 @@ export default {
   data() {
     return {
       Brands: {
-        brands: [
-          {
-            name: "jhjjhjh",
-            description: "jbjb",
-            locale: "en",
-            language_id: 1,
-          },
-          {
-            name: ",ljlkjlkj",
-            description: "knjlnlk",
-            locale: "fr",
-            language_id: 1,
-          },
-          {
-            name: null,
-            description: null,
-            locale: "ar",
-            language_id: 1,
-          },
-        ],
-        slug: "gfvghf",
-        is_active: 1,
-        image: null,
-        lang_id: 1,
-      },
+    "brands": [
+        {
+            "locale": "ar",
+            "name": "ar",
+            "description": "ar ar"
+        },
+        {
+            "locale": "en",
+            "name": null,
+            "description": null
+        },
+        {
+            "locale": "fr",
+            "name": "fr",
+            "description": "fr fr"
+        }
+    ],
+    "slug": "mobiles",
+    "is_active": 1,
+    "images": [
+        {
+            "image": "{{IMG-20170318-WA0000.jpg}}",
+            "is_cover": 1
+        },
+        {
+            "image": "{{asdasasd}}",
+            "is_cover": 0
+        },
+        {
+            "image": "{{asdasddsds}}",
+            "is_cover": 0
+        }
+    ]
+},
     };
   },
   computed: {
@@ -121,7 +130,6 @@ export default {
         this.Brands
       );
       console.log(JSON.stringify(this.Brands));
-      this.$router.push({ name: "loadBrands" });
     },
   },
 };

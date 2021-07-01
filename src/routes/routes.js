@@ -46,7 +46,11 @@ import allOffers from "@/pages/Offers/View/allOffers.vue";
 const routes = [
   {
     path: "/",
-    name: "Sign",
+    redirect: "/admin/Sign",
+  },
+  {
+    path: "/admin/Sign",
+    name: 'Sign',
     component: () => import("@/Sign/Sign.vue"),
   },
   // {
@@ -59,13 +63,13 @@ const routes = [
   //   name:'SignIn',
   //   component:()=> import("@/Sign/views/SignIn.vue")
   // },
-  {
-    path: "/",
-    component: DashboardLayout,
-    redirect: "/dashboard",
+ {
+    path: "/admin",
+    component:  DashboardLayout ,
+    redirect: "/admin/dashboard",
     children: [
       {
-        path: "dashboard",
+        path: "/admin/dashboard",
         name: "Dashboard",
         component: Dashboard,
       },

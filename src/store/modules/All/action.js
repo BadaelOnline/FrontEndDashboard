@@ -63,8 +63,8 @@ export const loadBrands = ({ commit }) => {
     axios
         .get(`/api/brands/getAll?lang=${lang}`)
         .then((res) => {
-            console.warn('Brands :', res.data.Brand);
-            let Brands = res.data.Brand;
+            console.warn('Brands :', res.data.Brand.data);
+            let Brands = res.data.Brand.data;
             commit('SET_Brands', Brands);
         })
         .catch(function (error) {
@@ -93,8 +93,8 @@ export const loadProducts = ({ commit }) => {
     axios
         .get(`/api/products/getAll?lang=${lang}`)
         .then((res) => {
-            console.warn('Product :', res.data.Products);
-            let Product = res.data.Products;
+            console.warn('Product :', res.data.Products.data);
+            let Product = res.data.Products.data;
             commit('SET_Products', Product);
         })
         .catch(function (error) {

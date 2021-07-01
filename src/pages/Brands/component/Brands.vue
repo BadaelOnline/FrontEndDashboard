@@ -19,7 +19,7 @@
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 
-      <i @click="delBrand(items)" class="fa fa-trash"></i>
+      <i @click="delBrand(items)" class="fa fa-trash" style="cursor: pointer;"></i>
     </div>
   </div>
 </template>

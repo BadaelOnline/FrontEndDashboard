@@ -3,7 +3,7 @@
     <div class="md-layout-item md-small-size-100 md-size-20">{{ id }}</div>
 
     <div class="md-layout-item md-small-size-100 md-size-20">
-      <img v-lazy="`${image}`" />
+      <img :src="`${image}`" />
     </div>
 
     <div class="md-layout-item md-small-size-100 md-size-20">{{ name }}</div>

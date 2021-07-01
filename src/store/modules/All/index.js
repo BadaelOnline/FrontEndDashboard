@@ -8,7 +8,6 @@ import axios from 'axios';
 Vue.use(Vuex, axios);
 
 export default {
-    namespaced:true,
     state,
     mutations,
     actions,
