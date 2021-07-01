@@ -19,10 +19,10 @@ import VueRouter from "vue-router";
 import App from "./App";
 
 //store.js
-import store from './store/Store';
+import store from "./store/Store";
 
 //axios
-import axios from 'axios';
+import axios from "axios";
 
 // router setup
 import routes from "./routes/routes";
@@ -30,7 +30,6 @@ import routes from "./routes/routes";
 // Plugins
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
-
 
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
@@ -52,16 +51,19 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 // Vue.use(Pagination)
 
-axios.defaults.baseURL = 'http://edalili.e-dalely.com/public';
-Vue.config.productionTip = false
+axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+
+require("./store/subscriber");
 
 /* eslint-disable no-new */
-new Vue({
-  el: "#app",
-  render: h => h(App),
-  router,
-  store,
-  data: {
-    Chartist: Chartist
-  }
+store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
+  new Vue({
+    el: "#app",
+    render: (h) => h(App),
+    router,
+    store,
+    data: {
+      Chartist: Chartist,
+    },
+  });
 });

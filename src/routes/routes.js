@@ -1,6 +1,5 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
-
 import Dashboard from "@/pages/Dashboard.vue";
 // Products
 import AllProducts from "@/pages/Product/View/AllProducts.vue";
@@ -31,18 +30,18 @@ import AllRestaurant from "@/pages/Restaurant/View/restaurants/AllRestaurant.vue
 import NewRestaurant from "@/pages/Restaurant/View/restaurants/NewRestaurant.vue";
 import EditRestaurant from "@/pages/Restaurant/View/restaurants/EditRestaurant.vue";
 //Restaurant meals
-import AllMeals from "@/pages/Restaurant/View/Meals/AllMeals.vue"
+import AllMeals from "@/pages/Restaurant/View/Meals/AllMeals.vue";
 import NewMeals from "@/pages/Restaurant/View/Meals/NewMeals.vue";
 import EditMeals from "@/pages/Restaurant/View/Meals/EditMeals.vue";
 //Restaurant users
-import AllUsers from "@/pages/Restaurant/View/Users/AllUsers.vue"
+import AllUsers from "@/pages/Restaurant/View/Users/AllUsers.vue";
 import NewUser from "@/pages/Restaurant/View/Users/NewUser.vue";
 import EditUser from "@/pages/Restaurant/View/Users/EditUser.vue";
 //Restauran Menus
-import AllMenu from "@/pages/Restaurant/View/Menus/AllMenu.vue"
+import AllMenu from "@/pages/Restaurant/View/Menus/AllMenu.vue";
 import NewMenu from "@/pages/Restaurant/View/Menus/NewMenu.vue";
 import EditMenu from "@/pages/Restaurant/View/Menus/EditMenu.vue";
-// Offer 
+// Offer
 import allOffers from "@/pages/Offers/View/allOffers.vue";
 const routes = [
   {
@@ -204,7 +203,7 @@ const routes = [
         name: "EditMeals",
         component: EditMeals,
       },
-        //Restaurant user
+      //Restaurant user
       {
         path: "allusers",
         name: "AllUsers",
@@ -220,7 +219,7 @@ const routes = [
         name: "EditUser",
         component: EditUser,
       },
-        //Restaurant Menu
+      //Restaurant Menu
       {
         path: "allmenus",
         name: "AllMenu",
@@ -236,12 +235,12 @@ const routes = [
         name: "EditMenu",
         component: EditMenu,
       },
-      // Offers 
+      // Offers
       {
-      path: "allOffers",
-      name: "All Offers",
-      component: allOffers,
-      }
+        path: "allOffers",
+        name: "All Offers",
+        component: allOffers,
+      },
     ],
   },
 ];
