@@ -41,8 +41,11 @@ import EditUser from "@/pages/Restaurant/View/Users/EditUser.vue";
 import AllMenu from "@/pages/Restaurant/View/Menus/AllMenu.vue";
 import NewMenu from "@/pages/Restaurant/View/Menus/NewMenu.vue";
 import EditMenu from "@/pages/Restaurant/View/Menus/EditMenu.vue";
-// Offer
+// Offer 
 import allOffers from "@/pages/Offers/View/allOffers.vue";
+// custome feilds 
+import customefeilds from "@/pages/Custome/View/customefeilds.vue";
+import NewCustome from "@/pages/Custome/View/NewCustome.vue";
 const routes = [
   {
     path: "/",
@@ -240,6 +243,17 @@ const routes = [
         path: "allOffers",
         name: "All Offers",
         component: allOffers,
+      },
+            // Offers
+      {
+        path: "customefeilds",
+        name: "Custome Feilds",
+        component: customefeilds,
+      },
+      {
+        path: "newCustome",
+        name: "New Custome",
+        component: NewCustome,
       },
     ],
   },

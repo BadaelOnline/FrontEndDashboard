@@ -50,7 +50,12 @@ import EditMenuForm from "../pages/Restaurant/component/Menus/EditMenuForm.vue";
 import UploadImagesMenu from "../pages/Restaurant/component/Menus/UploadImagesMenu.vue";
 // Offers
 import offers from "../pages/Offers/component/offers.vue";
+// Custome
+import custome from "../pages/Custome/component/custome.vue";
+import CreateCustomeForm from "../pages/Custome/component/CreateCustomeForm.vue";
 export {
+  custome,
+  CreateCustomeForm,
   offers,
   UploadImagesStore,
   UpImagStrProd,

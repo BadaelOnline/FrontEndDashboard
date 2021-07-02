@@ -30,4 +30,7 @@ export const SET_Products = (state, Product) => {
 export const SET_ProductID = (state, ProductID) => {
     state.ProductID = ProductID;
 };
+export const SET_Custome = (state, Custome) => {
+    state.Custome = Custome;
+};
 //
