@@ -101,7 +101,7 @@ export default {
           {
             first_name: null,
             last_name: null,
-            description: "vhbgvhvh",
+            description: null,
             locale: "ar",
           },
         ],
@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     postDoctor() {
-      axios.post("/api/doctor/create", this.doctors);
+      axios.post("http://edalili.e-dalely.com/public/api/doctor/create", this.doctors);
       console.log(JSON.stringify(this.doctors));
       this.$router.push({ name: "allDoctors" });
     },
