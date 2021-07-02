@@ -64,7 +64,7 @@
           <!-- loop products -->
           <Doctors
             v-for="items in doctors"
-            :key="items.pr"
+            :key="items.id"
             :id="items.id"
             :first_name="items.first_name"
             :last_name="items.last_name"

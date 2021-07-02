@@ -125,7 +125,7 @@ export default {
         this.doctors
       );
       console.log(JSON.stringify(this.doctors));
-      this.$router.push({ name: "allDoctors" });
+      // this.$router.push({ name: "allDoctors" });
     },
   },
   computed: {
