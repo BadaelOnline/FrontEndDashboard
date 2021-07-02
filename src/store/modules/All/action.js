@@ -113,3 +113,15 @@ export const loadProduct = ({ commit }, ProductID) => {
             console.log('Error: ', error);
         });
 };
+export const loadCustome= ({ commit }) => {
+    axios
+        .get(`/api/customfields/getAll?lang=${lang}`)
+        .then((res) => {
+            console.warn('Custome :', res.data.Custom_fields.data);
+            let Custome = res.data.Custom_fields.data;
+            commit('SET_Custome', Custome);
+        })
+        .catch(function (error) {
+            console.log('Error: ', error);
+        });
+};

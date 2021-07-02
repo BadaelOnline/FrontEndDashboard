@@ -24,19 +24,25 @@
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 
-      <i @click="delDoctor(items)" class="fa fa-trash"></i>
+      <i @click="delDoctor()" class="fa fa-trash" style="cursor: pointer;"></i>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "Doctors",
   props: ["id", "first_name", "last_name", "image", "is_active", "description"],
-  methods: {
-    delDoctor(items) {
-      this.$store.dispatch("deleteDoctor", items);
+
+     methods: {
+        delDoctor() {
+            axios.put(
+                `http://edalili.e-dalely.com/public/api/doctor/trash/${this.id}`,
+                this.details
+            );
+            console.log(JSON.stringify(this.is_active));
+        },
     },
-  },
 };
 </script>
 <style>

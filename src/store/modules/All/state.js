@@ -7,4 +7,5 @@ export default {
     BrandID: null,
     Product: [],
     ProductID: null,
+    Custome: null
 };

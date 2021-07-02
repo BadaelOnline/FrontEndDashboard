@@ -39,6 +39,10 @@
         <md-icon>person</md-icon>
         <p>All Offers</p>
       </sidebar-link>
+            <sidebar-link to="/admin/customefeilds">
+        <md-icon>person</md-icon>
+        <p>Custome Feilds</p>
+      </sidebar-link>
     </side-bar>
 
     <div class="main-panel">

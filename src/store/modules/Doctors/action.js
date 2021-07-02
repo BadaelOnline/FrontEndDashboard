@@ -45,12 +45,7 @@ export const loadDoctorTrashed = ({ commit }) => {
             console.log('Error: ', error);
         });
 };
-export const deleteDoctor = ({ commit }, items) => {
-    axios.put(
-        `http://edalili.e-dalely.com/public/api/doctor/trash/${items.id}`,
-        commit('Delete_Doctor', items.id)
-    );
-};
+
 export const trashDoctor = ({ commit }, items) => {
     axios.put(
         `http://edalili.e-dalely.com/public/api/doctor/restoreTrashed/${items.id}`,

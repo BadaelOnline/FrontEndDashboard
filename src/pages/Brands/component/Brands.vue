@@ -19,18 +19,23 @@
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 
-      <i @click="delBrand(items)" class="fa fa-trash" style="cursor: pointer;"></i>
+      <i @click="delbrand()" class="fa fa-trash" style="cursor: pointer;"></i>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "Brands",
   props: ["id", "name", "image", "is_active", "Description"],
   methods: {
-    delBrand(items) {
-      this.$store.dispatch("deleteBrand", items);
-    },
+         delbrand() {
+            axios.put(
+                `http://edalili.e-dalely.com/public/api/brands/trash/${this.id}`,
+                this.details
+            );
+            console.log(JSON.stringify(this.is_active));
+        },
   },
 };
 </script>
