@@ -12,6 +12,7 @@
         <p>Dashboard</p></a
       >
     </li>
+
     <li>
       <drop-down>
         <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
@@ -50,9 +51,9 @@ export default {
         "Angela Martin",
         "Kelly Kapoor",
         "Ryan Howard",
-        "Kevin Malone"
-      ]
+        "Kevin Malone",
+      ],
     };
-  }
+  },
 };
 </script>

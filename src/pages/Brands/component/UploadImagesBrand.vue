@@ -63,7 +63,7 @@ export default {
     // Pushes posts to the server when called.
     postBrands() {
       axios.post(
-        "http://edalili.e-dalely.com/public/api/brands/create",
+        "http://admin.e-dalely.com/public/api/brands/create",
         this.Brands
       );
       console.log(JSON.stringify(this.Brands));

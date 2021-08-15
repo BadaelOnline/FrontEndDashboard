@@ -44,7 +44,7 @@
                 <label>Status</label>
               </md-field>
             </div>
-            <div class="md-layout-item md-small-size-100 md-size-10">
+            <div class="md-layout-item md-small-size-100 md-size-20">
               <md-field>
                 <label>Action</label>
               </md-field>
@@ -59,6 +59,7 @@
             :image="items.image"
             :section_id="items.section_id"
             :is_active="items.is_active"
+            :category_images="items.category_images"
             style="margin: 10px 0"
           >
           </Categories>

@@ -34,7 +34,7 @@
                 <label>Name</label>
               </md-field>
             </div>
-            <div class="md-layout-item md-small-size-100 md-size-10">
+            <div class="md-layout-item md-small-size-100 md-size-20">
               <md-field>
                 <label>Description</label>
               </md-field>
@@ -44,7 +44,7 @@
                 <label>Status</label>
               </md-field>
             </div>
-            <div class="md-layout-item md-small-size-100 md-size-10">
+            <div class="md-layout-item md-small-size-100 md-size-20">
               <md-field>
                 <label>Action</label>
               </md-field>
@@ -56,8 +56,8 @@
             :key="items.pr"
             :id="items.id"
             :name="items.name"
-            :image="items.image"
-            :Description="items.Description"
+            :brand_images="items.brand_images"
+            :description="items.description"
             :is_active="items.is_active"
             style="margin: 10px 0"
           >
