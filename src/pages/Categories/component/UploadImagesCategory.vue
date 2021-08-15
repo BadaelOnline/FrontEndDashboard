@@ -5,10 +5,8 @@
     </div>
 
     <md-card-content>
-      <UploadImage class="upload_img" :max="3" @change="handleImages" />
-      <md-button class="md-round md-success" @click="postCategor()"
-        >Save</md-button
-      >
+      <UploadImage class="upload_img" :max="1" />
+      <!-- <md-button class="md-round md-success"></md-button> -->
     </md-card-content>
   </md-card>
 </template>
@@ -34,12 +32,12 @@ export default {
       categories: {
         category: [
           {
-            name: "jhjjhjh",
+            name: "accessories",
             local: "en",
             language_id: 1,
           },
           {
-            name: ",ljlkjlkj",
+            name: "accessories",
             local: "fr",
             language_id: 1,
           },
@@ -50,11 +48,16 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "jnjkbnjkbjk",
+        slug: "hbjhk",
         parent_id: null,
-        image: null,
-        lang_id: 1,
+        images: [
+          {
+            image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+            is_cover: 1,
+          },
+        ],
         section_id: null,
+        lang_id: 1,
         created_at: null,
         updated_at: null,
       },
@@ -67,11 +70,14 @@ export default {
         "http://edalili.e-dalely.com/public/api/categories/create",
         this.categories
       );
-     console.log(JSON.stringify(this.categories));
+      console.log(JSON.stringify(this.categories));
       this.$router.push({ name: "categories_dash" });
     },
+    handleImages() {
+      console.log("file is drag");
+    },
     // handleImages(Imgs) {
-    //     this.categories.image = 'http://localhost:8081/img/' + Imgs[0].name;
+    //     this.categories.images[0].image = 'http://localhost:8081/img/' + Imgs[0].name;
     //     for (var i = 0; i < Imgs.length; i++) {
     //         this.categories.images[i] = Imgs[i].name;
     //         this.categories.images[i] = {
@@ -98,4 +104,10 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.beforeUpload[data-v-69bb59a3] {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+</style>

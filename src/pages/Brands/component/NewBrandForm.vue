@@ -79,40 +79,40 @@ export default {
   data() {
     return {
       Brands: {
-    "brands": [
-        {
-            "locale": "ar",
-            "name": "ar",
-            "description": "ar ar"
-        },
-        {
-            "locale": "en",
-            "name": null,
-            "description": null
-        },
-        {
-            "locale": "fr",
-            "name": "fr",
-            "description": "fr fr"
-        }
-    ],
-    "slug": "mobiles",
-    "is_active": 1,
-    "images": [
-        {
-            "image": "{{IMG-20170318-WA0000.jpg}}",
-            "is_cover": 1
-        },
-        {
-            "image": "{{asdasasd}}",
-            "is_cover": 0
-        },
-        {
-            "image": "{{asdasddsds}}",
-            "is_cover": 0
-        }
-    ]
-},
+        brands: [
+          {
+            locale: "ar",
+            name: "ar",
+            description: "ar ar",
+          },
+          {
+            locale: "en",
+            name: null,
+            description: null,
+          },
+          {
+            locale: "fr",
+            name: "fr",
+            description: "fr fr",
+          },
+        ],
+        slug: "mobiles",
+        is_active: 1,
+        images: [
+          {
+            image: "{{IMG-20170318-WA0000.jpg}}",
+            is_cover: 1,
+          },
+          {
+            image: "{{asdasasd}}",
+            is_cover: 0,
+          },
+          {
+            image: "{{asdasddsds}}",
+            is_cover: 0,
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -126,7 +126,7 @@ export default {
   methods: {
     postBrands() {
       axios.post(
-        "http://edalili.e-dalely.com/public/api/brands/create",
+        "http://admin.e-dalely.com/public/api/brands/create",
         this.Brands
       );
       console.log(JSON.stringify(this.Brands));

@@ -6,59 +6,65 @@
 
         <p class="category">Complete your profile</p>
       </md-card-header>
-
+      <!-- name -->
       <md-card-content>
-        <div class="md-layout">
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Name</label>
-              <md-input v-model="Brands.brands[2].name"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Description</label>
-              <md-input
-                v-model="Brands.brands[2].description"
-                type="text"
-              ></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-button @click="updateBrands()">Update</md-button>
-          </div>
-          <!-- <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Image</label>
-              <md-input
-                v-model="categories.image"
-                type="email"
-                placeholder="Size"
-              ></md-input>
-            </md-field>
-          </div> -->
-          <!-- Brand -->
-          <!-- <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-      >
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Brand</h4>
-          </md-card-header>
-            <Brands></Brands>
-        </md-card>
-      </div> -->
-          <!-- Categories -->
-          <!-- <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-      >
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Categories</h4>
-          </md-card-header>
-            <Categories></Categories>
-        </md-card>
-      </div> -->
+        <div>
+          <md-steppers :md-active-step.sync="active" md-linear>
+            <md-step
+              id="first"
+              md-label="First Step"
+              md-description="Optional"
+              :md-done.sync="first"
+            >
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <md-field>
+                  <label>Name</label>
+                  <md-input v-model="Brands.brands[2].name"></md-input>
+                </md-field>
+              </div>
+              <md-button
+                class="md-raised md-primary"
+                :data-background-color="'green'"
+                @click="setDone('first', 'second')"
+                >Next</md-button
+              >
+            </md-step>
+            <!-- Description -->
+            <md-step
+              id="second"
+              md-label="Second Step"
+              :md-error="secondStepError"
+              :md-done.sync="second"
+            >
+              <div class="md-layout-item md-small-size-100 md-size-33">
+                <md-field>
+                  <label>Description</label>
+                  <md-input v-model="Brands.brands[2].description"></md-input>
+                </md-field>
+              </div>
+              <md-button
+                class="md-raised md-primary"
+                @click="setDone('second', 'third')"
+                :data-background-color="'green'"
+                >Next</md-button
+              >
+            </md-step>
+            <!--  -->
+            <md-step id="third" md-label="third Step" :md-done.sync="third">
+              <div class="md-layout-item md-medium-size-100">
+                <UploadImagesCategory> </UploadImagesCategory>
+              </div>
+              <md-button
+                @click="
+                  updateBrands();
+                  setDone('third');
+                "
+                class="md-raised md-primary"
+                :data-background-color="'green'"
+                >Update</md-button
+              >
+            </md-step>
+          </md-steppers>
         </div>
       </md-card-content>
     </md-card>
@@ -78,6 +84,12 @@ export default {
   },
   data() {
     return {
+      active: "first",
+      first: false,
+      second: false,
+      third: false,
+      secondStepError: null,
+      thirdStepError: null,
       Brands: {
         brands: [
           {
@@ -115,7 +127,7 @@ export default {
   methods: {
     updateBrands() {
       axios.put(
-        `http://edalili.e-dalely.com/public/api/brands/update/${this.BrandID.id}`,
+        `http://admin.e-dalely.com/public/api/brands/update/${this.BrandID.id}`,
         this.Brands
       );
       console.log(JSON.stringify(this.Brands));

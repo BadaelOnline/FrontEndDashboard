@@ -18,6 +18,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
 
+// validate
+import Vuelidate from "vuelidate";
+// vue-i18n
+import i18n from "./js/i18n";
+import VueI18n from "vue-i18n";
 //store.js
 import store from "./store/Store";
 
@@ -40,8 +45,18 @@ import Chartist from "chartist";
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active"
+  linkExactActiveClass: "nav-item active",
 });
+const lang = localStorage.getItem("lang") || "en";
+axios.defaults.headers["Accept-Language"] = lang;
+const server = localStorage.getItem("server") || "admin";
+document.documentElement.lang = lang;
+
+if (server == "admin") {
+  axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+} else if (server == "edalily") {
+  axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+}
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -49,9 +64,11 @@ Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
+Vue.use(i18n, VueI18n);
+Vue.use(Vuelidate);
 // Vue.use(Pagination)
 
-axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+// axios.defaults.baseURL = "http://admin.e-dalely.com/public";
 
 require("./store/subscriber");
 
