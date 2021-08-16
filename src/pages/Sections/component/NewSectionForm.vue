@@ -35,6 +35,11 @@
                 <md-field class="md-layout-item md-size-100">
                   <div class="md-layout-item md-size-70">
                     <label>Name</label>
+                    <i
+                      class="fa fa-info-circle req"
+                      id="req"
+                      aria-hidden="true"
+                    ></i>
                     <md-input
                       v-if="lang1 == 'ar'"
                       v-model="Sections.section[1].name"
@@ -131,8 +136,7 @@ export default {
         this.Sections.section[1].name == null
       ) {
         document.getElementById("alert").classList.add("block");
-        // document.getElementById("alert").scrollTop
-        window.scrollTo(0, 0);
+        window.scrollBy(0, -200);
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
@@ -209,5 +213,10 @@ export default {
 .block {
   display: flex;
   background-color: red;
+}
+.req {
+  display: none;
+  color: red;
+  padding-top: 30px;
 }
 </style>

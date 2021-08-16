@@ -35,6 +35,11 @@
                 <md-field class="md-layout-item md-size-100">
                   <div class="md-layout-item md-size-70">
                     <label>Name</label>
+                    <i
+                      class="fa fa-info-circle req"
+                      id="req"
+                      aria-hidden="true"
+                    ></i>
                     <md-input
                       v-if="lang1 == 'ar'"
                       v-model="categories.category[1].name"
@@ -44,6 +49,11 @@
                       v-model="categories.category[0].name"
                     ></md-input>
                   </div>
+                  <i
+                    class="md-layout-item fa fa-info-circle req"
+                    id="req"
+                    aria-hidden="true"
+                  ></i>
                   <select
                     class="cu_1 md-layout-item md-size-30"
                     v-model="lang1"
@@ -61,6 +71,11 @@
                 <div class="md-layout-item  md-size-60">
                   <md-field>
                     <label for="font">Section</label>
+                    <i
+                      class="fa fa-info-circle req"
+                      id="req"
+                      aria-hidden="true"
+                    ></i>
                     <md-select
                       v-model="categories.section_id"
                       name="font"
@@ -83,6 +98,11 @@
                 </md-card-header>
                 <div class="md-layout-item md-size-60">
                   <md-field>
+                    <i
+                      class="fa fa-info-circle req"
+                      id="req"
+                      aria-hidden="true"
+                    ></i>
                     <md-select
                       v-model="categories.parent_id"
                       name="font"
@@ -194,8 +214,7 @@ export default {
         this.categories.parent_id == null
       ) {
         document.getElementById("alert").classList.add("block");
-        // document.getElementById("alert").scrollTop
-        window.scrollTo(0, 0);
+        window.scrollBy(0, -200);
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
@@ -206,7 +225,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .md-layout-item.md-size-33 {
   min-width: 100%;
   max-width: 100%;
@@ -268,5 +287,10 @@ export default {
 .block {
   display: flex;
   background-color: red;
+}
+.req {
+  display: none;
+  color: red;
+  /* padding-top: 30px; */
 }
 </style>
