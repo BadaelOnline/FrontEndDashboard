@@ -35,10 +35,7 @@ export default {
   props: ["id", "name", "brand_images", "is_active", "description"],
   methods: {
     delbrand() {
-      axios.put(
-        `http://admin.e-dalely.com/public/api/brands/trash/${this.id}`,
-        this.details
-      );
+      axios.put(`/api/brands/trash/${this.id}`, this.details);
       console.log(JSON.stringify(this.is_active));
     },
   },

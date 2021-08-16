@@ -66,10 +66,7 @@ export default {
   methods: {
     // Pushes posts to the server when called.
     postCategory() {
-      axios.post(
-        "http://edalili.e-dalely.com/public/api/categories/create",
-        this.categories
-      );
+      axios.post("/api/categories/create", this.categories);
       console.log(JSON.stringify(this.categories));
       this.$router.push({ name: "categories_dash" });
     },

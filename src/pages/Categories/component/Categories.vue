@@ -23,7 +23,7 @@
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
       <i
-        @click="delettcategory(items)"
+        @click="delettcategory()"
         class="fa fa-trash"
         style="cursor: pointer;"
       ></i>
@@ -31,12 +31,15 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "Categories",
   props: ["id", "name", "image", "is_active", "section_id", "category_images"],
   methods: {
-    delettcategory(items) {
-      this.$store.dispatch("deleteCategory", items);
+    delettcategory() {
+      // this.$store.dispatch("deleteCategory", items);
+      axios.put(`/api/categories/trash/${this.id}`, this.details);
+      console.log(JSON.stringify(this.is_active));
     },
   },
 };

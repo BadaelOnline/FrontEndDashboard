@@ -27,6 +27,10 @@
         <md-icon>person</md-icon>
         <p>All Brands</p>
       </sidebar-link>
+      <sidebar-link to="/admin/allsection">
+        <md-icon>person</md-icon>
+        <p>All Section</p>
+      </sidebar-link>
       <sidebar-link to="/admin/alldoctors">
         <md-icon>person</md-icon>
         <p>All Doctors</p>
@@ -39,7 +43,7 @@
         <md-icon>person</md-icon>
         <p>All Offers</p>
       </sidebar-link>
-            <sidebar-link to="/admin/customefeilds">
+      <sidebar-link to="/admin/customefeilds">
         <md-icon>person</md-icon>
         <p>Custome Feilds</p>
       </sidebar-link>
