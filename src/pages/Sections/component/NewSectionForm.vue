@@ -2,7 +2,7 @@
   <form>
     <md-card>
       <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">New Brand</h4>
+        <h4 class="title">New Section</h4>
 
         <p class="category">Complete your profile</p>
       </md-card-header>
@@ -34,37 +34,14 @@
                 </md-card-header>
                 <md-field class="md-layout-item md-size-100">
                   <div class="md-layout-item md-size-70">
-                    <!-- <label>Name</label> -->
+                    <label>Name</label>
                     <md-input
                       v-if="lang1 == 'ar'"
-                      v-model="Brands.brands[1].name"
-                    ></md-input>
-                    <md-input v-else v-model="Brands.brands[0].name"></md-input>
-                  </div>
-                  <select
-                    class="cu_1 md-layout-item md-size-30"
-                    v-model="lang1"
-                    @change="handleChange1($event)"
-                  >
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                  </select>
-                </md-field>
-              </div>
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Description</h4>
-                </md-card-header>
-                <md-field class="md-layout-item md-size-100">
-                  <div class="md-layout-item md-size-70">
-                    <!-- <label>Name</label> -->
-                    <md-input
-                      v-if="lang1 == 'ar'"
-                      v-model="Brands.brands[1].description"
+                      v-model="Sections.section[1].name"
                     ></md-input>
                     <md-input
                       v-else
-                      v-model="Brands.brands[0].description"
+                      v-model="Sections.section[0].name"
                     ></md-input>
                   </div>
                   <select
@@ -81,13 +58,13 @@
             <div class="md-layout-item md-size-50">
               <div class="md-layout-item md-size-100">
                 <div class="md-layout-item md-size-100">
-                  <UploadImagesBrand> </UploadImagesBrand>
+                  <UploadImagesSection> </UploadImagesSection>
                 </div>
               </div>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="updateBrands()">Update</md-button>
+            <md-button @click="postSection()">Add</md-button>
           </div>
         </div>
       </md-card-content>
@@ -98,12 +75,12 @@
 <script>
 import { mapState } from "vuex";
 import axios from "axios";
-import UploadImagesBrand from "./UploadImagesBrand.vue";
+import UploadImagesSection from "./UploadImagesSection.vue";
 
 export default {
-  name: "NewBrandForm",
+  name: "NewSectionForm",
   components: {
-    UploadImagesBrand,
+    UploadImagesSection,
   },
   props: {
     dataBackgroundColor: {
@@ -112,45 +89,46 @@ export default {
     },
   },
   data() {
+    let lang1 = window.localStorage.getItem("lang1");
     return {
-      Brands: {
-        brands: [
+      lang1: lang1,
+      Sections: {
+        section: [
           {
             name: null,
-            description: null,
-            locale: "en",
-            language_id: 1,
+            local: "en",
+            description: "null",
+            section_id: 1,
           },
           {
             name: null,
-            description: null,
-            locale: "ar",
-            language_id: 1,
+            local: "ar",
+            description: "null",
+            section_id: 1,
           },
         ],
-        slug: "gfvghf",
+        slug: "fahed",
         is_active: 1,
         image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
-        lang_id: 1,
+        created_at: null,
+        updated_at: null,
       },
     };
   },
   computed: {
     ...mapState({
-      Brands: (state) => state.All.Brands,
+      sections: (state) => state.All.sections,
     }),
   },
   mounted() {
-    this.$store.dispatch("loadBrands");
+    this.$store.dispatch("loadSections");
   },
   methods: {
-    postBrands() {
-      axios.post(`/api/brands/create`, this.Brands);
+    postSection() {
+      axios.post(`/api/sections/create`, this.Sections);
       if (
-        this.Brands.brands[0].name == null ||
-        this.Brands.brands[1].name == null ||
-        this.Brands.brands[0].description == null ||
-        this.Brands.brands[1].description == null
+        this.Sections.section[0].name == null ||
+        this.Sections.section[1].name == null
       ) {
         document.getElementById("alert").classList.add("block");
         // document.getElementById("alert").scrollTop
@@ -158,8 +136,8 @@ export default {
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
-        console.log(JSON.stringify(this.Brands));
-        this.$router.push({ name: "allBrands" });
+        console.log(JSON.stringify(this.Sections));
+        this.$router.push({ name: "allSection" });
       }
     },
     handleChange1(event) {

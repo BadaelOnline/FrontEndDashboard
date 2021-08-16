@@ -17,6 +17,10 @@ import EditCategory from "@/pages/Categories/View/EditCategory.vue";
 import AllBrands from "@/pages/Brands/View/AllBrands.vue";
 import NewBrand from "@/pages/Brands/View/NewBrand.vue";
 import EditBrand from "@/pages/Brands/View/EditBrand.vue";
+//section
+import AllSections from "@/pages/Sections/View/AllSections.vue";
+import NewSection from "@/pages/Sections/View/NewSection.vue";
+import EditSection from "@/pages/Sections/View/EditSection.vue";
 // Store Products
 import StoreProducts from "@/pages/Product_Store/View/StoreProducts.vue";
 import NewProductStor from "@/pages/Product_Store/View/NewProductStor.vue";
@@ -41,9 +45,9 @@ import EditUser from "@/pages/Restaurant/View/Users/EditUser.vue";
 import AllMenu from "@/pages/Restaurant/View/Menus/AllMenu.vue";
 import NewMenu from "@/pages/Restaurant/View/Menus/NewMenu.vue";
 import EditMenu from "@/pages/Restaurant/View/Menus/EditMenu.vue";
-// Offer 
+// Offer
 import allOffers from "@/pages/Offers/View/allOffers.vue";
-// custome feilds 
+// custome feilds
 import customefeilds from "@/pages/Custome/View/customefeilds.vue";
 import NewCustome from "@/pages/Custome/View/NewCustome.vue";
 const routes = [
@@ -53,7 +57,7 @@ const routes = [
   },
   {
     path: "/admin/Sign",
-    name: 'Sign',
+    name: "Sign",
     component: () => import("@/Sign/Sign.vue"),
   },
   // {
@@ -66,9 +70,9 @@ const routes = [
   //   name:'SignIn',
   //   component:()=> import("@/Sign/views/SignIn.vue")
   // },
- {
+  {
     path: "/admin",
-    component:  DashboardLayout ,
+    component: DashboardLayout,
     redirect: "/admin/dashboard",
     children: [
       {
@@ -158,6 +162,22 @@ const routes = [
         name: "editbrand",
         component: EditBrand,
       },
+      //sections
+      {
+        path: "allsection",
+        name: "allSection",
+        component: AllSections,
+      },
+      {
+        path: "newsection",
+        name: "newsection",
+        component: NewSection,
+      },
+      {
+        path: "editsection/:id",
+        name: "editsection",
+        component: EditSection,
+      },
       // Doctors
       {
         path: "alldoctors",
@@ -244,7 +264,7 @@ const routes = [
         name: "All Offers",
         component: allOffers,
       },
-            // Offers
+      // Offers
       {
         path: "customefeilds",
         name: "Custome Feilds",

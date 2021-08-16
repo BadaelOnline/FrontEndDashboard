@@ -26,7 +26,11 @@ import Brands from "../pages/Brands/component/Brands.vue";
 import NewBrandForm from "../pages/Brands/component/NewBrandForm.vue";
 import EditBrandForm from "../pages/Brands/component/EditBrandForm.vue";
 import UploadImagesBrand from "../pages/Brands/component/UploadImagesBrand.vue";
-
+//section
+import Section from "../pages/Sections/component/Section";
+import NewSectionForm from "../pages/Sections/component/NewSectionForm";
+import EditSectionForm from "../pages/Sections/component/EditSectionForm";
+import UploadImagesSection from "../pages/Sections/component/UploadImagesSection";
 //Doctors
 import Doctors from "../pages/Doctor/component/Doctors.vue";
 import NewDoctorsForm from "../pages/Doctor/component/NewDoctorsForm.vue";
@@ -92,7 +96,11 @@ export {
   UploadImagesUser,
   NewMenuForm,
   EditMenuForm,
-  UploadImagesMenu
+  UploadImagesMenu,
+  Section,
+  NewSectionForm,
+  EditSectionForm,
+  UploadImagesSection,
 };
 
 // export { UploadImages, EditProductForm, CreateProductForm, Products, Stores, CreateStoreForm, EditStoreForm, StoreProd, CreateProductStor, EditProductStor };

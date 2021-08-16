@@ -31,7 +31,7 @@ export const loadCategory = ({ commit }, CategoryID) => {
 };
 export const deleteCategory = ({ commit }, items) => {
   axios.put(
-    `/categories/trash/${items.id}`,
+    `/api/categories/trash/${items.id}`,
     commit("Delete_Category", items.id)
   );
 };
@@ -51,13 +51,19 @@ export const loadSection = ({ commit }, SectionID) => {
   axios
     .get(`/api/sections/getById/${SectionID}?lang=${lang}`)
     .then((res) => {
-      console.warn("SectionID :", res.data);
-      let SectionID = res.data;
+      console.warn("SectionID :", res.data.Section);
+      let SectionID = res.data.Section;
       commit("SET_SectionID", SectionID);
     })
     .catch(function(error) {
       console.log("Error: ", error);
     });
+};
+export const deleteSection = ({ commit }, items) => {
+  axios.put(
+    `/api/sections/trash/${items.id}`,
+    commit("Delete_Section", items.id)
+  );
 };
 export const loadBrands = ({ commit }) => {
   axios

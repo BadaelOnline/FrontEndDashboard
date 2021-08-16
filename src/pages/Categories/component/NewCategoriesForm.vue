@@ -6,29 +6,45 @@
 
         <p class="category">Complete your profile</p>
       </md-card-header>
-
       <md-card-content>
         <div>
-          <md-steppers :md-active-step.sync="active" md-linear>
-            <md-step
-              id="first"
-              md-label="First Step"
-              md-description="Optional"
-              :md-done.sync="first"
+          <div class="alert" id="alert">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
             >
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <md-field>
-                  <label>Name</label>
-                  <md-input
-                    v-if="lang1 == 'ar'"
-                    v-model="categories.category[1].name"
-                  ></md-input>
-                  <md-input
-                    v-else-if="lang1 == 'en'"
-                    v-model="categories.category[0].name"
-                  ></md-input>
+            <strong>Danger!</strong> You must fill in all fields.
+          </div>
+          <div class="alertt" id="alertt">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            <strong>Good</strong> "operation accomplished successfully.
+          </div>
+
+          <div class="md-layout md-size-100">
+            <div class="md-layout-item  md-size-50">
+              <div class="md-layout-item  md-size-100">
+                <md-card-header data-background-color="dataBackgroundColor">
+                  <h4 class="title">Name</h4>
+                </md-card-header>
+                <md-field class="md-layout-item md-size-100">
+                  <div class="md-layout-item md-size-70">
+                    <label>Name</label>
+                    <md-input
+                      v-if="lang1 == 'ar'"
+                      v-model="categories.category[1].name"
+                    ></md-input>
+                    <md-input
+                      v-else-if="lang1 == 'en'"
+                      v-model="categories.category[0].name"
+                    ></md-input>
+                  </div>
                   <select
-                    class="cu_1"
+                    class="cu_1 md-layout-item md-size-30"
                     v-model="lang1"
                     @change="handleChange1($event)"
                   >
@@ -37,99 +53,63 @@
                   </select>
                 </md-field>
               </div>
-              <md-button
-                class="md-raised md-primary"
-                :data-background-color="'green'"
-                @click="setDone('first', 'second')"
-                >Next</md-button
-              >
-            </md-step>
-            <!-- section -->
-            <md-step
-              id="second"
-              md-label="Second Step"
-              :md-error="secondStepError"
-              :md-done.sync="second"
-            >
-              <md-card-header data-background-color="dataBackgroundColor">
-                <h4 class="title">Section</h4>
-              </md-card-header>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <md-field>
-                  <label for="font">Section</label>
-                  <md-select
-                    v-model="categories.section_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      v-for="item in sections"
-                      :key="item.id"
-                      :value="item.id"
-                      >{{ item.name }}</md-option
+              <div class="md-layout-item  md-size-100">
+                <md-card-header data-background-color="dataBackgroundColor">
+                  <h4 class="title">Section</h4>
+                </md-card-header>
+                <div class="md-layout-item  md-size-60">
+                  <md-field>
+                    <label for="font">Section</label>
+                    <md-select
+                      v-model="categories.section_id"
+                      name="font"
+                      id="font"
+                      md-dense
                     >
-                  </md-select>
-                </md-field>
+                      <md-option
+                        v-for="item in sections"
+                        :key="item.id"
+                        :value="item.id"
+                        >{{ item.name }}</md-option
+                      >
+                    </md-select>
+                  </md-field>
+                </div>
               </div>
-              <md-button
-                class="md-raised md-primary"
-                @click="setDone('second', 'third')"
-                :data-background-color="'green'"
-                >Next</md-button
-              >
-            </md-step>
-            <!-- category -->
-
-            <md-step
-              id="third"
-              md-label="third Step"
-              :md-error="thirdStepError"
-              :md-done.sync="third"
-            >
-              <md-card-header data-background-color="dataBackgroundColor">
-                <h4 class="title">Categories Parent</h4>
-              </md-card-header>
-              <div class="md-layout-item md-small-size-100 md-size-33">
-                <md-field>
-                  <md-select
-                    v-model="categories.parent_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      v-for="category in Categories"
-                      :key="category.id"
-                      :value="category.id"
-                      >{{ category.name }}</md-option
+              <div class="md-layout-item md-size-100">
+                <md-card-header data-background-color="dataBackgroundColor">
+                  <h4 class="title">Categories Parent</h4>
+                </md-card-header>
+                <div class="md-layout-item md-size-60">
+                  <md-field>
+                    <md-select
+                      v-model="categories.parent_id"
+                      name="font"
+                      id="font"
+                      md-dense
                     >
-                  </md-select>
-                </md-field>
+                      <md-option
+                        v-for="category in Categories"
+                        :key="category.id"
+                        :value="category.id"
+                        >{{ category.name }}</md-option
+                      >
+                    </md-select>
+                  </md-field>
+                </div>
               </div>
-              <md-button
-                class="md-raised md-primary"
-                @click="setDone('third', 'four')"
-                :data-background-color="'green'"
-                >Next</md-button
-              >
-            </md-step>
-            <!--  -->
-            <md-step id="four" md-label="four Step" :md-done.sync="four">
-              <div class="md-layout-item md-medium-size-100">
-                <UploadImagesCategory> </UploadImagesCategory>
+            </div>
+            <div class="md-layout-item md-size-50">
+              <div class="md-layout-item md-size-100">
+                <div class="md-layout-item md-size-100">
+                  <UploadImagesCategory> </UploadImagesCategory>
+                </div>
               </div>
-              <md-button
-                @click="
-                  postCategory();
-                  setDone('four');
-                "
-                class="md-raised md-primary"
-                :data-background-color="'green'"
-                >Add</md-button
-              >
-            </md-step>
-          </md-steppers>
+            </div>
+          </div>
+          <div class="md-layout md-medium-size-100 ">
+            <md-button @click="postCategory()">Add</md-button>
+          </div>
         </div>
       </md-card-content>
     </md-card>
@@ -155,13 +135,6 @@ export default {
     let lang1 = window.localStorage.getItem("lang1");
     return {
       lang1: lang1,
-      active: "first",
-      first: false,
-      second: false,
-      third: false,
-      four: false,
-      secondStepError: null,
-      thirdStepError: null,
       categories: {
         category: [
           {
@@ -207,20 +180,21 @@ export default {
     },
     postCategory() {
       axios.post("/api/categories/create", this.categories);
-      console.log(JSON.stringify(this.categories));
-      this.$router.push({ name: "allCategories" });
-    },
-    setDone(id, index) {
-      this[id] = true;
-
-      this.secondStepError = null;
-
-      if (index) {
-        this.active = index;
+      if (
+        this.categories.category[0].name == null ||
+        this.categories.category[1].name == null ||
+        this.categories.section_id == null ||
+        this.categories.parent_id == null
+      ) {
+        document.getElementById("alert").classList.add("block");
+        // document.getElementById("alert").scrollTop
+        window.scrollTo(0, 0);
+      } else {
+        document.getElementById("alert").classList.remove("block");
+        document.getElementById("alertt").classList.add("block");
+        console.log(JSON.stringify(this.categories));
+        this.$router.push({ name: "allCategories" });
       }
-    },
-    setError() {
-      this.secondStepError = "This is an error!";
     },
   },
 };
@@ -239,10 +213,54 @@ export default {
   gap: 10px;
   margin: 20px auto;
 }
+.md-layout-item.md-size-100 {
+  min-width: 100%;
+  max-width: 100%;
+  margin-left: 0 !important;
+  flex: 1 1 100%;
+  margin: 60px;
+}
+.md-layout-item.md-size-60 {
+  min-width: 60%;
+  max-width: 60%;
+  flex: 0 1 60%;
+  /* padding: 20px; */
+  margin: auto;
+}
 .md-menu.md-select {
   display: flex;
   flex: 1;
   overflow: auto;
   background-color: #94db464a;
+}
+.alert {
+  display: none;
+  padding: 20px;
+  transition: all 0.5s;
+  border: 0;
+  margin: 20px;
+  gap: 20px;
+  border-radius: 0;
+  position: relative;
+  padding: 20px 15px;
+  line-height: 20px;
+  margin-bottom: 20px;
+  background-color: red;
+  color: #ffffff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
+    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
+  box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
+    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
+}
+.alertt {
+  display: none;
+  padding: 20px;
+  background-color: #00b618;
+  color: white;
+}
+.block {
+  display: flex;
+  background-color: red;
 }
 </style>

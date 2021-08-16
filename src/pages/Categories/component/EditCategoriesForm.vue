@@ -9,7 +9,7 @@
       <!-- name -->
       <md-card-content>
         <div>
-          <div class="alert" id="alert" :data-background-color="red">
+          <div class="alert" id="alert">
             <span
               class="closebtn"
               onclick="this.parentElement.style.display='none';"
@@ -32,18 +32,20 @@
                 <md-card-header data-background-color="dataBackgroundColor">
                   <h4 class="title">Name</h4>
                 </md-card-header>
-                <md-field class="md-layout-item md-size-60">
-                  <label>Name</label>
-                  <md-input
-                    v-if="lang1 == 'ar'"
-                    v-model="categories.category[1].name"
-                  ></md-input>
-                  <md-input
-                    v-else-if="lang1 == 'en'"
-                    v-model="categories.category[0].name"
-                  ></md-input>
+                <md-field class="md-layout-item md-size-100">
+                  <div class="md-layout-item md-size-70">
+                    <label>Name</label>
+                    <md-input
+                      v-if="lang1 == 'ar'"
+                      v-model="categories.category[1].name"
+                    ></md-input>
+                    <md-input
+                      v-else-if="lang1 == 'en'"
+                      v-model="categories.category[0].name"
+                    ></md-input>
+                  </div>
                   <select
-                    class="cu_1"
+                    class="cu_1 md-layout-item md-size-30"
                     v-model="lang1"
                     @change="handleChange1($event)"
                   >
@@ -133,14 +135,6 @@ export default {
     let lang1 = window.localStorage.getItem("lang1");
     return {
       lang1: lang1,
-      active: "first",
-      first: false,
-      second: false,
-      third: false,
-      four: false,
-      secondStepError: null,
-      thirdStepError: null,
-      fourStepError: null,
       categories: {
         category: [
           {
@@ -208,17 +202,6 @@ export default {
         console.log(JSON.stringify(this.categories));
         this.$router.push({ name: "allCategories" });
       }
-    },
-    setDone(id, index) {
-      this[id] = true;
-      this.secondStepError = null;
-
-      if (index) {
-        this.active = index;
-      }
-    },
-    setError() {
-      this.secondStepError = "This is an error!";
     },
   },
 };

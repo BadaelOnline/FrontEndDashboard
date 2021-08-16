@@ -5,10 +5,8 @@
     </div>
 
     <md-card-content>
-      <UploadImage class="upload_img" :max="3" @change="handleImages" />
-      <md-button class="md-round md-success" @click="postCategor()"
-        >Save</md-button
-      >
+      <UploadImage class="upload_img" :max="1" />
+      <!-- <md-button class="md-round md-success"></md-button> -->
     </md-card-content>
   </md-card>
 </template>
@@ -61,10 +59,13 @@ export default {
   },
   methods: {
     // Pushes posts to the server when called.
-    postBrands() {
-      axios.post("/api/brands/create", this.Brands);
+    postsections() {
+      axios.post("/api/sections/create", this.Brands);
       console.log(JSON.stringify(this.Brands));
       this.$router.push({ name: "loadBrands" });
+    },
+    handleImages() {
+      console.log("file is drag");
     },
     // handleImages(Imgs) {
     //     this.categories.image = 'http://localhost:8081/img/' + Imgs[0].name;
@@ -81,13 +82,13 @@ export default {
   },
   computed: {
     ...mapState({
-      Brands: (state) => state.All.Brands,
-      BrandID: (state) => state.All.BrandID,
+      sections: (state) => state.All.sections,
+      SectionID: (state) => state.All.SectionID,
     }),
   },
   mounted() {
-    this.$store.dispatch("loadBrands");
-    this.$store.dispatch("loadBrand", this.$route.params.id);
+    this.$store.dispatch("loadSections");
+    this.$store.dispatch("loadSection", this.$route.params.id);
   },
 };
 </script>
