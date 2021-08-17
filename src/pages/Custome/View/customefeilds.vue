@@ -8,7 +8,7 @@
           <p class="category">All Custome</p>
 
           <div class="new_product">
-            <router-link :to="`newCustome`"
+            <router-link :to="`custome/create`"
               ><button>
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Custome
               </button></router-link
@@ -41,7 +41,8 @@
             </div>
           </div>
           <!-- loop products -->
-          <custome v-for="items in Custome"
+          <custome
+            v-for="items in Custome"
             :key="items.pr"
             :id="items.id"
             :name="items.name"
@@ -59,6 +60,7 @@ import { mapState } from "vuex";
 // import { mapState } from "vuex";
 
 export default {
+  name: "CustomeFeilds",
   props: {
     dataBackgroundColor: {
       type: String,

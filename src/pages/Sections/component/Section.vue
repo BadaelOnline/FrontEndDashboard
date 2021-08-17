@@ -9,7 +9,7 @@
 
     <div class="md-layout-item md-small-size-100 md-size-20">{{ name }}</div>
     <div class="icon md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`editsection/${id}`">
+      <router-link :to="`section/update/${id}`">
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 

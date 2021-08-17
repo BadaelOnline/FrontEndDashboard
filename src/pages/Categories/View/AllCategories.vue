@@ -8,7 +8,7 @@
           <p class="category">All your Categories</p>
 
           <div class="new_product">
-            <router-link :to="`newcategory`"
+            <router-link :to="`category/create`"
               ><button>
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Categories
               </button></router-link

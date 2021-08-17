@@ -25,69 +25,73 @@
             >
             <strong>Good</strong> "operation accomplished successfully.
           </div>
-
           <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-50">
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Name</h4>
-                </md-card-header>
-                <md-field class="md-layout-item md-size-100">
-                  <div class="md-layout-item md-size-70">
-                    <!-- <label>Name</label> -->
-                    <md-input
-                      v-if="lang1 == 'ar'"
-                      v-model="Brands.brands[1].name"
-                    ></md-input>
-                    <md-input v-else v-model="Brands.brands[0].name"></md-input>
-                  </div>
-                  <select
-                    class="cu_1 md-layout-item md-size-30"
-                    v-model="lang1"
-                    @change="handleChange1($event)"
-                  >
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                  </select>
+            <div class="md-layout-item  md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <h4 class="title">Name</h4>
+                <md-field
+                  class="md-layout-item md-size-100 name"
+                  data-background-color="dataBackgroundColor"
+                >
+                  <md-input
+                    class="text"
+                    v-model="brands.brand[1].name"
+                  ></md-input>
+                  <!-- <md-input
+                    class="text"
+                    v-else-if="lang1 == 'en'"
+                    v-model="brands.brand[0].name"
+                  ></md-input>
+                  <md-field class="md-layout md-size-50 lang">
+                    <select
+                      class="langselect"
+                      v-model="lang1"
+                      @change="handleChange1($event)"
+                    >
+                      <option label="lang" disabled>lang</option>
+                      <option value="en">EN</option>
+                      <option value="ar">AR</option>
+                    </select>
+                  </md-field> -->
                 </md-field>
-              </div>
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Description</h4>
-                </md-card-header>
-                <md-field class="md-layout-item md-size-100">
-                  <div class="md-layout-item md-size-70">
-                    <!-- <label>Name</label> -->
-                    <md-input
-                      v-if="lang1 == 'ar'"
-                      v-model="Brands.brands[1].description"
-                    ></md-input>
-                    <md-input
-                      v-else
-                      v-model="Brands.brands[0].description"
-                    ></md-input>
-                  </div>
-                  <select
-                    class="cu_1 md-layout-item md-size-30"
-                    v-model="lang1"
-                    @change="handleChange1($event)"
-                  >
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                  </select>
-                </md-field>
-              </div>
+              </md-card-header>
             </div>
-            <div class="md-layout-item md-size-50">
-              <div class="md-layout-item md-size-100">
-                <div class="md-layout-item md-size-100">
-                  <UploadImagesBrand> </UploadImagesBrand>
-                </div>
-              </div>
+            <div class="md-layout-item  md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <h4 class="title">Description</h4>
+                <md-field
+                  class="md-layout-item md-size-100 name"
+                  data-background-color="dataBackgroundColor"
+                >
+                  <md-input
+                    class="text"
+                    v-model="brands.brand[1].description"
+                  ></md-input>
+                  <!-- <md-input
+                    class="text"
+                    v-else-if="lang1 == 'en'"
+                    v-model="brands.brand[0].description"
+                  ></md-input>
+                  <md-field class="md-layout md-size-50 lang">
+                    <select
+                      class="langselect"
+                      v-model="lang1"
+                      @change="handleChange1($event)"
+                    >
+                      <option label="lang" disabled>lang</option>
+                      <option value="en">EN</option>
+                      <option value="ar">AR</option>
+                    </select>
+                  </md-field> -->
+                </md-field>
+              </md-card-header>
+            </div>
+            <div class="md-layout-item md-size-100">
+              <UploadImagesBrand> </UploadImagesBrand>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="updateBrands()">Update</md-button>
+            <md-button @click="postBrands()">Add</md-button>
           </div>
         </div>
       </md-card-content>
@@ -112,12 +116,14 @@ export default {
     },
   },
   data() {
+    let lang1 = window.localStorage.getItem("lang1");
     return {
-      Brands: {
-        brands: [
+      lang1: lang1,
+      brands: {
+        brand: [
           {
-            name: null,
-            description: null,
+            name: "null",
+            description: "null",
             locale: "en",
             language_id: 1,
           },
@@ -130,7 +136,12 @@ export default {
         ],
         slug: "gfvghf",
         is_active: 1,
-        image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+        images: [
+          {
+            image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+            is_cover: 2,
+          },
+        ],
         lang_id: 1,
       },
     };
@@ -145,20 +156,18 @@ export default {
   },
   methods: {
     postBrands() {
-      axios.post(`/api/brands/create`, this.Brands);
+      axios.post(`/api/brands/create`, this.brands);
       if (
-        this.Brands.brands[0].name == null ||
-        this.Brands.brands[1].name == null ||
-        this.Brands.brands[0].description == null ||
-        this.Brands.brands[1].description == null
+        this.brands.brand[1].name == null ||
+        this.brands.brand[1].description == null
       ) {
         document.getElementById("alert").classList.add("block");
         // document.getElementById("alert").scrollTop
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 20);
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
-        console.log(JSON.stringify(this.Brands));
+        console.log(JSON.stringify(this.brands));
         this.$router.push({ name: "allBrands" });
       }
     },
@@ -182,12 +191,12 @@ export default {
   gap: 10px;
   margin: 20px auto;
 }
-.md-layout-item.md-size-100 {
+.div {
   min-width: 100%;
   max-width: 100%;
   margin-left: 0 !important;
   flex: 1 1 100%;
-  margin: 60px;
+  margin: 40px;
 }
 .md-layout-item.md-size-60 {
   min-width: 60%;
@@ -200,7 +209,6 @@ export default {
   display: flex;
   flex: 1;
   overflow: auto;
-  background-color: #94db464a;
 }
 .alert {
   display: none;
@@ -231,5 +239,54 @@ export default {
 .block {
   display: flex;
   background-color: red;
+}
+.req {
+  display: none;
+  color: red;
+  /* margin-top: 30px; */
+}
+.req1 {
+  display: none;
+  color: red;
+}
+.req2 {
+  display: none;
+  color: red;
+}
+.lang {
+  border: none;
+}
+.langselect {
+  border: none;
+  /* border: solid #7c7979; */
+  background-color: #d1c9c9;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.name {
+  width: 100%;
+  max-height: 20px;
+  min-height: 48px;
+  margin: 4px 0 24px;
+  padding-top: 16px;
+  display: flex;
+  position: relative;
+  font-family: inherit;
+}
+.lang {
+  max-height: 30px;
+  min-height: 30px;
+  margin: auto;
+  padding: 0;
+  padding-left: 50%;
+}
+.text {
+  text-align: center;
+}
+.md-card .title {
+  margin-top: 0;
+  text-align: start;
+  margin-bottom: 5px;
+  padding-left: 10px;
 }
 </style>

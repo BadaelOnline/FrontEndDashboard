@@ -15,9 +15,10 @@
 import { CreateStoreForm, UploadImagesStore } from "@/pages";
 
 export default {
+  name: "newStore",
   components: {
     CreateStoreForm,
-    UploadImagesStore
-  }
+    UploadImagesStore,
+  },
 };
 </script>

@@ -53,10 +53,10 @@ import NewCustome from "@/pages/Custome/View/NewCustome.vue";
 const routes = [
   {
     path: "/",
-    redirect: "/admin/Sign",
+    redirect: "/admin/sign",
   },
   {
-    path: "/admin/Sign",
+    path: "/admin/sign",
     name: "Sign",
     component: () => import("@/Sign/Sign.vue"),
   },
@@ -88,46 +88,46 @@ const routes = [
       },
 
       {
-        path: "newproduct",
-        name: "New Product",
+        path: "product/create",
+        name: "NewProduct",
         component: NewProduct,
       },
 
       {
-        path: "products/:id",
-        name: "Products",
+        path: "product/update/:id",
+        name: "EditProduct",
         component: EditProduct,
       },
       // Stores
       {
         path: "allstores",
-        name: "All Stores",
+        name: "allstores",
         component: AllStores,
       },
       {
-        path: "newstore",
-        name: "New Store",
+        path: "store/create",
+        name: "newStore",
         component: NewStore,
       },
       {
-        path: "stores/:id",
-        name: "Stores",
+        path: "store/update/:id",
+        name: "editStore",
         component: EditStore,
       },
       // Stores => Products
       {
-        path: "store/:id/Products",
-        name: "Store/Products",
+        path: "store/:id/products",
+        name: "storeProduct",
         component: StoreProducts,
       },
       {
-        path: "/store/:id/newproduct",
-        name: "New Product in_Store",
+        path: "product/create",
+        name: "NewProductStore",
         component: NewProductStor,
       },
       {
-        path: "/store/:id/product/:id_product",
-        name: "Edit Product in Store",
+        path: "product/update/:id_product",
+        name: "EditProductStore",
         component: EditProductStor,
       },
       // Categories
@@ -137,12 +137,12 @@ const routes = [
         component: AllCategories,
       },
       {
-        path: "editcategory/:id",
+        path: "category/update/:id",
         name: "EditCategory",
         component: EditCategory,
       },
       {
-        path: "newcategory",
+        path: "category/create",
         name: "NewCategory",
         component: NewCategory,
       },
@@ -153,12 +153,12 @@ const routes = [
         component: AllBrands,
       },
       {
-        path: "newbrand",
+        path: "brand/create",
         name: "newbrand",
         component: NewBrand,
       },
       {
-        path: "editbrand/:id",
+        path: "brand/update/:id",
         name: "editbrand",
         component: EditBrand,
       },
@@ -169,15 +169,32 @@ const routes = [
         component: AllSections,
       },
       {
-        path: "newsection",
+        path: "section/create",
         name: "newsection",
         component: NewSection,
       },
       {
-        path: "editsection/:id",
+        path: "section/update/:id",
         name: "editsection",
         component: EditSection,
       },
+      // Offers
+      {
+        path: "alloffers",
+        name: "AllOffers",
+        component: allOffers,
+      },
+      {
+        path: "customefeilds",
+        name: "CustomeFeilds",
+        component: customefeilds,
+      },
+      {
+        path: "custome/create",
+        name: "NewCustome",
+        component: NewCustome,
+      },
+      //
       // Doctors
       {
         path: "alldoctors",
@@ -257,23 +274,6 @@ const routes = [
         path: "editmenu",
         name: "EditMenu",
         component: EditMenu,
-      },
-      // Offers
-      {
-        path: "allOffers",
-        name: "All Offers",
-        component: allOffers,
-      },
-      // Offers
-      {
-        path: "customefeilds",
-        name: "Custome Feilds",
-        component: customefeilds,
-      },
-      {
-        path: "newCustome",
-        name: "New Custome",
-        component: NewCustome,
       },
     ],
   },

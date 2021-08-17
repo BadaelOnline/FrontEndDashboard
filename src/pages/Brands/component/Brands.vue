@@ -20,7 +20,7 @@
       <i v-else class="fa fa-times"></i>
     </div>
     <div class="icon md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`editbrand/${id}`">
+      <router-link :to="`brand/update/${id}`">
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 

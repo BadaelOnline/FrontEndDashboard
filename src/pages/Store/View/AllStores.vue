@@ -8,7 +8,7 @@
           <p class="category">All Stores</p>
 
           <div class="new_product">
-            <router-link :to="`newstore`"
+            <router-link :to="`store/create`"
               ><button>
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Stores
               </button></router-link
@@ -65,6 +65,7 @@ import { Stores } from "@/pages";
 import { mapState } from "vuex";
 
 export default {
+  name: "allstores",
   props: {
     dataBackgroundColor: {
       type: String,

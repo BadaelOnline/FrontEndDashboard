@@ -51,8 +51,7 @@
             </div>
           </div>
           <!-- loop offers -->
-            <offers />
-           
+          <offers />
         </md-card-content>
       </md-card>
     </form>
@@ -62,6 +61,7 @@
 <script>
 import { offers } from "@/pages";
 export default {
+  name: "AllOffers",
   props: {
     dataBackgroundColor: {
       type: String,
@@ -69,14 +69,10 @@ export default {
     },
   },
   components: {
-   offers
+    offers,
   },
-  computed: {
- 
-  },
-  mounted() {
-
-  },
+  computed: {},
+  mounted() {},
 };
 </script>
 

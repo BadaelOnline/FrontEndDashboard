@@ -8,7 +8,7 @@
           <p class="category">All your Products</p>
 
           <div class="new_product">
-            <router-link :to="`newproduct`"
+            <router-link :to="`product/create`"
               ><button>
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Products
               </button></router-link
@@ -19,7 +19,7 @@
         <md-card-content>
           <!-- nav detalis products -->
           <div class="md-layout">
-            <div class="md-layout-item md-small-size-100 md-size-20">
+            <div class="md-layout-item md-small-size-100 md-size-10">
               <md-field>
                 <label>id</label>
               </md-field>
@@ -36,6 +36,11 @@
             </div>
             <div class="md-layout-item md-small-size-100 md-size-20">
               <md-field>
+                <label>des</label>
+              </md-field>
+            </div>
+            <div class="md-layout-item md-small-size-100 md-size-10">
+              <md-field>
                 <label>Status</label>
               </md-field>
             </div>
@@ -51,8 +56,9 @@
             :key="items.pr"
             :id="items.id"
             :name="items.name"
-            :image="items.image"
+            :product_image="items.product_image"
             :is_appear="items.is_appear"
+            :short_des="items.short_des"
             style="margin: 10px 0"
           >
           </Products>

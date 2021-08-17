@@ -15,9 +15,10 @@
 import { EditStoreForm, UploadImagesStore } from "@/pages";
 
 export default {
+  name: "editStore",
   components: {
     EditStoreForm,
-    UploadImagesStore
-  }
+    UploadImagesStore,
+  },
 };
 </script>

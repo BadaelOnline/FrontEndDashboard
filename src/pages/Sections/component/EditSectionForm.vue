@@ -24,47 +24,39 @@
             >
             <strong>Good</strong> "operation accomplished successfully.
           </div>
-
           <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-50">
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Name</h4>
-                </md-card-header>
-                <md-field class="md-layout-item md-size-100">
-                  <div class="md-layout-item md-size-70">
-                    <label>Name</label>
-                    <i
-                      class="fa fa-info-circle req"
-                      id="req"
-                      aria-hidden="true"
-                    ></i>
-                    <md-input
-                      v-if="lang1 == 'ar'"
-                      v-model="Sections.section[1].name"
-                    ></md-input>
-                    <md-input
-                      v-else
-                      v-model="Sections.section[0].name"
-                    ></md-input>
-                  </div>
-                  <select
-                    class="cu_1 md-layout-item md-size-30"
-                    v-model="lang1"
-                    @change="handleChange1($event)"
-                  >
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                  </select>
+            <div class="md-layout-item  md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <h4 class="title">Name</h4>
+                <md-field
+                  class="md-layout-item md-size-100 name"
+                  data-background-color="dataBackgroundColor"
+                >
+                  <md-input
+                    class="text"
+                    v-model="Sections.section[1].name"
+                  ></md-input>
+                  <!-- <md-input
+                    class="text"
+                    v-else-if="lang1 == 'en'"
+                    v-model="Sections.section[0].name"
+                  ></md-input>
+                  <md-field class="md-layout md-size-50 lang">
+                    <select
+                      class="langselect"
+                      v-model="lang1"
+                      @change="handleChange1($event)"
+                    >
+                      <option label="lang" disabled>lang</option>
+                      <option value="en">EN</option>
+                      <option value="ar">AR</option>
+                    </select>
+                  </md-field> -->
                 </md-field>
-              </div>
+              </md-card-header>
             </div>
-            <div class="md-layout-item md-size-50">
-              <div class="md-layout-item md-size-100">
-                <div class="md-layout-item md-size-100">
-                  <UploadImagesSection> </UploadImagesSection>
-                </div>
-              </div>
+            <div class="md-layout-item md-size-100">
+              <UploadImagesSection> </UploadImagesSection>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
@@ -99,7 +91,7 @@ export default {
       Sections: {
         section: [
           {
-            name: null,
+            name: "null",
             local: "en",
             description: "bhbjjb",
             section_id: 1,
@@ -130,12 +122,9 @@ export default {
   methods: {
     updateSection() {
       axios.put(`/api/sections/update/${this.SectionID.id}`, this.Sections);
-      if (
-        this.Sections.section[0].name == null ||
-        this.Sections.section[1].name == null
-      ) {
+      if (this.Sections.section[1].name == null) {
         document.getElementById("alert").classList.add("block");
-        window.scrollBy(0, -200);
+        window.scrollTo(0, 20);
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
@@ -163,12 +152,12 @@ export default {
   gap: 10px;
   margin: 20px auto;
 }
-.md-layout-item.md-size-100 {
+.div {
   min-width: 100%;
   max-width: 100%;
   margin-left: 0 !important;
   flex: 1 1 100%;
-  margin: 60px;
+  margin: 40px;
 }
 .md-layout-item.md-size-60 {
   min-width: 60%;
@@ -181,7 +170,6 @@ export default {
   display: flex;
   flex: 1;
   overflow: auto;
-  background-color: #94db464a;
 }
 .alert {
   display: none;
@@ -216,6 +204,49 @@ export default {
 .req {
   display: none;
   color: red;
-  padding-top: 30px;
+  /* margin-top: 30px; */
+}
+.req1 {
+  display: none;
+  color: red;
+}
+.req2 {
+  display: none;
+  color: red;
+}
+.lang {
+  border: none;
+}
+.langselect {
+  border: none;
+  /* border: solid #7c7979; */
+  background-color: #d1c9c9;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.name {
+  width: 100%;
+  max-height: 20px;
+  min-height: 48px;
+  margin: 4px 0 24px;
+  padding-top: 16px;
+  display: flex;
+  position: relative;
+  font-family: inherit;
+}
+.lang {
+  max-height: 30px;
+  min-height: 30px;
+  margin: auto;
+  padding: 0;
+}
+.text {
+  text-align: center;
+}
+.md-card .title {
+  margin-top: 0;
+  text-align: start;
+  margin-bottom: 5px;
+  padding-left: 10px;
 }
 </style>

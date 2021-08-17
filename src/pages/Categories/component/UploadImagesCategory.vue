@@ -5,7 +5,7 @@
     </div>
 
     <md-card-content>
-      <UploadImage class="upload_img" :max="1" />
+      <UploadImage class="upload_img" :max="3" />
       <!-- <md-button class="md-round md-success"></md-button> -->
     </md-card-content>
   </md-card>

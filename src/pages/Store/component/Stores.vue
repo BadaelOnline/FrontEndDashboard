@@ -2,24 +2,25 @@
   <div class="md-layout">
     <div class="md-layout-item md-small-size-100 md-size-20">{{ id }}</div>
     <div class="md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`store/${id}/Products`">{{ title }}</router-link>
+      <router-link :to="`store/${id}/products`">{{ title }}</router-link>
     </div>
     <div class="md-layout-item md-small-size-100 md-size-20">
       <div class="dropdown">
-  <button class="dropbtn">Show </button>
-  <div class="dropdown-content">
-  <span href="#" v-for="item in section" :key="item.ps"> {{ item.name }}</span>
-  </div>
-</div>
-
-    </div> 
+        <button class="dropbtn">Show</button>
+        <div class="dropdown-content">
+          <span href="#" v-for="item in section" :key="item.ps">
+            {{ item.name }}</span
+          >
+        </div>
+      </div>
+    </div>
 
     <div class="md-layout-item md-small-size-100 md-size-20">
       <i v-if="is_active == 'Active'" class="fa fa-check"></i>
       <i v-else class="fa fa-times"></i>
     </div>
     <div class="icon md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`stores/${id}`">
+      <router-link :to="`store/update/${id}`">
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 
@@ -28,27 +29,26 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "Stores",
   props: ["id", "title", "section", "name", "is_active"],
   data() {
     return {
-            details: {
-                id: this.id,
-            },
-        
+      details: {
+        id: this.id,
+      },
     };
   },
-    methods: {
-        Delete() {
-            axios.put(
-                `http://edalili.e-dalely.com/public/api/stores/trash/${this.id}`,
-                this.details
-            );
-            console.log(JSON.stringify(this.is_active));
-        },
+  methods: {
+    Delete() {
+      axios.put(
+        `http://edalili.e-dalely.com/public/api/stores/trash/${this.id}`,
+        this.details
+      );
+      console.log(JSON.stringify(this.is_active));
     },
+  },
 };
 </script>
 <style>
@@ -56,7 +56,7 @@ export default {
   display: none;
 }
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 10px;
   font-size: 16px;
@@ -74,7 +74,7 @@ export default {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -85,7 +85,9 @@ export default {
   display: block;
 }
 
-.dropdown-content span:hover {background-color: #f1f1f1}
+.dropdown-content span:hover {
+  background-color: #f1f1f1;
+}
 
 .dropdown:hover .dropdown-content {
   display: block;
