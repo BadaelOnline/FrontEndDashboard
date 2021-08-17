@@ -4,7 +4,7 @@
       <div class="md-toolbar-section-start">
         <h3 class="md-title">{{ $route.name }}</h3>
       </div>
-      <div class="md-layout-item md-size-20">
+      <div class="md-layout-item md-size-20 lang">
         <select class="cu_1" v-model="lang" @change="handleChange($event)">
           <option value="en">English</option>
           <option value="ar">العربية</option>
@@ -124,4 +124,16 @@ export default {
 };
 </script>
 
-<style lang="css"></style>
+<style scoped lang="css">
+.lang {
+  padding-top: 20px;
+}
+.lang .cu_1 {
+  border: none;
+  min-height: 30px;
+  max-height: 30px;
+  background-color: #d1c9c9;
+  border-radius: 3px;
+  cursor: pointer;
+}
+</style>

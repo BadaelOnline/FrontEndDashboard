@@ -15,9 +15,10 @@
 import { EditProductStor, UpImagStrProd } from "@/pages";
 
 export default {
+  name: "EditProductStore",
   components: {
     EditProductStor,
-    UpImagStrProd
-  }
+    UpImagStrProd,
+  },
 };
 </script>

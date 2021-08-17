@@ -15,9 +15,10 @@
 import { CreateProductStor, UpImagStrProd } from "@/pages";
 
 export default {
+  name: "NewProductStore",
   components: {
     CreateProductStor,
-    UpImagStrProd
-  }
+    UpImagStrProd,
+  },
 };
 </script>

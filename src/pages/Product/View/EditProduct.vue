@@ -1,23 +1,20 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-100 md-size-66">
+      <div class="md-layout-item md-medium-size-100 md-size-90">
         <EditProductForm data-background-color="green"> </EditProductForm>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
-        <UploadImagesProduct> </UploadImagesProduct>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { EditProductForm, UploadImagesProduct } from "@/pages";
+import { EditProductForm } from "@/pages";
 
 export default {
+  name: "EditProduct",
   components: {
     EditProductForm,
-    UploadImagesProduct
-  }
+  },
 };
 </script>

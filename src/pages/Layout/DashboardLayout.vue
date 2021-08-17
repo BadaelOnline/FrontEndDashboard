@@ -31,15 +31,15 @@
         <md-icon>person</md-icon>
         <p>All Section</p>
       </sidebar-link>
-      <sidebar-link to="/admin/alldoctors">
+      <sidebar-link to="/admin/alldoctors" class="disable">
         <md-icon>person</md-icon>
         <p>All Doctors</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allrestaurant">
+      <sidebar-link to="/admin/allrestaurant" class="disable">
         <md-icon>person</md-icon>
         <p>All Restaurant</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allOffers">
+      <sidebar-link to="/admin/alloffers">
         <md-icon>person</md-icon>
         <p>All Offers</p>
       </sidebar-link>
@@ -88,3 +88,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.disable {
+  color: rgb(100, 98, 98);
+}
+</style>

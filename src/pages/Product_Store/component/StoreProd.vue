@@ -12,7 +12,7 @@
       <i v-else class="fa fa-times"></i>
     </div>
     <div class="icon md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`/store/${this.$route.params.id}/product/${id}`">
+      <router-link :to="`product/update/${id}`">
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 

@@ -1,18 +1,27 @@
 <template>
   <div class="md-layout">
-    <div class="md-layout-item md-small-size-100 md-size-20">{{ id }}</div>
+    <div class="md-layout-item md-small-size-100 md-size-10">{{ id }}</div>
 
+    <!-- <div
+      v-for="img in product_image[0]"
+      :key="img.id"
+      class="md-layout-item md-small-size-100 md-size-20"
+    >
+      <img :src="img.image" />
+    </div> -->
     <div class="md-layout-item md-small-size-100 md-size-20">
-      <img :src="`${image}`" />
+      <img src="../../../../public/img/aa.jpg" />
     </div>
-
     <div class="md-layout-item md-small-size-100 md-size-20">{{ name }}</div>
     <div class="md-layout-item md-small-size-100 md-size-20">
+      {{ short_des }}
+    </div>
+    <div class="md-layout-item md-small-size-100 md-size-10">
       <i v-if="is_appear == 'Appear'" class="fa fa-check"></i>
       <i v-else class="fa fa-times"></i>
     </div>
     <div class="icon md-layout-item md-small-size-100 md-size-20">
-      <router-link :to="`products/${id}`">
+      <router-link :to="`product/update/${id}`">
         <i class="fas fa-edit" style="margin: 0 10px;"></i>
       </router-link>
 
@@ -23,22 +32,15 @@
 <script>
 export default {
   name: "Products",
-  props: ["id", "name", "image", "is_appear", "quantity"],
-  data() {
-    return {
-      username: null,
-      disabled: null,
-      emailadress: null,
-      lastname: null,
-      firstname: null,
-      address: null,
-      city: null,
-      country: null,
-      code: null,
-      aboutme:
-        "Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.",
-    };
-  },
+  props: [
+    "id",
+    "name",
+    "image",
+    "product_image",
+    "is_appear",
+    "quantity",
+    "short_des",
+  ],
 };
 </script>
 <style>

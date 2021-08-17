@@ -27,109 +27,86 @@
           </div>
 
           <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-50">
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Name</h4>
-                </md-card-header>
-                <md-field class="md-layout-item md-size-100">
-                  <div class="md-layout-item md-size-70">
-                    <label>Name</label>
-                    <i
-                      class="fa fa-info-circle req"
-                      id="req"
-                      aria-hidden="true"
-                    ></i>
-                    <md-input
-                      v-if="lang1 == 'ar'"
-                      v-model="categories.category[1].name"
-                    ></md-input>
-                    <md-input
-                      v-else-if="lang1 == 'en'"
-                      v-model="categories.category[0].name"
-                    ></md-input>
-                  </div>
-                  <i
-                    class="md-layout-item fa fa-info-circle req"
-                    id="req"
-                    aria-hidden="true"
-                  ></i>
-                  <select
-                    class="cu_1 md-layout-item md-size-30"
-                    v-model="lang1"
-                    @change="handleChange1($event)"
-                  >
-                    <option value="en">EN</option>
-                    <option value="ar">AR</option>
-                  </select>
+            <div class="md-layout-item  md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <h4 class="title">Name</h4>
+                <md-field
+                  class="md-layout-item md-size-100 name"
+                  data-background-color="dataBackgroundColor"
+                >
+                  <md-input
+                    class="text"
+                    v-model="categories.category[1].name"
+                  ></md-input>
+                  <md-input
+                    class="text"
+                    v-model="categories.category[0].name"
+                  ></md-input>
+                  <!-- <md-field class="md-layout md-size-50 lang">
+                    <select
+                      class="langselect"
+                      v-model="lang1"
+                      @change="handleChange1($event)"
+                    >
+                      <option label="lang" disabled>lang</option>
+                      <option value="en">EN</option>
+                      <option value="ar">AR</option>
+                    </select>
+                  </md-field> -->
                 </md-field>
-              </div>
-              <div class="md-layout-item  md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Section</h4>
-                </md-card-header>
-                <div class="md-layout-item  md-size-60">
-                  <md-field>
-                    <label for="font">Section</label>
-                    <i
-                      class="fa fa-info-circle req"
-                      id="req"
-                      aria-hidden="true"
-                    ></i>
-                    <md-select
-                      v-model="categories.section_id"
-                      name="font"
-                      id="font"
-                      md-dense
-                    >
-                      <md-option
-                        v-for="item in sections"
-                        :key="item.id"
-                        :value="item.id"
-                        >{{ item.name }}</md-option
-                      >
-                    </md-select>
-                  </md-field>
-                </div>
-              </div>
-              <div class="md-layout-item md-size-100">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <h4 class="title">Categories Parent</h4>
-                </md-card-header>
-                <div class="md-layout-item md-size-60">
-                  <md-field>
-                    <i
-                      class="fa fa-info-circle req"
-                      id="req"
-                      aria-hidden="true"
-                    ></i>
-                    <md-select
-                      v-model="categories.parent_id"
-                      name="font"
-                      id="font"
-                      md-dense
-                    >
-                      <md-option
-                        v-for="category in Categories"
-                        :key="category.id"
-                        :value="category.id"
-                        >{{ category.name }}</md-option
-                      >
-                    </md-select>
-                  </md-field>
-                </div>
-              </div>
+              </md-card-header>
             </div>
-            <div class="md-layout-item md-size-50">
-              <div class="md-layout-item md-size-100">
-                <div class="md-layout-item md-size-100">
-                  <UploadImagesCategory> </UploadImagesCategory>
-                </div>
-              </div>
+            <div class="md-layout-item  md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <md-field class="md-layout-item  md-size-100">
+                  <!-- <label for="font">Section</label> -->
+                  <h4 class="title">Section</h4>
+                  <md-select
+                    class="md-layout-item md-size-90"
+                    v-model="categories.section_id"
+                    name="font"
+                    id="font"
+                    md-dense
+                  >
+                    <md-option
+                      class="text"
+                      v-for="item in sections"
+                      :key="item.id"
+                      :value="item.id"
+                      >{{ item.name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </md-card-header>
+            </div>
+            <div class="md-layout-item md-size-100 div">
+              <md-card-header data-background-color="dataBackgroundColor">
+                <md-field class="md-layout-item  md-size-100">
+                  <h4 class="title">Categories Parent</h4>
+                  <md-select
+                    class="md-layout-item md-size-80"
+                    v-model="categories.parent_id"
+                    name="font"
+                    id="font"
+                    md-dense
+                  >
+                    <md-option
+                      class="text"
+                      v-for="category in Categories"
+                      :key="category.id"
+                      :value="category.id"
+                      >{{ category.name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </md-card-header>
+            </div>
+            <div class="md-layout-item md-size-100">
+              <UploadImagesCategory> </UploadImagesCategory>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="updateCategory()">Update</md-button>
+            <md-button @click="postCategory()">Add</md-button>
           </div>
         </div>
       </md-card-content>
@@ -158,7 +135,7 @@ export default {
       categories: {
         category: [
           {
-            name: null,
+            name: "null",
             local: "en",
             language_id: 1,
           },
@@ -214,7 +191,7 @@ export default {
         this.categories.parent_id == null
       ) {
         document.getElementById("alert").classList.add("block");
-        window.scrollBy(0, -200);
+        window.scrollTo(0, 20);
       } else {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
@@ -238,12 +215,12 @@ export default {
   gap: 10px;
   margin: 20px auto;
 }
-.md-layout-item.md-size-100 {
+.div {
   min-width: 100%;
   max-width: 100%;
   margin-left: 0 !important;
   flex: 1 1 100%;
-  margin: 60px;
+  margin: 40px;
 }
 .md-layout-item.md-size-60 {
   min-width: 60%;
@@ -256,7 +233,6 @@ export default {
   display: flex;
   flex: 1;
   overflow: auto;
-  background-color: #94db464a;
 }
 .alert {
   display: none;
@@ -291,6 +267,49 @@ export default {
 .req {
   display: none;
   color: red;
-  /* padding-top: 30px; */
+  /* margin-top: 30px; */
+}
+.req1 {
+  display: none;
+  color: red;
+}
+.req2 {
+  display: none;
+  color: red;
+}
+.lang {
+  border: none;
+}
+.langselect {
+  border: none;
+  /* border: solid #7c7979; */
+  background-color: #d1c9c9;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.name {
+  width: 100%;
+  max-height: 20px;
+  min-height: 48px;
+  margin: 4px 0 24px;
+  padding-top: 16px;
+  display: flex;
+  position: relative;
+  font-family: inherit;
+}
+.lang {
+  max-height: 30px;
+  min-height: 30px;
+  margin: auto;
+  padding: 0;
+}
+.text {
+  text-align: center;
+}
+.md-card .title {
+  margin-top: 0;
+  text-align: start;
+  margin-bottom: 5px;
+  padding-left: 10px;
 }
 </style>

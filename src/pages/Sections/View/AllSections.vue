@@ -8,7 +8,7 @@
           <p class="category">All your Sections</p>
 
           <div class="new_product">
-            <router-link :to="`newsection`"
+            <router-link :to="`section/create`"
               ><button>
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Section
               </button></router-link
