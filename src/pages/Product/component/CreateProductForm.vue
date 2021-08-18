@@ -269,7 +269,7 @@ export default {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
         console.log(JSON.stringify(this.products));
-        this.$router.push({ name: "allCategories" });
+        this.$router.push({ name: "AllProducts" });
       }
     },
   },

@@ -50,14 +50,12 @@ const router = new VueRouter({
 });
 const lang = localStorage.getItem("lang") || "en";
 axios.defaults.headers["Accept-Language"] = lang;
-const server = localStorage.getItem("server") || "admin";
+// const server = localStorage.getItem("server") || "edalily";
 document.documentElement.lang = lang;
 
-if (server == "admin") {
-  axios.defaults.baseURL = "http://admin.e-dalely.com/public";
-} else if (server == "edalily") {
-  axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
-}
+// if (server == "admin") {
+// axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+// }
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -69,12 +67,17 @@ Vue.use(i18n, VueI18n);
 Vue.use(Vuelidate);
 // Vue.use(Pagination)
 
-// axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
 
 require("./store/subscriber");
 
 /* eslint-disable no-new */
 store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
+  // if (server == "admin") {
+  //   axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+  // } else if (server == "edalily") {
+  //   axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+  // }
   new Vue({
     el: "#app",
     render: (h) => h(App),

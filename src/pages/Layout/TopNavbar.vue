@@ -4,12 +4,12 @@
       <div class="md-toolbar-section-start">
         <h3 class="md-title">{{ $route.name }}</h3>
       </div>
-      <div class="md-layout-item md-size-20 lang">
+      <!-- <div class="md-layout-item md-size-20 lang">
         <select class="cu_1" v-model="lang" @change="handleChange($event)">
           <option value="en">English</option>
           <option value="ar">العربية</option>
         </select>
-      </div>
+      </div> -->
       <div class="md-toolbar-section-end">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
@@ -96,9 +96,9 @@
 <script>
 export default {
   data() {
-    const lang = localStorage.getItem("lang") || "en";
+    // const lang = localStorage.getItem("lang") || "en";
     return {
-      lang: lang,
+      // lang: lang,
       selectedEmployee: null,
       employees: [
         "Jim Halpert",
@@ -116,10 +116,10 @@ export default {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
-    handleChange(event) {
-      localStorage.setItem("lang", event.target.value);
-      window.location.reload();
-    },
+    // handleChange(event) {
+    //   localStorage.setItem("lang", event.target.value);
+    //   window.location.reload();
+    // },
   },
 };
 </script>

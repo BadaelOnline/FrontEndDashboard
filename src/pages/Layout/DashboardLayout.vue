@@ -7,41 +7,60 @@
       :sidebar-background-image="sidebarBackgroundImage"
     >
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/dashboard">
+      <md-menu
+        class="lang"
+        md-size="medium"
+        :md-offset-x="127"
+        :md-offset-y="-36"
+      >
+        <md-button md-menu-trigger
+          >Languages
+          <!-- <md-icon>arrow_right</md-icon> -->
+          <select class="cu_1" v-model="lang" @change="handleChange($event)">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+        </md-button>
+
+        <!-- <md-menu-content> -->
+
+        <!-- </md-menu-content> -->
+      </md-menu>
+      <sidebar-link to="dashboard">
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allproducts">
+      <sidebar-link to="products">
         <md-icon>person</md-icon>
-        <p>All Products</p>
+        <p>Products</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allstores">
+      <sidebar-link to="stores">
         <md-icon>person</md-icon>
-        <p>All Stores</p>
+        <p>Stores</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allcategories">
+      <sidebar-link to="categories">
         <md-icon>person</md-icon>
-        <p>All Categories</p>
+        <p>Categories</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allbrands">
+      <sidebar-link to="brands">
         <md-icon>person</md-icon>
-        <p>All Brands</p>
+        <p>Brands</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allsection">
+      <sidebar-link to="sections">
         <md-icon>person</md-icon>
-        <p>All Section</p>
+        <p>Section</p>
       </sidebar-link>
-      <sidebar-link to="/admin/alldoctors" class="disable">
+      <sidebar-link to="doctors" class="disable">
         <md-icon>person</md-icon>
-        <p>All Doctors</p>
+        <p>Doctors</p>
       </sidebar-link>
-      <sidebar-link to="/admin/allrestaurant" class="disable">
+      <sidebar-link to="restaurants" class="disable">
         <md-icon>person</md-icon>
-        <p>All Restaurant</p>
+        <p>Restaurant</p>
       </sidebar-link>
-      <sidebar-link to="/admin/alloffers">
+      <sidebar-link to="offers">
         <md-icon>person</md-icon>
-        <p>All Offers</p>
+        <p>Offers</p>
       </sidebar-link>
       <sidebar-link to="/admin/customefeilds">
         <md-icon>person</md-icon>
@@ -73,6 +92,14 @@ import MobileMenu from "@/pages/Layout/MobileMenu.vue";
 import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
+  data() {
+    const lang = localStorage.getItem("lang") || "en";
+    return {
+      lang: lang,
+      sidebarBackground: "green",
+      sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg"),
+    };
+  },
   components: {
     TopNavbar,
     DashboardContent,
@@ -80,17 +107,34 @@ export default {
     MobileMenu,
     FixedPlugin,
   },
-  data() {
-    return {
-      sidebarBackground: "green",
-      sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg"),
-    };
+  methods: {
+    handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+      window.location.reload();
+    },
   },
 };
 </script>
 
 <style scoped>
-.disable {
-  color: rgb(100, 98, 98);
+.disable[data-v-6253ecfd] {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.3;
+}
+.lang {
+  padding-left: 20px;
+}
+select {
+  border: none;
+  background-color: #9d9596;
+  color: white;
+  padding-left: 20px;
+  appearance: none;
+  cursor: pointer;
+  width: 90px;
+}
+.md-button .md-button-content {
+  cursor: none;
 }
 </style>

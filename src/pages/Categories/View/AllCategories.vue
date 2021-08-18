@@ -13,6 +13,13 @@
                 <i class="fa fa-plus"></i> &nbsp;&nbsp;New Categories
               </button></router-link
             >
+            <md-field md-clearable class="md-toolbar-section-end">
+              <md-input
+                placeholder="Search by name..."
+                v-model="search"
+                @input="searchOnTable"
+              />
+            </md-field>
           </div>
         </md-card-header>
 
@@ -74,7 +81,7 @@ import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
 export default {
   components: { Categories },
-  name: "allCategories",
+  name: "AllCategories",
   computed: {
     ...mapState({
       Categories: (state) => state.All.Categories,
@@ -87,3 +94,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.new_product {
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: row;
+  gap: 60%;
+  justify-content: center;
+  align-items: center;
+}
+</style>

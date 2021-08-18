@@ -4,7 +4,6 @@ import axios from "axios";
 
 Vue.use(Vuex, axios);
 let lang = window.localStorage.getItem("lang");
-
 export const loadCategories = ({ commit }) => {
   axios
     .get(`/api/categories/getAll?lang=${lang}`)
@@ -108,8 +107,8 @@ export const loadProduct = ({ commit }, ProductID) => {
   axios
     .get(`/api/products/getById/${ProductID}?lang=${lang}`)
     .then((res) => {
-      console.warn("productById :", res.data.product);
-      let ProductID = res.data.product;
+      console.warn("productById :", res.data);
+      let ProductID = res.data.product.data;
       commit("SET_ProductID", ProductID);
     })
     .catch(function(error) {

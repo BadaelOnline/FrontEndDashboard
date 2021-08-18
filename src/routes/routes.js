@@ -76,14 +76,14 @@ const routes = [
     redirect: "/admin/dashboard",
     children: [
       {
-        path: "/admin/dashboard",
+        path: "dashboard",
         name: "Dashboard",
         component: Dashboard,
       },
       // Products
       {
-        path: "allproducts",
-        name: "All Products",
+        path: "products",
+        name: "AllProducts",
         component: AllProducts,
       },
 
@@ -100,8 +100,8 @@ const routes = [
       },
       // Stores
       {
-        path: "allstores",
-        name: "allstores",
+        path: "stores",
+        name: "stores",
         component: AllStores,
       },
       {
@@ -132,8 +132,8 @@ const routes = [
       },
       // Categories
       {
-        path: "allcategories",
-        name: "allCategories",
+        path: "categories",
+        name: "AllCategories",
         component: AllCategories,
       },
       {
@@ -148,8 +148,8 @@ const routes = [
       },
       // Brands
       {
-        path: "allbrands",
-        name: "allBrands",
+        path: "brands",
+        name: "AllBrands",
         component: AllBrands,
       },
       {
@@ -164,8 +164,8 @@ const routes = [
       },
       //sections
       {
-        path: "allsection",
-        name: "allSection",
+        path: "sections",
+        name: "AllSection",
         component: AllSections,
       },
       {
@@ -180,7 +180,7 @@ const routes = [
       },
       // Offers
       {
-        path: "alloffers",
+        path: "offers",
         name: "AllOffers",
         component: allOffers,
       },
@@ -197,7 +197,7 @@ const routes = [
       //
       // Doctors
       {
-        path: "alldoctors",
+        path: "doctors",
         name: "allDoctors",
         component: AllDoctors,
       },
@@ -213,7 +213,7 @@ const routes = [
       },
       //Restaurant
       {
-        path: "allrestaurant",
+        path: "restaurants",
         name: "AllRestaurant",
         component: AllRestaurant,
       },

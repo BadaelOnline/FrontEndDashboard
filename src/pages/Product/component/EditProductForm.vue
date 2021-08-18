@@ -259,7 +259,7 @@ export default {
     },
     updateProduct() {
       axios.put(
-        `/api/products/update/${this.CategoryID.id}?lang=${lang}`,
+        `/api/products/update/${this.ProductID.id}?lang=${lang}`,
         this.products
       );
       if (
@@ -274,7 +274,7 @@ export default {
         document.getElementById("alert").classList.remove("block");
         document.getElementById("alertt").classList.add("block");
         console.log(JSON.stringify(this.products));
-        this.$router.push({ name: "allCategories" });
+        this.$router.push({ name: "AllProducts" });
       }
     },
   },

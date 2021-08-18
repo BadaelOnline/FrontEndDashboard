@@ -60,7 +60,7 @@
 import { mapState } from "vuex";
 import Section from "../component/Section.vue";
 export default {
-  name: "allSection",
+  name: "AllSection",
   components: { Section },
   computed: {
     ...mapState({
