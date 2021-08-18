@@ -26,39 +26,39 @@
 
         <!-- </md-menu-content> -->
       </md-menu>
-      <sidebar-link to="dashboard">
+      <sidebar-link to="/admin/dashboard">
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="products">
+      <sidebar-link to="/admin/products">
         <md-icon>person</md-icon>
         <p>Products</p>
       </sidebar-link>
-      <sidebar-link to="stores">
+      <sidebar-link to="/admin/stores">
         <md-icon>person</md-icon>
         <p>Stores</p>
       </sidebar-link>
-      <sidebar-link to="categories">
+      <sidebar-link to="/admin/categories">
         <md-icon>person</md-icon>
         <p>Categories</p>
       </sidebar-link>
-      <sidebar-link to="brands">
+      <sidebar-link to="/admin/brands">
         <md-icon>person</md-icon>
         <p>Brands</p>
       </sidebar-link>
-      <sidebar-link to="sections">
+      <sidebar-link to="/admin/sections">
         <md-icon>person</md-icon>
         <p>Section</p>
       </sidebar-link>
-      <sidebar-link to="doctors" class="disable">
+      <sidebar-link to="/admin/doctors" class="disable">
         <md-icon>person</md-icon>
         <p>Doctors</p>
       </sidebar-link>
-      <sidebar-link to="restaurants" class="disable">
+      <sidebar-link to="/admin/restaurants" class="disable">
         <md-icon>person</md-icon>
         <p>Restaurant</p>
       </sidebar-link>
-      <sidebar-link to="offers">
+      <sidebar-link to="/admin/offers">
         <md-icon>person</md-icon>
         <p>Offers</p>
       </sidebar-link>
@@ -96,7 +96,7 @@ export default {
     const lang = localStorage.getItem("lang") || "en";
     return {
       lang: lang,
-      sidebarBackground: "green",
+      sidebarBackground: "blue",
       sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg"),
     };
   },

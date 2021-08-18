@@ -1,10 +1,10 @@
 <template>
   <form>
     <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">Edit Category</h4>
+      <md-card-header :data-background-color="'blue'">
+        <h4 class="new">Edit Category</h4>
 
-        <p class="category">Complete your profile</p>
+        <p class="category new">Complete your profile</p>
       </md-card-header>
       <!-- name -->
       <md-card-content>
@@ -25,24 +25,21 @@
             >
             <strong>Good</strong> "operation accomplished successfully.
           </div>
-
-          <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <h4 class="title">Name</h4>
-                <md-field
-                  class="md-layout-item md-size-100 name"
-                  data-background-color="dataBackgroundColor"
-                >
-                  <md-input
-                    class="text"
-                    v-model="categories.category[1].name"
-                  ></md-input>
-                  <!-- <md-input
+          <div class="md-layout md-size-60">
+            <div class="md-layout-item md-size-60">
+              <div class="md-layout-item  md-size-100 div">
+                <md-card-header>
+                  <h4 class="title">Name</h4>
+                  <md-field class="md-layout md-size-100 name">
+                    <md-input
+                      class="text"
+                      v-model="categories.category[1].name"
+                    ></md-input>
+                    <!-- <md-input
                     class="text"
                     v-model="categories.category[0].name"
                   ></md-input> -->
-                  <!-- <md-field class="md-layout md-size-50 lang">
+                    <!-- <md-field class="md-layout md-size-50 lang">
                     <select
                       class="langselect"
                       v-model="lang1"
@@ -53,60 +50,63 @@
                       <option value="ar">AR</option>
                     </select>
                   </md-field> -->
-                </md-field>
-              </md-card-header>
-            </div>
-            <div class="md-layout-item  md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <md-field class="md-layout-item  md-size-100">
-                  <!-- <label for="font">Section</label> -->
-                  <h4 class="title">Section</h4>
-                  <md-select
-                    class="md-layout-item md-size-90"
-                    v-model="categories.section_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      class="text"
-                      v-for="item in sections"
-                      :key="item.id"
-                      :value="item.id"
-                      >{{ item.name }}</md-option
+                  </md-field>
+                </md-card-header>
+              </div>
+              <div class="md-layout-item  md-size-100 div">
+                <md-card-header data-background-color="dataBackgroundColor">
+                  <md-field class="md-layout-item  md-size-100">
+                    <!-- <label for="font">Section</label> -->
+                    <h4 class="title">Section</h4>
+                    <md-select
+                      class="md-layout-item md-size-90"
+                      v-model="categories.section_id"
+                      name="font"
+                      id="font"
+                      md-dense
                     >
-                  </md-select>
-                </md-field>
-              </md-card-header>
-            </div>
-            <div class="md-layout-item md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <md-field class="md-layout-item  md-size-100">
-                  <h4 class="title">Categories Parent</h4>
-                  <md-select
-                    class="md-layout-item md-size-80"
-                    v-model="categories.parent_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      class="text"
-                      v-for="category in Categories"
-                      :key="category.id"
-                      :value="category.id"
-                      >{{ category.name }}</md-option
+                      <md-option
+                        class="text"
+                        v-for="item in sections"
+                        :key="item.id"
+                        :value="item.id"
+                        >{{ item.name }}</md-option
+                      >
+                    </md-select>
+                  </md-field>
+                </md-card-header>
+              </div>
+              <div class="md-layout-item md-size-100 div">
+                <md-card-header data-background-color="dataBackgroundColor">
+                  <md-field class="md-layout-item  md-size-100">
+                    <h4 class="title">Categories Parent</h4>
+                    <md-select
+                      class="md-layout-item md-size-80"
+                      v-model="categories.parent_id"
+                      name="font"
+                      id="font"
+                      md-dense
                     >
-                  </md-select>
-                </md-field>
-              </md-card-header>
+                      <md-option
+                        class="text"
+                        v-for="category in Categories"
+                        :key="category.id"
+                        :value="category.id"
+                        >{{ category.name }}</md-option
+                      >
+                    </md-select>
+                  </md-field>
+                </md-card-header>
+              </div>
             </div>
-            <div class="md-layout-item md-size-100">
+            <div class="md-layout-item md-size-40">
               <UploadImagesCategory> </UploadImagesCategory>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="updateCategory()">Update</md-button>
+            <md-button :data-background-color="'blue'" @click="updateCategory()"
+              >Update</md-button
+            >
           </div>
         </div>
       </md-card-content>
@@ -311,5 +311,18 @@ export default {
   text-align: start;
   margin-bottom: 5px;
   padding-left: 10px;
+}
+.md-layout-item.md-size-40 {
+  min-width: 40%;
+  padding-top: 5%;
+  max-width: 40%;
+  flex: 0 1 40%;
+}
+.md-card .md-card-header {
+  /* background-color: rgb(118, 145, 146); */
+  background-color: #0f8494e0;
+}
+.new {
+  text-align: center;
 }
 </style>
