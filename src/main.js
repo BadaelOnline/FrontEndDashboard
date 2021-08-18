@@ -67,14 +67,14 @@ Vue.use(i18n, VueI18n);
 Vue.use(Vuelidate);
 // Vue.use(Pagination)
 
-axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+// axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
 
 require("./store/subscriber");
 
 /* eslint-disable no-new */
 store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
   // if (server == "admin") {
-  //   axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+  axios.defaults.baseURL = "http://admin.e-dalely.com/public";
   // } else if (server == "edalily") {
   //   axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
   // }

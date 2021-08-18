@@ -1,10 +1,10 @@
 <template>
   <form>
     <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">New Category</h4>
+      <md-card-header :data-background-color="'blue'">
+        <h4 class=" new">New Category</h4>
 
-        <p class="category">Complete your profile</p>
+        <p class="category new">Complete your profile</p>
       </md-card-header>
       <md-card-content>
         <div>
@@ -14,34 +14,42 @@
               onclick="this.parentElement.style.display='none';"
               >&times;</span
             >
-            <strong>Danger!</strong> You must fill in all fields.
+            <!-- <strong>One or more fields have an error!</strong>
+            please check and try again...this fields is require
+          </div> -->
+            <div>One or more fields have an error!</div>
+            <div>
+              <span>this fields is require!</span>
+            </div>
+            <p>please check and try again</p>
           </div>
           <div class="alertt" id="alertt">
-            <span
+            <!-- <span
               class="closebtn"
               onclick="this.parentElement.style.display='none';"
               >&times;</span
-            >
-            <strong>Good</strong> "operation accomplished successfully.
+            > -->
+            <strong>Category New successfully</strong>
           </div>
-
-          <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <h4 class="title">Name</h4>
-                <md-field
-                  class="md-layout-item md-size-100 name"
-                  data-background-color="dataBackgroundColor"
-                >
+          <div class="md-layout md-size-60">
+            <div class="md-layout-item md-size-60">
+              <div class="md-layout-item  md-size-100 div">
+                <!-- <md-card-header> -->
+                <!-- <h4 class="title">Name</h4> -->
+                <md-field class="md-layout md-size-100 name">
+                  <label for="name">Name</label>
                   <md-input
+                    id="name"
+                    v-if="lang1 == 'ar'"
                     class="text"
                     v-model="categories.category[1].name"
                   ></md-input>
-                  <!-- <md-input
+                  <md-input
                     class="text"
+                    v-else-if="lang1 == 'en'"
                     v-model="categories.category[0].name"
-                  ></md-input> -->
-                  <!-- <md-field class="md-layout md-size-50 lang">
+                  ></md-input>
+                  <md-field class="md-layout md-size-50 lang">
                     <select
                       class="langselect"
                       v-model="lang1"
@@ -51,15 +59,15 @@
                       <option value="en">EN</option>
                       <option value="ar">AR</option>
                     </select>
-                  </md-field> -->
+                  </md-field>
                 </md-field>
-              </md-card-header>
-            </div>
-            <div class="md-layout-item  md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <md-field class="md-layout-item  md-size-100">
-                  <!-- <label for="font">Section</label> -->
-                  <h4 class="title">Section</h4>
+                <!-- </md-card-header> -->
+              </div>
+              <div class="md-layout-item  md-size-100 div">
+                <!-- <md-card-header data-background-color="dataBackgroundColor"> -->
+                <md-field class="md-layout-item  md-size-100 select">
+                  <label for="font">Section</label>
+                  <!-- <h4 class="title">Section</h4> -->
                   <md-select
                     class="md-layout-item md-size-90"
                     v-model="categories.section_id"
@@ -76,12 +84,12 @@
                     >
                   </md-select>
                 </md-field>
-              </md-card-header>
-            </div>
-            <div class="md-layout-item md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <md-field class="md-layout-item  md-size-100">
-                  <h4 class="title">Categories Parent</h4>
+                <!-- </md-card-header> -->
+              </div>
+              <div class="md-layout-item md-size-100 div">
+                <!-- <md-card-header data-background-color="dataBackgroundColor"> -->
+                <md-field class="md-layout-item  md-size-100 select">
+                  <label class="title" for="font">Categories Parent</label>
                   <md-select
                     class="md-layout-item md-size-80"
                     v-model="categories.parent_id"
@@ -98,14 +106,17 @@
                     >
                   </md-select>
                 </md-field>
-              </md-card-header>
+                <!-- </md-card-header> -->
+              </div>
             </div>
-            <div class="md-layout-item md-size-100">
+            <div class="md-layout-item md-size-40">
               <UploadImagesCategory> </UploadImagesCategory>
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="postCategory()">Add</md-button>
+            <md-button :data-background-color="'blue'" @click="postCategory()"
+              >Add</md-button
+            >
           </div>
         </div>
       </md-card-content>
@@ -135,7 +146,7 @@ export default {
       categories: {
         category: [
           {
-            name: "null",
+            name: null,
             local: "en",
             language_id: 1,
           },
@@ -186,10 +197,13 @@ export default {
         document.getElementById("alert").classList.add("block");
         window.scrollTo(0, 20);
       } else {
-        document.getElementById("alert").classList.remove("block");
-        document.getElementById("alertt").classList.add("block");
-        console.log(JSON.stringify(this.categories));
-        this.$router.push({ name: "allCategories" });
+        setTimeout(function() {
+          console.log(JSON.stringify(this.categories));
+          document.getElementById("alert").classList.remove("block");
+          document.getElementById("alertt").classList.add("block1");
+          this.$router.push({ name: "allCategories" });
+        }, 1000);
+        // document.getElementById("alertt").classList.remove("block1");
       }
     },
   },
@@ -248,38 +262,17 @@ export default {
   box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
     0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
 }
-.alertt {
-  display: none;
-  padding: 20px;
-  background-color: #00b618;
-  color: white;
-}
-.block {
-  display: flex;
-  background-color: red;
-}
-.req {
-  display: none;
-  color: red;
-  /* margin-top: 30px; */
-}
-.req1 {
-  display: none;
-  color: red;
-}
-.req2 {
-  display: none;
-  color: red;
-}
 .lang {
   border: none;
 }
 .langselect {
   border: none;
-  /* border: solid #7c7979; */
   background-color: #d1c9c9;
   border-radius: 3px;
+  height: 20px;
   cursor: pointer;
+  margin-left: 50%;
+  margin-top: 10px;
 }
 .name {
   width: 100%;
@@ -305,5 +298,151 @@ export default {
   text-align: start;
   margin-bottom: 5px;
   padding-left: 10px;
+}
+.md-layout-item.md-size-40 {
+  min-width: 40%;
+  padding-top: 5%;
+  max-width: 40%;
+  flex: 0 1 40%;
+}
+.md-card .md-card-header {
+  /* background-color: rgb(118, 145, 146); */
+  background-color: #1abbd7;
+}
+.name {
+  border: 3px solid #1abbd7;
+}
+.md-field label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #aaaaaa !important;
+  line-height: 1.4;
+  top: 26px;
+  justify-content: center;
+  top: 0;
+  padding: 10px;
+}
+.md-field.md-layout-item.md-size-100.select.md-theme-default {
+  border: 3px solid #1abbd7;
+}
+.new {
+  text-align: center;
+}
+.md-field {
+  width: 100%;
+  min-height: 48px;
+  margin: 4px 0 24px;
+  padding-top: 10px;
+  padding: 0;
+  display: flex;
+  position: relative;
+  font-family: inherit;
+}
+.alert div {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.alertt {
+  display: none;
+  padding: 20px;
+  background-color: #00b618;
+  color: white;
+}
+.block {
+  display: block;
+  text-align: center;
+  position: fixed;
+  margin: auto;
+  background-color: rgb(112, 13, 13);
+  z-index: 1000;
+  color: #000;
+  width: 40%;
+  font-size: 18px;
+}
+.block1 {
+  display: block;
+  text-align: center;
+  position: fixed;
+  margin: auto;
+  background-color: rgb(12, 99, 33);
+  z-index: 1000;
+  color: #000;
+  width: 40%;
+  font-size: 18px;
+}
+.closebtn {
+  background-color: #fff;
+  width: 20px;
+}
+.alert div:first-of-type {
+  animation: showup 7s infinite;
+}
+
+.alert div:last-of-type {
+  width: 0px;
+  animation: reveal 7s infinite;
+}
+
+.alert div:last-of-type span {
+  margin-left: -355px;
+  animation: slidein 7s infinite;
+}
+
+@keyframes showup {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    margin-left: -800px;
+  }
+  20% {
+    margin-left: -800px;
+  }
+  35% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    width: 0px;
+  }
+  20% {
+    opacity: 1;
+    width: 0px;
+  }
+  30% {
+    width: 355px;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    width: 355px;
+  }
+}
+
+.alert p {
+  font-size: 12px;
+  color: #999;
+  /* margin-top: 200px; */
 }
 </style>

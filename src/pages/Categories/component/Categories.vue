@@ -18,22 +18,25 @@
       <i v-if="is_active == 'Active'" class="fa fa-check"></i>
       <i v-else class="fa fa-times"></i>
     </div>
-    <div class="icon md-layout-item md-small-size-100 md-size-20">
+    <div class="icon md-layout-item md-small-size-100 md-size-20 actionbutton">
       <router-link :to="`category/update/${id}`">
-        <i class="fas fa-edit" style="margin: 0 10px;"></i>
+        <md-button class="md-primary" :data-background-color="'blue'">
+          <i class="fas fa-edit" style="margin: 0 10px;"></i>Edit</md-button
+        >
       </router-link>
-      <i
+      <md-button
         @click="delettcategory()"
-        class="fa fa-trash"
-        style="cursor: pointer;"
-      ></i>
+        class="md-accent"
+        :data-background-color="'red'"
+      >
+        <i class="fa fa-trash" style="margin: 0 10px;"></i>Delete</md-button
+      >
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-  name: "Categories",
   props: ["id", "name", "image", "is_active", "section_id", "category_images"],
   methods: {
     delettcategory() {
@@ -66,12 +69,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-.fa-edit:before {
-  content: "\f044";
-  color: green;
-}
-.fa-trash:before {
-  content: "\f1f8";
-  color: red;
+.actionbutton {
+  flex: 0 1 10%;
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
 }
 </style>

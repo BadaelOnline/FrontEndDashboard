@@ -1,8 +1,8 @@
 <template>
   <md-card class="md-card-profile">
-    <div class="md-card-avatar">
+    <!-- <div class="md-card-avatar">
       <img class="img" :src="cardUserImage" />
-    </div>
+    </div> -->
 
     <md-card-content>
       <UploadImage class="upload_img" :max="3" />

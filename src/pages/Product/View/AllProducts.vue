@@ -50,6 +50,7 @@
               </md-field>
             </div>
           </div>
+
           <!-- loop products -->
           <Products
             v-for="items in Product.slice(0, 10)"
