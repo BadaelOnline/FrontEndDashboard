@@ -37,10 +37,10 @@
                     class="text"
                     v-model="categories.category[1].name"
                   ></md-input>
-                  <md-input
+                  <!-- <md-input
                     class="text"
                     v-model="categories.category[0].name"
-                  ></md-input>
+                  ></md-input> -->
                   <!-- <md-field class="md-layout md-size-50 lang">
                     <select
                       class="langselect"

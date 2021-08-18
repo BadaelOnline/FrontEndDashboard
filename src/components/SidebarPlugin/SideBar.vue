@@ -18,13 +18,13 @@
         E _ daliliy
       </a>
     </div>
-    <div class="customer-select cu5">
+    <!-- <div class="customer-select cu5">
       <h5>choose server</h5>
       <select v-model="server" @change="handleserver($event)">
         <option value="edalily">edalily</option>
         <option value="admin">admin</option>
       </select>
-    </div>
+    </div> -->
     <div class="sidebar-wrapper">
       <slot name="content"></slot>
       <md-list class="nav">
@@ -47,9 +47,9 @@ import SidebarLink from "./SidebarLink.vue";
 
 export default {
   data() {
-    const server = localStorage.getItem("server") || "admin";
+    // const server = localStorage.getItem("server") || "edalily";
     return {
-      server: server,
+      // server: server,
     };
   },
   components: {

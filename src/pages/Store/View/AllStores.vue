@@ -65,7 +65,7 @@ import { Stores } from "@/pages";
 import { mapState } from "vuex";
 
 export default {
-  name: "allstores",
+  name: "stores",
   props: {
     dataBackgroundColor: {
       type: String,

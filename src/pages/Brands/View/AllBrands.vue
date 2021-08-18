@@ -72,7 +72,7 @@
 import { mapState } from "vuex";
 import Brands from "../component/Brands.vue";
 export default {
-  name: "allBrands",
+  name: "AllBrands",
   components: { Brands },
   computed: {
     ...mapState({

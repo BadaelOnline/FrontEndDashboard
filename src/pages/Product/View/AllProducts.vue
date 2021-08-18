@@ -73,6 +73,7 @@ import { Products } from "@/pages";
 import { mapState } from "vuex";
 
 export default {
+  name: "AllProducts",
   props: {
     dataBackgroundColor: {
       type: String,

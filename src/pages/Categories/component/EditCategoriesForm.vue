@@ -38,10 +38,10 @@
                     class="text"
                     v-model="categories.category[1].name"
                   ></md-input>
-                  <md-input
+                  <!-- <md-input
                     class="text"
                     v-model="categories.category[0].name"
-                  ></md-input>
+                  ></md-input> -->
                   <!-- <md-field class="md-layout md-size-50 lang">
                     <select
                       class="langselect"
@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="md-layout md-medium-size-100 ">
-            <md-button @click="postCategory()">Add</md-button>
+            <md-button @click="updateCategory()">Update</md-button>
           </div>
         </div>
       </md-card-content>
