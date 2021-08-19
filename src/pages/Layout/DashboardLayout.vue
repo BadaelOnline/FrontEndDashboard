@@ -13,14 +13,14 @@
         :md-offset-x="127"
         :md-offset-y="-36"
       >
-        <md-button md-menu-trigger
+        <!-- <md-button md-menu-trigger
           >Languages
-          <!-- <md-icon>arrow_right</md-icon> -->
+      
           <select class="cu_1" v-model="lang" @change="handleChange($event)">
             <option value="en">English</option>
             <option value="ar">العربية</option>
           </select>
-        </md-button>
+        </md-button> -->
 
         <!-- <md-menu-content> -->
 
@@ -108,10 +108,10 @@ export default {
     FixedPlugin,
   },
   methods: {
-    handleChange(event) {
-      localStorage.setItem("lang", event.target.value);
-      window.location.reload();
-    },
+    // handleChange(event) {
+    //   localStorage.setItem("lang", event.target.value);
+    //   window.location.reload();
+    // },
   },
 };
 </script>

@@ -1,16 +1,11 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
-    <div class="md-toolbar-row">
-      <div class="md-toolbar-section-start">
+    <div class="md-toolbar-row" style="justify-content: space-between;">
+      <div class="">
         <h3 class="md-title">{{ $route.name }}</h3>
       </div>
-      <!-- <div class="md-layout-item md-size-20 lang">
-        <select class="cu_1" v-model="lang" @change="handleChange($event)">
-          <option value="en">English</option>
-          <option value="ar">العربية</option>
-        </select>
-      </div> -->
-      <div class="md-toolbar-section-end">
+    
+      <div class="">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
           :class="{ toggled: $sidebar.showSidebar }"
@@ -31,29 +26,30 @@
               <label>Search...</label>
             </md-autocomplete>
           </div>
+                <li class="md-list-item">
+              <a
+                href="#/notifications"
+                class="md-list-item-router md-list-item-container md-button-clean dropdown"
+              >
+                <div class="md-list-item-content">
+                  <drop-down>
+                    <md-button
+                      slot="title"
+                      class="md-button md-just-icon md-simple"
+                      data-toggle="dropdown"
+                    >
+                      
+                      <i class="fa fa-globe" aria-hidden="true"></i>    
+                    </md-button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="" class="md-list-item-container">English</a> </li>
+                      <li><a href="" class="md-list-item-container">العربية</a> </li>
+                    </ul>
+                  </drop-down>
+                </div>
+              </a>
+            </li>
           <md-list>
-            <md-list-item href="#/">
-              <i class="material-icons">dashboard</i>
-              <p class="hidden-lg hidden-md">Dashboard</p>
-            </md-list-item>
-
-            <!-- <md-list-item href="#/notifications" class="dropdown">
-              <drop-down>
-                <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="hidden-lg hidden-md">Notifications</p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a href="#">Mike John responded to your email</a></li>
-                  <li><a href="#">You have 5 new tasks</a></li>
-                  <li><a href="#">You're now friend with Andrew</a></li>
-                  <li><a href="#">Another Notification</a></li>
-                  <li><a href="#">Another One</a></li>
-                </ul>
-              </drop-down>
-            </md-list-item> -->
-
             <li class="md-list-item">
               <a
                 href="#/notifications"
@@ -87,8 +83,11 @@
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
           </md-list>
+    
         </div>
+    
       </div>
+        
     </div>
   </md-toolbar>
 </template>
@@ -125,15 +124,10 @@ export default {
 </script>
 
 <style scoped lang="css">
-.lang {
-  padding-top: 20px;
-}
-.lang .cu_1 {
-  border: none;
-  min-height: 30px;
-  max-height: 30px;
-  background-color: #d1c9c9;
-  border-radius: 3px;
-  cursor: pointer;
+.md-toolbar .dropdown-menu li > a:hover, .md-toolbar .dropdown-menu li > a:focus {
+    color: #FFFFFF !important;
+    background-color: #55ae59 !important;
+    -webkit-box-shadow: 0 12px 20px -10px #55ae59;
+    box-shadow: 0 12px 20px -10px #55ae59;
 }
 </style>

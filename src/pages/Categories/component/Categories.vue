@@ -1,38 +1,35 @@
 <template>
-  <div class="md-layout">
-    <div class="md-layout-item md-small-size-100 md-size-10">{{ id }}</div>
-
-    <div
-      v-for="item in category_images.slice(0, 1)"
-      :key="item.id"
-      class="md-layout-item md-small-size-100 md-size-20"
-    >
-      <img class="image" v-if="item.image" :src="item.image" />
-      <img class="image" v-else src="../../../../public/img/market-logo.png" />
-    </div>
-    <div class="md-layout-item md-small-size-100 md-size-20">{{ name }}</div>
-    <div class="md-layout-item md-small-size-100 md-size-10">
-      {{ section_id }}
-    </div>
-    <div class="md-layout-item md-small-size-100 md-size-10">
-      <i v-if="is_active == 'Active'" class="fa fa-check"></i>
-      <i v-else class="fa fa-times"></i>
-    </div>
-    <div class="icon md-layout-item md-small-size-100 md-size-20 actionbutton">
-      <router-link :to="`category/update/${id}`">
-        <md-button class="md-primary" :data-background-color="'blue'">
+<div class="parent">
+<div class="child1">{{ id }}</div>
+<div class="child2">
+      <div class="imag" v-for="item in category_images.slice(0, 1)"
+      :key="item.id">
+      <img  v-if="item.image" :src="item.image" />
+      <img  v-else src="../../../../public/img/market-logo.png" />
+      </div>
+         
+      </div>
+<div class="child3">{{ name }}</div>
+<div class="child4">{{ section_id }}</div>
+<div class="child5">
+      <i v-if="is_active == 'Active'" class="fa fa-check"  style="color: green;"></i>
+      <i v-else class="fa fa-times" style="color: #f20b07;"></i></div>
+<div class="child6">     <router-link :to="`category/update/${id}`">
+        <md-button class="md-primary" style="width: 70px;" :data-background-color="'blue'">
           <i class="fas fa-edit" style="margin: 0 10px;"></i>Edit</md-button
         >
       </router-link>
-      <md-button
+      <md-button style="width: 70px;"
         @click="delettcategory()"
         class="md-accent"
         :data-background-color="'red'"
       >
         <i class="fa fa-trash" style="margin: 0 10px;"></i>Delete</md-button
-      >
-    </div>
-  </div>
+      ></div>
+
+</div>
+
+  
 </template>
 <script>
 import axios from "axios";
@@ -48,6 +45,50 @@ export default {
 };
 </script>
 <style>
+/* start alaa */
+.parent{
+  display: flex;
+  justify-content: space-around;
+}
+
+.parent .child1,.parent .child4,.parent .child5{
+ width: 10%!important;
+   display: flex;
+  justify-content: center;
+  margin: auto;
+  opacity: .7;
+}
+
+.parent .child2{
+ width: 30%!important;
+  display: flex;
+  justify-content: center;
+}
+.parent .child3{
+   width: 20%!important;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  opacity: .7;
+}
+.parent .child6{
+ width: 30% !important;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+.parent .child2 .imag{
+  width: 210px;
+  height: 100%;
+  display: flex;
+  justify-content: center
+}
+.parent .child2 .imag img{
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+/* end alaa */
 .md-field:not(.md-disabled)::after {
   display: none;
 }

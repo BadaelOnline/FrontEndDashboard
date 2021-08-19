@@ -81,11 +81,8 @@ export default {
       freeUrl: "https://www.creative-tim.com/product/vue-material-dashboard",
       isOpen: false,
       sidebarColors: [
-        { color: "purple", active: false },
-        { color: "blue", active: false },
         { color: "green", active: true },
-        { color: "orange", active: false },
-        { color: "red", active: false }
+     
       ],
       sidebarImages: [
         { image: require("@/assets/img/sidebar-1.jpg"), active: false },

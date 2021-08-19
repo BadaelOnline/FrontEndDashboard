@@ -6,16 +6,13 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
-        <img src="../../../public/img/Group.png" height="50" />
-      </a>
-
       <a
         href="http://front.e-dalely.com"
         target="_blank"
         class="simple-text logo-normal"
       >
-        E _ daliliy
+       <img src="../../../public/img/Group.png"  />
+       
       </a>
     </div>
     <!-- <div class="customer-select cu5">
