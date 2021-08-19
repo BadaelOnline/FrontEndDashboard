@@ -1,7 +1,7 @@
 <template>
   <li class="md-list-item">
     <router-link
-      class="md-list-item-router md-list-item-container md-button-clean"
+      class="md-list-item-router "
       @click="hideSidebar"
       v-bind="$attrs"
     >
@@ -50,4 +50,10 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.nav .md-list-item-router.active {
+    background-color: #56af5a !important;
+    -webkit-box-shadow: 0 12px 20px -10px #56af5a;
+    box-shadow: 0 12px 20px -10px  #56af5a;
+}
+</style>

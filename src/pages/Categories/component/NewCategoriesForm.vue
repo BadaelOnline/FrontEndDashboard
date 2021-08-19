@@ -1,22 +1,54 @@
 <template>
-  <form>
-    <md-card>
-      <md-card-header :data-background-color="'blue'">
-        <h4 class=" new">New Category</h4>
-
-        <p class="category new">Complete your profile</p>
-      </md-card-header>
-      <md-card-content>
-        <div>
-          <div class="alert" id="alert">
+  
+        <div class="parent">
+          <div class="child_1">
+                <md-field
+                  class="md-layout-item md-size-80 "
+                  data-background-color="dataBackgroundColor"
+                >
+                  <label for="name">Name</label>
+                  <md-input
+                    class="text"
+                 
+                  ></md-input>
+                  
+                </md-field>
+              
+                
+                <md-field
+                  class="md-layout-item md-size-80 "
+                  data-background-color="dataBackgroundColor"
+                >
+                  <label for="name">section id</label>
+                  <md-input
+                    class="text"
+                 
+                  ></md-input>
+                  
+                </md-field>
+              
+                 
+                <md-field
+                  class="md-layout-item md-size-80 "
+                  data-background-color="dataBackgroundColor"
+                >
+                  <label for="name">parent id</label>
+                  <md-input
+                    class="text"
+                 
+                  ></md-input>
+                  
+                </md-field>
+                </div>
+          <!-- <div class="alert" id="alert">
             <span
               class="closebtn"
               onclick="this.parentElement.style.display='none';"
               >&times;</span
             >
-            <!-- <strong>One or more fields have an error!</strong>
+             <strong>One or more fields have an error!</strong>
             please check and try again...this fields is require
-          </div> -->
+          </div> 
             <div>One or more fields have an error!</div>
             <div>
               <span>this fields is require!</span>
@@ -24,18 +56,15 @@
             <p>please check and try again</p>
           </div>
           <div class="alertt" id="alertt">
-            <!-- <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            > -->
+         
             <strong>Category New successfully</strong>
           </div>
+           
           <div class="md-layout md-size-60">
             <div class="md-layout-item md-size-60">
               <div class="md-layout-item  md-size-100 div">
-                <!-- <md-card-header> -->
-                <!-- <h4 class="title">Name</h4> -->
+               
+           
                 <md-field class="md-layout md-size-100 name">
                   <label for="name">Name</label>
                   <md-input
@@ -61,13 +90,13 @@
                     </select>
                   </md-field>
                 </md-field>
-                <!-- </md-card-header> -->
+             
               </div>
               <div class="md-layout-item  md-size-100 div">
-                <!-- <md-card-header data-background-color="dataBackgroundColor"> -->
+             
                 <md-field class="md-layout-item  md-size-100 select">
                   <label for="font">Section</label>
-                  <!-- <h4 class="title">Section</h4> -->
+             
                   <md-select
                     class="md-layout-item md-size-90"
                     v-model="categories.section_id"
@@ -84,10 +113,10 @@
                     >
                   </md-select>
                 </md-field>
-                <!-- </md-card-header> -->
+          
               </div>
               <div class="md-layout-item md-size-100 div">
-                <!-- <md-card-header data-background-color="dataBackgroundColor"> -->
+       
                 <md-field class="md-layout-item  md-size-100 select">
                   <label class="title" for="font">Categories Parent</label>
                   <md-select
@@ -106,22 +135,21 @@
                     >
                   </md-select>
                 </md-field>
-                <!-- </md-card-header> -->
+          
               </div>
             </div>
-            <div class="md-layout-item md-size-40">
+          
+        </div> -->
+      <div class="child_4">
               <UploadImagesCategory> </UploadImagesCategory>
-            </div>
-          </div>
-          <div class="md-layout md-medium-size-100 ">
-            <md-button :data-background-color="'blue'" @click="postCategory()"
+               <md-button :data-background-color="'blue'" @click="postCategory()"
               >Add</md-button
             >
-          </div>
-        </div>
-      </md-card-content>
-    </md-card>
-  </form>
+            </div>
+       
+          
+  </div>
+  
 </template>
 
 <script>
@@ -211,11 +239,25 @@ export default {
 </script>
 
 <style scoped>
-.md-layout-item.md-size-33 {
-  min-width: 100%;
-  max-width: 100%;
-  flex: 0 1 33.3333%;
+/* start alaa */
+.parent{
+  display: flex;
+  width: 100%;
 }
+.parent .child_1{
+width: 100%;
+height: 100px;
+}
+.md-field{
+ border: 1px solid #d0cece;
+}
+.md-field label{
+  padding-left: 10px;
+}
+.parent .child_4{
+width:100%;
+}
+/* end alaa */
 .md-steppers-navigation {
   box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
     0 1px 5px 0 rgb(0 0 0 / 12%);
@@ -230,13 +272,7 @@ export default {
   flex: 1 1 100%;
   margin: 40px;
 }
-.md-layout-item.md-size-60 {
-  min-width: 60%;
-  max-width: 60%;
-  flex: 0 1 60%;
-  /* padding: 20px; */
-  margin: auto;
-}
+
 .md-menu.md-select {
   display: flex;
   flex: 1;
@@ -299,45 +335,17 @@ export default {
   margin-bottom: 5px;
   padding-left: 10px;
 }
-.md-layout-item.md-size-40 {
-  min-width: 40%;
-  padding-top: 5%;
-  max-width: 40%;
-  flex: 0 1 40%;
-}
+
 .md-card .md-card-header {
   /* background-color: rgb(118, 145, 146); */
   background-color: #1abbd7;
 }
-.name {
-  border: 3px solid #1abbd7;
-}
-.md-field label {
-  font-size: 14px;
-  font-weight: 400;
-  color: #aaaaaa !important;
-  line-height: 1.4;
-  top: 26px;
-  justify-content: center;
-  top: 0;
-  padding: 10px;
-}
-.md-field.md-layout-item.md-size-100.select.md-theme-default {
-  border: 3px solid #1abbd7;
-}
+
+
 .new {
   text-align: center;
 }
-.md-field {
-  width: 100%;
-  min-height: 48px;
-  margin: 4px 0 24px;
-  padding-top: 10px;
-  padding: 0;
-  display: flex;
-  position: relative;
-  font-family: inherit;
-}
+
 .alert div {
   display: inline-block;
   overflow: hidden;

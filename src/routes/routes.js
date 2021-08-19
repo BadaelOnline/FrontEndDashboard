@@ -10,8 +10,7 @@ import AllStores from "@/pages/Store/View/AllStores.vue";
 import NewStore from "@/pages/Store/View/NewStore.vue";
 import EditStore from "@/pages/Store/View/EditStore.vue";
 // Ctegories
-import AllCategories from "@/pages/Categories/View/AllCategories.vue";
-import NewCategory from "@/pages/Categories/View/NewCategory.vue";
+import Categories from "@/pages/Categories/View/Categories.vue";
 import EditCategory from "@/pages/Categories/View/EditCategory.vue";
 // Brands
 import AllBrands from "@/pages/Brands/View/AllBrands.vue";
@@ -133,18 +132,13 @@ const routes = [
       // Categories
       {
         path: "/admin/categories",
-        name: "AllCategories",
-        component: AllCategories,
+        name: "Categories",
+        component: Categories,
       },
       {
         path: "category/update/:id",
         name: "EditCategory",
         component: EditCategory,
-      },
-      {
-        path: "category/create",
-        name: "NewCategory",
-        component: NewCategory,
       },
       // Brands
       {
