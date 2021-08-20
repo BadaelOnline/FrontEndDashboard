@@ -1,155 +1,103 @@
 <template>
-  
-        <div class="parent">
-          <div class="child_1">
-                <md-field
-                  class="md-layout-item md-size-80 "
-                  data-background-color="dataBackgroundColor"
-                >
-                  <label for="name">Name</label>
-                  <md-input
-                    class="text"
-                 
-                  ></md-input>
-                  
-                </md-field>
-              
-                
-                <md-field
-                  class="md-layout-item md-size-80 "
-                  data-background-color="dataBackgroundColor"
-                >
-                  <label for="name">section id</label>
-                  <md-input
-                    class="text"
-                 
-                  ></md-input>
-                  
-                </md-field>
-              
-                 
-                <md-field
-                  class="md-layout-item md-size-80 "
-                  data-background-color="dataBackgroundColor"
-                >
-                  <label for="name">parent id</label>
-                  <md-input
-                    class="text"
-                 
-                  ></md-input>
-                  
-                </md-field>
-                </div>
-          <!-- <div class="alert" id="alert">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-             <strong>One or more fields have an error!</strong>
-            please check and try again...this fields is require
-          </div> 
-            <div>One or more fields have an error!</div>
-            <div>
-              <span>this fields is require!</span>
-            </div>
-            <p>please check and try again</p>
-          </div>
-          <div class="alertt" id="alertt">
-         
-            <strong>Category New successfully</strong>
-          </div>
-           
-          <div class="md-layout md-size-60">
-            <div class="md-layout-item md-size-60">
-              <div class="md-layout-item  md-size-100 div">
-               
-           
-                <md-field class="md-layout md-size-100 name">
-                  <label for="name">Name</label>
-                  <md-input
-                    id="name"
-                    v-if="lang1 == 'ar'"
-                    class="text"
-                    v-model="categories.category[1].name"
-                  ></md-input>
-                  <md-input
-                    class="text"
-                    v-else-if="lang1 == 'en'"
-                    v-model="categories.category[0].name"
-                  ></md-input>
-                  <md-field class="md-layout md-size-50 lang">
-                    <select
-                      class="langselect"
-                      v-model="lang1"
-                      @change="handleChange1($event)"
-                    >
-                      <option label="lang" disabled>lang</option>
-                      <option value="en">EN</option>
-                      <option value="ar">AR</option>
-                    </select>
-                  </md-field>
-                </md-field>
-             
-              </div>
-              <div class="md-layout-item  md-size-100 div">
-             
-                <md-field class="md-layout-item  md-size-100 select">
-                  <label for="font">Section</label>
-             
-                  <md-select
-                    class="md-layout-item md-size-90"
-                    v-model="categories.section_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      class="text"
-                      v-for="item in sections"
-                      :key="item.id"
-                      :value="item.id"
-                      >{{ item.name }}</md-option
-                    >
-                  </md-select>
-                </md-field>
-          
-              </div>
-              <div class="md-layout-item md-size-100 div">
-       
-                <md-field class="md-layout-item  md-size-100 select">
-                  <label class="title" for="font">Categories Parent</label>
-                  <md-select
-                    class="md-layout-item md-size-80"
-                    v-model="categories.parent_id"
-                    name="font"
-                    id="font"
-                    md-dense
-                  >
-                    <md-option
-                      class="text"
-                      v-for="category in Categories"
-                      :key="category.id"
-                      :value="category.id"
-                      >{{ category.name }}</md-option
-                    >
-                  </md-select>
-                </md-field>
-          
-              </div>
-            </div>
-          
-        </div> -->
-      <div class="child_4">
-              <UploadImagesCategory> </UploadImagesCategory>
-               <md-button :data-background-color="'blue'" @click="postCategory()"
-              >Add</md-button
-            >
-            </div>
-       
-          
+  <div class="parent">
+    <div class="alert" id="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
+      <strong>One or more fields have an error!</strong>
+      please check and try again...this fields is require
+      <!-- </div> -->
+      <div>One or more fields have an error!</div>
+      <div>
+        <span>this fields is require!</span>
+      </div>
+      <p>please check and try again</p>
+    </div>
+    <div class="alertt" id="alertt">
+      <strong>Category New successfully</strong>
+    </div>
+    <div class="child_1">
+      <md-field
+        id="arabic"
+        class="md-layout-item md-size-80 "
+        data-background-color="dataBackgroundColor"
+      >
+        <label for="name">Name</label>
+        <md-input
+          id="name"
+          class="text required"
+          v-model="categories.category[1].name"
+        ></md-input>
+      </md-field>
+      <md-field
+        id="english"
+        class="md-layout-item md-size-80 "
+        data-background-color="dataBackgroundColor"
+      >
+        <label for="name">Name</label>
+        <md-input
+          id="name"
+          class="text required"
+          v-model="categories.category[0].name"
+        ></md-input>
+      </md-field>
+      <md-field
+        class="md-layout-item md-size-80 "
+        data-background-color="dataBackgroundColor"
+      >
+        <label for="name">Section</label>
+
+        <md-select
+          class="md-layout-item md-size-100 required"
+          v-model="categories.section_id"
+          name="font"
+          id="name"
+          md-dense
+        >
+          <md-option
+            class="text"
+            v-for="item in sections"
+            :key="item.id"
+            :value="item.id"
+            >{{ item.name }}</md-option
+          >
+        </md-select>
+      </md-field>
+
+      <md-field
+        class="md-layout-item md-size-80 "
+        data-background-color="dataBackgroundColor"
+      >
+        <label class="title" for="font">Categories Parent</label>
+        <md-select
+          class="md-layout-item md-size-100 required"
+          v-model="categories.parent_id"
+          name="font"
+          id="font"
+          md-dense
+        >
+          <md-option
+            class="text"
+            v-for="category in Categories"
+            :key="category.id"
+            :value="category.id"
+            >{{ category.name }}</md-option
+          >
+        </md-select>
+        <md-input class="text"></md-input>
+      </md-field>
+    </div>
+    <div class="child_4">
+      <UploadImagesCategory> </UploadImagesCategory>
+      <md-button
+        :data-background-color="'blue'"
+        @click="postCategory()"
+        class="toggle-disabled"
+        id="btnAdd"
+        >Add</md-button
+      >
+    </div>
   </div>
-  
 </template>
 
 <script>
@@ -168,7 +116,7 @@ export default {
     },
   },
   data() {
-    let lang1 = window.localStorage.getItem("lang1");
+    let lang1 = localStorage.getItem("lang1");
     return {
       lang1: lang1,
       categories: {
@@ -211,72 +159,80 @@ export default {
     this.$store.dispatch("loadSections");
   },
   methods: {
-    handleChange1(event) {
-      localStorage.setItem("lang1", event.target.value);
-    },
     postCategory() {
       axios.post("/api/categories/create", this.categories);
       if (
         this.categories.category[0].name == null ||
-        this.categories.category[1].name == null ||
+        this.categories.category[1].name == null
+      ) {
+        alert("please input");
+      } else if (this.categories.category[1].name == null) {
+        alert("please input arabic");
+      } else if (this.categories.category[0].name == null) {
+        alert("please input english");
+      } else if (
         this.categories.section_id == null ||
         this.categories.parent_id == null
       ) {
         document.getElementById("alert").classList.add("block");
-        window.scrollTo(0, 20);
-      } else {
-        setTimeout(function() {
+      }
+      // window.scrollTo(0, 20);
+      else {
+        if (localStorage.getItem("lang1") == "ar") {
           console.log(JSON.stringify(this.categories));
-          document.getElementById("alert").classList.remove("block");
-          document.getElementById("alertt").classList.add("block1");
-          this.$router.push({ name: "allCategories" });
-        }, 1000);
-        // document.getElementById("alertt").classList.remove("block1");
+          alert("please input english");
+        } else {
+          console.log(JSON.stringify(this.categories));
+          alert("please input arabic");
+        }
+        // console.log(JSON.stringify(this.categories));
+        // document.getElementById("alert").classList.remove("block");
+        // document.getElementById("alertt").classList.add("block1");
+        // if (lang1 == "en") {
+        //   console.log(JSON.stringify(this.categories));
+        //   alert("please input english");
+        // } else {
+        //   console.log(JSON.stringify(this.categories));
+        // }
       }
     },
+    // if (
+    //   this.categories.category[0].name == null ||
+    //   this.categories.category[1].name == null ||
+    //   this.categories.section_id == null ||
+    //   this.categories.parent_id == null
+    // ) {
+    //   document.getElementById("alert").classList.add("block");
+    //   window.scrollTo(0, 20);
+    // } else {
+    //   setTimeout(function() {
+    //     console.log(JSON.stringify(this.categories));
+    //     document.getElementById("alert").classList.remove("block");
+    //     document.getElementById("alertt").classList.add("block1");
+    //     this.$router.push({ name: "allCategories" });
+    //   }, 1000);
+    // document.getElementById("alertt").classList.remove("block1");
   },
 };
 </script>
 
 <style scoped>
-/* start alaa */
-.parent{
+.parent {
   display: flex;
   width: 100%;
 }
-.parent .child_1{
-width: 100%;
-height: 100px;
+.parent .child_1 {
+  width: 100%;
+  height: 100px;
 }
-.md-field{
- border: 1px solid #d0cece;
+.md-field {
+  border: 1px solid #d0cece;
 }
-.md-field label{
+.md-field label {
   padding-left: 10px;
 }
-.parent .child_4{
-width:100%;
-}
-/* end alaa */
-.md-steppers-navigation {
-  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
-    0 1px 5px 0 rgb(0 0 0 / 12%);
-  display: flex;
-  gap: 10px;
-  margin: 20px auto;
-}
-.div {
-  min-width: 100%;
-  max-width: 100%;
-  margin-left: 0 !important;
-  flex: 1 1 100%;
-  margin: 40px;
-}
-
-.md-menu.md-select {
-  display: flex;
-  flex: 1;
-  overflow: auto;
+.parent .child_4 {
+  width: 100%;
 }
 .alert {
   display: none;
@@ -298,54 +254,6 @@ width:100%;
   box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
     0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
 }
-.lang {
-  border: none;
-}
-.langselect {
-  border: none;
-  background-color: #d1c9c9;
-  border-radius: 3px;
-  height: 20px;
-  cursor: pointer;
-  margin-left: 50%;
-  margin-top: 10px;
-}
-.name {
-  width: 100%;
-  max-height: 20px;
-  min-height: 48px;
-  margin: 4px 0 24px;
-  padding-top: 16px;
-  display: flex;
-  position: relative;
-  font-family: inherit;
-}
-.lang {
-  max-height: 30px;
-  min-height: 30px;
-  margin: auto;
-  padding: 0;
-}
-.text {
-  text-align: center;
-}
-.md-card .title {
-  margin-top: 0;
-  text-align: start;
-  margin-bottom: 5px;
-  padding-left: 10px;
-}
-
-.md-card .md-card-header {
-  /* background-color: rgb(118, 145, 146); */
-  background-color: #1abbd7;
-}
-
-
-.new {
-  text-align: center;
-}
-
 .alert div {
   display: inline-block;
   overflow: hidden;

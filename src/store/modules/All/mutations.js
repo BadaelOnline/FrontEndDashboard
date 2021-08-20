@@ -4,6 +4,13 @@ export const SET_Categories = (state, Categories) => {
 export const SET_CategoryID = (state, CategoryID) => {
   state.CategoryID = CategoryID;
 };
+export const Edit_Category = (state, CategoryID) => {
+  state.Categories.forEach((v) => {
+    if (v.id == CategoryID.id) {
+      v = CategoryID;
+    }
+  });
+};
 export const Delete_Category = (state, itemsId) => {
   let Categories = state.Categories.filter((v) => v.id != itemsId);
   state.Categories = Categories;

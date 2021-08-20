@@ -1,121 +1,140 @@
 <template>
-  <form>
-    <md-card>
-      <md-card-header :data-background-color="'blue'">
-        <h4 class="new">Edit Category</h4>
-
-        <p class="category new">Complete your profile</p>
-      </md-card-header>
-      <!-- name -->
-      <md-card-content>
-        <div>
-          <div class="alert" id="alert">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-            <strong>Danger!</strong> You must fill in all fields.
+  <md-card>
+    <div class="update">
+      <!-- tab -->
+      <div class="title_form">
+        <h4>Category Form{{ CategoryID.name }}</h4>
+      </div>
+      <hr style="color: #fff;opacity: 0.5;" />
+      <div class="title_lang nav">
+        <h4
+          id="title_lang1"
+          @click="
+            enlang();
+            act();
+          "
+        >
+          English(EN)
+        </h4>
+        <h4
+          id="title_lang2"
+          @click="
+            arlang();
+            act();
+          "
+        >
+          Arabic - العربية(AR)
+        </h4>
+      </div>
+      <hr style="color: #fff;opacity: 0.5;" />
+      <div class="parent">
+        <!-- alert -->
+        <div class="alert" id="alert">
+          <span
+            class="closebtn"
+            onclick="this.parentElement.style.display='none';"
+            >&times;</span
+          >
+          <strong>One or more fields have an error!</strong>
+          please check and try again...this fields is require
+          <!-- </div> -->
+          <div>One or more fields have an error!</div>
+          <div>
+            <span>this fields is require!</span>
           </div>
-          <div class="alertt" id="alertt">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-            <strong>Good</strong> "operation accomplished successfully.
-          </div>
-          <div class="md-layout md-size-60">
-            <div class="md-layout-item md-size-60">
-              <div class="md-layout-item  md-size-100 div">
-                <md-card-header>
-                  <h4 class="title">Name</h4>
-                  <md-field class="md-layout md-size-100 name">
-                    <md-input
-                      class="text"
-                      v-model="categories.category[1].name"
-                    ></md-input>
-                    <!-- <md-input
-                    class="text"
-                    v-model="categories.category[0].name"
-                  ></md-input> -->
-                    <!-- <md-field class="md-layout md-size-50 lang">
-                    <select
-                      class="langselect"
-                      v-model="lang1"
-                      @change="handleChange1($event)"
-                    >
-                      <option label="lang" disabled>lang</option>
-                      <option value="en">EN</option>
-                      <option value="ar">AR</option>
-                    </select>
-                  </md-field> -->
-                  </md-field>
-                </md-card-header>
-              </div>
-              <div class="md-layout-item  md-size-100 div">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <md-field class="md-layout-item  md-size-100">
-                    <!-- <label for="font">Section</label> -->
-                    <h4 class="title">Section</h4>
-                    <md-select
-                      class="md-layout-item md-size-90"
-                      v-model="categories.section_id"
-                      name="font"
-                      id="font"
-                      md-dense
-                    >
-                      <md-option
-                        class="text"
-                        v-for="item in sections"
-                        :key="item.id"
-                        :value="item.id"
-                        >{{ item.name }}</md-option
-                      >
-                    </md-select>
-                  </md-field>
-                </md-card-header>
-              </div>
-              <div class="md-layout-item md-size-100 div">
-                <md-card-header data-background-color="dataBackgroundColor">
-                  <md-field class="md-layout-item  md-size-100">
-                    <h4 class="title">Categories Parent</h4>
-                    <md-select
-                      class="md-layout-item md-size-80"
-                      v-model="categories.parent_id"
-                      name="font"
-                      id="font"
-                      md-dense
-                    >
-                      <md-option
-                        class="text"
-                        v-for="category in Categories"
-                        :key="category.id"
-                        :value="category.id"
-                        >{{ category.name }}</md-option
-                      >
-                    </md-select>
-                  </md-field>
-                </md-card-header>
-              </div>
-            </div>
-            <div class="md-layout-item md-size-40">
-              <UploadImagesCategory> </UploadImagesCategory>
-            </div>
-          </div>
-          <div class="md-layout md-medium-size-100 ">
-            <md-button :data-background-color="'blue'" @click="updateCategory()"
-              >Update</md-button
-            >
-          </div>
+          <p>please check and try again</p>
         </div>
-      </md-card-content>
-    </md-card>
-  </form>
+        <div class="alertt" id="alertt">
+          <strong>Category New successfully</strong>
+        </div>
+        <div class="child_1">
+          <md-field
+            id="arabic"
+            class="md-layout-item md-size-80 "
+            data-background-color="dataBackgroundColor"
+          >
+            <label for="name">Name</label>
+            <md-input
+              id="name"
+              class="text required"
+              :value="CategoryID.name"
+            ></md-input>
+          </md-field>
+          <md-field
+            id="english"
+            class="md-layout-item md-size-80 "
+            data-background-color="dataBackgroundColor"
+          >
+            <label for="name">Name</label>
+            <md-input
+              id="name"
+              class="text required"
+              :value="CategoryID.name"
+            ></md-input>
+          </md-field>
+          <md-field
+            class="md-layout-item md-size-80 "
+            data-background-color="dataBackgroundColor"
+          >
+            <label for="name">Section</label>
+
+            <md-select
+              class="md-layout-item md-size-100 required"
+              v-model="CategoryID.section_id"
+              name="font"
+              id="name"
+              md-dense
+            >
+              <md-option
+                class="text"
+                v-for="item in sections"
+                :key="item.id"
+                :value="item.id"
+                >{{ item.name }}</md-option
+              >
+            </md-select>
+          </md-field>
+
+          <md-field
+            class="md-layout-item md-size-80 "
+            data-background-color="dataBackgroundColor"
+          >
+            <label class="title" for="font">Categories Parent</label>
+            <md-select
+              class="md-layout-item md-size-100 required"
+              v-model="CategoryID.parent_id"
+              name="font"
+              id="font"
+              md-dense
+            >
+              <md-option
+                class="text"
+                v-for="category in Categories"
+                :key="category.id"
+                :value="category.id"
+                >{{ category.name }}</md-option
+              >
+            </md-select>
+            <md-input class="text"></md-input>
+          </md-field>
+        </div>
+        <div class="child_4">
+          <UploadImagesCategory> </UploadImagesCategory>
+          <md-button
+            :data-background-color="'blue'"
+            @click="updateCategory()"
+            class="toggle-disabled"
+            id="btnAdd"
+            >Update</md-button
+          >
+        </div>
+      </div>
+    </div>
+  </md-card>
 </template>
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 import UploadImagesCategory from "./UploadImagesCategory.vue";
 export default {
   name: "EditCategoryForm",
@@ -135,7 +154,7 @@ export default {
       categories: {
         category: [
           {
-            name: "null",
+            name: null,
             local: "en",
             language_id: 1,
           },
@@ -175,64 +194,154 @@ export default {
     this.$store.dispatch("loadSections");
   },
   methods: {
-    handleChange1(event) {
-      localStorage.setItem("lang1", event.target.value);
+    arlang() {
+      localStorage.setItem("lang1", "ar");
     },
-    updateCategory() {
-      let lang = window.localStorage.getItem("lang1");
-      axios.put(
-        `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
-        this.categories
-      );
-      if (
-        this.categories.category[0].name == null ||
-        this.categories.category[1].name == null ||
-        this.categories.section_id == null ||
-        this.categories.parent_id == null
-      ) {
-        document.getElementById("alert").classList.add("block");
-        window.scrollTo(0, 20);
+    enlang() {
+      localStorage.setItem("lang1", "en");
+    },
+    act() {
+      var ar = document.getElementById("title_lang2");
+      var en = document.getElementById("title_lang1");
+      var english = document.getElementById("english");
+      var arabic = document.getElementById("arabic");
+      if (localStorage.getItem("lang1") == "ar") {
+        en.classList.remove("act");
+        ar.classList.toggle("act");
+        arabic.style.display = "block";
+        english.style.display = "none";
       } else {
-        document.getElementById("alert").classList.remove("block");
-        document.getElementById("alertt").classList.add("block");
-        console.log(JSON.stringify(this.categories));
-        this.$router.push({ name: "allCategories" });
+        ar.classList.remove("act");
+        en.classList.toggle("act");
+        arabic.style.display = "none";
+        english.style.display = "block";
       }
     },
+    // updateCategory() {
+    // this.$store.dispatch("editCategory", this.CategoryID);
+    // this.$router.push
+    // },
+    // updateCategory() {
+    //   let lang = window.localStorage.getItem("lang1");
+    //   axios.put(
+    //     `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
+    //     this.categories
+    //   );
+    //   if (
+    //     this.categories.category[0].name == null ||
+    //     this.categories.category[1].name == null ||
+    //     this.categories.section_id == null ||
+    //     this.categories.parent_id == null
+    //   ) {
+    //     document.getElementById("alert").classList.add("block");
+    //     window.scrollTo(0, 20);
+    //   } else {
+    //     document.getElementById("alert").classList.remove("block");
+    //     document.getElementById("alertt").classList.add("block");
+    //     console.log(JSON.stringify(this.categories));
+    //     this.$router.push({ name: "allCategories" });
+    //   }
+    // },
   },
 };
 </script>
 <style scoped>
-.md-layout-item.md-size-33 {
-  min-width: 100%;
-  max-width: 100%;
-  flex: 0 1 33.3333%;
+/* tab */
+.update {
+  padding: 20px;
 }
-.md-steppers-navigation {
-  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
-    0 1px 5px 0 rgb(0 0 0 / 12%);
+.title_form {
   display: flex;
-  gap: 10px;
-  margin: 20px auto;
 }
-.div {
-  min-width: 100%;
-  max-width: 100%;
-  margin-left: 0 !important;
-  flex: 1 1 100%;
-  margin: 40px;
+.title_form h4 {
+  padding: 10px;
+  opacity: 0.9;
 }
-.md-layout-item.md-size-60 {
-  min-width: 60%;
-  max-width: 60%;
-  flex: 0 1 60%;
-  /* padding: 20px; */
-  margin: auto;
-}
-.md-menu.md-select {
+.title_lang {
   display: flex;
-  flex: 1;
-  overflow: auto;
+  padding-left: 20px;
+}
+.title_lang h4 {
+  padding: 10px;
+  opacity: 0.7;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+}
+.act {
+  color: #0040ff;
+  /* background-color: #0040ff; */
+}
+.act::before {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  -webkit-transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  will-change: border, opacity, transform;
+  content: " ";
+  background-color: #377dff;
+  width: 100%;
+  height: 3px;
+}
+.nav_tabel {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav_tabel .child1,
+.nav_tabel .child4,
+.nav_tabel .child5 {
+  width: 10% !important;
+  display: flex;
+  justify-content: center;
+}
+
+.nav_tabel .child2 {
+  width: 30% !important;
+  display: flex;
+  justify-content: center;
+}
+.nav_tabel .child3 {
+  width: 20% !important;
+  display: flex;
+  justify-content: center;
+}
+.nav_tabel .child6 {
+  width: 30% !important;
+  display: flex;
+  justify-content: center;
+}
+/* form */
+.parent {
+  display: flex;
+  width: 100%;
+}
+.parent .child_1 {
+  width: 100%;
+  height: 100px;
+}
+.md-field {
+  border: 1px solid #d0cece;
+}
+.md-field label {
+  padding-left: 10px;
+}
+.parent .child_4 {
+  width: 100%;
 }
 .alert {
   display: none;
@@ -254,6 +363,11 @@ export default {
   box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
     0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
 }
+.alert div {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .alertt {
   display: none;
   padding: 20px;
@@ -261,68 +375,99 @@ export default {
   color: white;
 }
 .block {
-  display: flex;
-  background-color: red;
-}
-.req {
-  display: none;
-  color: red;
-  /* margin-top: 30px; */
-}
-.req1 {
-  display: none;
-  color: red;
-}
-.req2 {
-  display: none;
-  color: red;
-}
-.lang {
-  border: none;
-}
-.langselect {
-  border: none;
-  /* border: solid #7c7979; */
-  background-color: #d1c9c9;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.name {
-  width: 100%;
-  max-height: 20px;
-  min-height: 48px;
-  margin: 4px 0 24px;
-  padding-top: 16px;
-  display: flex;
-  position: relative;
-  font-family: inherit;
-}
-.lang {
-  max-height: 30px;
-  min-height: 30px;
+  display: block;
+  text-align: center;
+  position: fixed;
   margin: auto;
-  padding: 0;
+  background-color: rgb(112, 13, 13);
+  z-index: 1000;
+  color: #000;
+  width: 40%;
+  font-size: 18px;
 }
-.text {
+.block1 {
+  display: block;
   text-align: center;
+  position: fixed;
+  margin: auto;
+  background-color: rgb(12, 99, 33);
+  z-index: 1000;
+  color: #000;
+  width: 40%;
+  font-size: 18px;
 }
-.md-card .title {
-  margin-top: 0;
-  text-align: start;
-  margin-bottom: 5px;
-  padding-left: 10px;
+.closebtn {
+  background-color: #fff;
+  width: 20px;
 }
-.md-layout-item.md-size-40 {
-  min-width: 40%;
-  padding-top: 5%;
-  max-width: 40%;
-  flex: 0 1 40%;
+.alert div:first-of-type {
+  animation: showup 7s infinite;
 }
-.md-card .md-card-header {
-  /* background-color: rgb(118, 145, 146); */
-  background-color: #0f8494e0;
+
+.alert div:last-of-type {
+  width: 0px;
+  animation: reveal 7s infinite;
 }
-.new {
-  text-align: center;
+
+.alert div:last-of-type span {
+  margin-left: -355px;
+  animation: slidein 7s infinite;
+}
+
+@keyframes showup {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    margin-left: -800px;
+  }
+  20% {
+    margin-left: -800px;
+  }
+  35% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    width: 0px;
+  }
+  20% {
+    opacity: 1;
+    width: 0px;
+  }
+  30% {
+    width: 355px;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    width: 355px;
+  }
+}
+
+.alert p {
+  font-size: 12px;
+  color: #999;
+  /* margin-top: 200px; */
 }
 </style>

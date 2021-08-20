@@ -28,6 +28,15 @@ export const loadCategory = ({ commit }, CategoryID) => {
       console.log("Error: ", error);
     });
 };
+export const editCategory = ({ commit }, CategoryID) => {
+  let res = axios.put(
+    `/api/categories/update/${CategoryID.id}?lang=${lang}`,
+    CategoryID
+  );
+  let newCategory = res.data.Category;
+  commit("Edit_Category", newCategory);
+  return newCategory;
+};
 export const deleteCategory = ({ commit }, items) => {
   axios.put(
     `/api/categories/trash/${items.id}`,

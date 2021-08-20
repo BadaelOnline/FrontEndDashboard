@@ -23,6 +23,7 @@ import Vuelidate from "vuelidate";
 // vue-i18n
 import i18n from "./js/i18n";
 import VueI18n from "vue-i18n";
+import FlagIcon from "vue-flag-icon";
 //store.js
 import store from "./store/Store";
 
@@ -64,6 +65,7 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(i18n, VueI18n);
+Vue.use(FlagIcon);
 Vue.use(Vuelidate);
 // Vue.use(Pagination)
 

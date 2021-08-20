@@ -1,35 +1,47 @@
 <template>
-<div class="parent">
-<div class="child1">{{ id }}</div>
-<div class="child2">
-      <div class="imag" v-for="item in category_images.slice(0, 1)"
-      :key="item.id">
-      <img  v-if="item.image" :src="item.image" />
-      <img  v-else src="../../../../public/img/market-logo.png" />
+  <div class="parent">
+    <div class="child1">{{ id }}</div>
+    <div class="child2">
+      <div
+        class="imag"
+        v-for="item in category_images.slice(0, 1)"
+        :key="item.id"
+      >
+        <img v-if="item.image" :src="item.image" />
+        <img v-else src="../../../../public/img/market-logo.png" />
       </div>
-         
-      </div>
-<div class="child3">{{ name }}</div>
-<div class="child4">{{ section_id }}</div>
-<div class="child5">
-      <i v-if="is_active == 'Active'" class="fa fa-check"  style="color: green;"></i>
-      <i v-else class="fa fa-times" style="color: #f20b07;"></i></div>
-<div class="child6">     <router-link :to="`category/update/${id}`">
-        <md-button class="md-primary" style="width: 70px;" :data-background-color="'blue'">
+    </div>
+    <div class="child3">{{ name }}</div>
+    <div class="child4">{{ section_id }}</div>
+    <div class="child5">
+      <i
+        v-if="is_active == 'Active'"
+        class="fa fa-check"
+        style="color: green;"
+      ></i>
+      <i v-else class="fa fa-times" style="color: #f20b07;"></i>
+    </div>
+    <div class="child6">
+      <!-- <router-link :to="`category/update/${id}`"> -->
+      <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
+        <md-button
+          class="md-primary"
+          style="width: 70px;"
+          :data-background-color="'blue'"
+        >
           <i class="fas fa-edit" style="margin: 0 10px;"></i>Edit</md-button
         >
       </router-link>
-      <md-button style="width: 70px;"
+      <md-button
+        style="width: 70px;"
         @click="delettcategory()"
         class="md-accent"
         :data-background-color="'red'"
       >
         <i class="fa fa-trash" style="margin: 0 10px;"></i>Delete</md-button
-      ></div>
-
-</div>
-
-  
+      >
+    </div>
+  </div>
 </template>
 <script>
 import axios from "axios";
@@ -46,44 +58,46 @@ export default {
 </script>
 <style>
 /* start alaa */
-.parent{
+.parent {
   display: flex;
   justify-content: space-around;
 }
 
-.parent .child1,.parent .child4,.parent .child5{
- width: 10%!important;
-   display: flex;
+.parent .child1,
+.parent .child4,
+.parent .child5 {
+  width: 10% !important;
+  display: flex;
   justify-content: center;
   margin: auto;
-  opacity: .7;
+  opacity: 0.7;
 }
 
-.parent .child2{
- width: 30%!important;
+.parent .child2 {
+  width: 30% !important;
   display: flex;
   justify-content: center;
 }
-.parent .child3{
-   width: 20%!important;
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  opacity: .7;
-}
-.parent .child6{
- width: 30% !important;
+.parent .child3 {
+  width: 20% !important;
   display: flex;
   justify-content: center;
   margin: auto;
+  opacity: 0.7;
 }
-.parent .child2 .imag{
+.parent .child6 {
+  width: 30% !important;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+.parent .child2 .imag {
   width: 210px;
   height: 100%;
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
-.parent .child2 .imag img{
+.parent .child2 .imag img {
   width: 100%;
   height: 100%;
   border-radius: 0;
