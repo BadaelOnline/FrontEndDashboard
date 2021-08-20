@@ -139,6 +139,7 @@ const routes = [
         path: "category/update/:id",
         name: "EditCategory",
         component: EditCategory,
+        params: true,
       },
       // Brands
       {
