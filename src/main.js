@@ -45,6 +45,8 @@ import MaterialDashboard from "./material-dashboard";
 import Chartist from "chartist";
 
 // configure router
+const server = localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
+axios.defaults.baseURL = server;
 const router = new VueRouter({
   mode: "history",
   routes, // short for routes: routes
@@ -79,7 +81,6 @@ store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
   // if (server == "admin") {
   // axios.defaults.baseURL = "http://admin.e-dalely.com/public";
   // } else if (server == "edalily") {
-  axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
   // }
   new Vue({
     el: "#app",
