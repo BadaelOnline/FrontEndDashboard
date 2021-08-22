@@ -3,28 +3,7 @@
     <div class="update">
       <!-- tab -->
       <div class="title_form">
-        <h4>Category Form{{ CategoryID.name }}</h4>
-      </div>
-      <hr style="color: #fff;opacity: 0.5;" />
-      <div class="title_lang nav">
-        <h4
-          id="title_lang1"
-          @click="
-            enlang();
-            act();
-          "
-        >
-          English(EN)
-        </h4>
-        <h4
-          id="title_lang2"
-          @click="
-            arlang();
-            act();
-          "
-        >
-          Arabic - العربية(AR)
-        </h4>
+        <h4>Category Form</h4>
       </div>
       <hr style="color: #fff;opacity: 0.5;" />
       <div class="parent">
@@ -48,75 +27,77 @@
           <strong>Category New successfully</strong>
         </div>
         <div class="child_1">
-          <md-field
-            id="arabic"
-            class="md-layout-item md-size-80 "
-            data-background-color="dataBackgroundColor"
-          >
-            <label for="name">Name</label>
-            <md-input
-              id="name"
-              class="text required"
-              :value="CategoryID.name"
-            ></md-input>
-          </md-field>
-          <md-field
-            id="english"
-            class="md-layout-item md-size-80 "
-            data-background-color="dataBackgroundColor"
-          >
-            <label for="name">Name</label>
-            <md-input
-              id="name"
-              class="text required"
-              :value="CategoryID.name"
-            ></md-input>
-          </md-field>
-          <md-field
-            class="md-layout-item md-size-80 "
-            data-background-color="dataBackgroundColor"
-          >
-            <label for="name">Section</label>
-
-            <md-select
-              class="md-layout-item md-size-100 required"
-              v-model="CategoryID.section_id"
-              name="font"
-              id="name"
-              md-dense
+          <div class="depname">
+            <md-field
+              id="arabic"
+              class="divname"
+              data-background-color="dataBackgroundColor"
             >
-              <md-option
-                class="text"
-                v-for="item in sections"
-                :key="item.id"
-                :value="item.id"
-                >{{ item.name }}</md-option
-              >
-            </md-select>
-          </md-field>
-
-          <md-field
-            class="md-layout-item md-size-80 "
+              <label for="name">Name</label>
+              <md-input
+                id="arabic"
+                class="text required"
+                v-model="categories.category[1].name"
+              ></md-input>
+              <md-input
+                id="english"
+                class="text required"
+                v-model="categories.category[0].name"
+              ></md-input>
+            </md-field>
+            <div class="divlang">
+              <select name="" id="">
+                <option value="en">EN</option>
+                <option value="ar">AR</option>
+              </select>
+            </div>
+          </div>
+          <!-- section -->
+          <div
+            class="md-layout-item md-size-80 selectdrop"
             data-background-color="dataBackgroundColor"
           >
-            <label class="title" for="font">Categories Parent</label>
-            <md-select
-              class="md-layout-item md-size-100 required"
-              v-model="CategoryID.parent_id"
-              name="font"
-              id="font"
-              md-dense
-            >
-              <md-option
-                class="text"
-                v-for="category in Categories"
-                :key="category.id"
-                :value="category.id"
-                >{{ category.name }}</md-option
-              >
-            </md-select>
-            <md-input class="text"></md-input>
-          </md-field>
+            <div class="select">
+              <select v-model="categories.section_id">
+                <option
+                  value="Section"
+                  selected="selected"
+                  disabled
+                  style="color:#000"
+                  >Choose the section</option
+                >
+                <option
+                  v-for="item in sections"
+                  :key="item.id"
+                  :value="item.id"
+                  >{{ item.name }}</option
+                >
+              </select>
+            </div>
+          </div>
+          <!-- category parent -->
+          <div
+            class="md-layout-item md-size-80 selectdrop"
+            data-background-color="dataBackgroundColor"
+          >
+            <div class="select">
+              <select v-model="categories.parent_id">
+                <option
+                  value="Section"
+                  selected="selected"
+                  disabled
+                  style="color:#000"
+                  >Choose the Categories Parent</option
+                >
+                <option
+                  v-for="category in Categories"
+                  :key="category.id"
+                  :value="category.id"
+                  >{{ category.name }}</option
+                >
+              </select>
+            </div>
+          </div>
         </div>
         <div class="child_4">
           <UploadImagesCategory> </UploadImagesCategory>
@@ -134,7 +115,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-// import axios from "axios";
+import axios from "axios";
 import UploadImagesCategory from "./UploadImagesCategory.vue";
 export default {
   name: "EditCategoryForm",
@@ -221,27 +202,27 @@ export default {
     // this.$store.dispatch("editCategory", this.CategoryID);
     // this.$router.push
     // },
-    // updateCategory() {
-    //   let lang = window.localStorage.getItem("lang1");
-    //   axios.put(
-    //     `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
-    //     this.categories
-    //   );
-    //   if (
-    //     this.categories.category[0].name == null ||
-    //     this.categories.category[1].name == null ||
-    //     this.categories.section_id == null ||
-    //     this.categories.parent_id == null
-    //   ) {
-    //     document.getElementById("alert").classList.add("block");
-    //     window.scrollTo(0, 20);
-    //   } else {
-    //     document.getElementById("alert").classList.remove("block");
-    //     document.getElementById("alertt").classList.add("block");
-    //     console.log(JSON.stringify(this.categories));
-    //     this.$router.push({ name: "allCategories" });
-    //   }
-    // },
+    updateCategory() {
+      let lang = window.localStorage.getItem("lang1");
+      axios.put(
+        `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
+        this.CategoryID
+      );
+      // if (
+      //   this.categories.category[0].name == null ||
+      //   this.categories.category[1].name == null ||
+      //   this.categories.section_id == null ||
+      //   this.categories.parent_id == null
+      // ) {
+      //   document.getElementById("alert").classList.add("block");
+      //   window.scrollTo(0, 20);
+      // } else {
+      //   document.getElementById("alert").classList.remove("block");
+      //   document.getElementById("alertt").classList.add("block");
+      console.log(JSON.stringify(this.CategoryID));
+      // this.$router.push({ name: "allCategories" });
+      // }
+    },
   },
 };
 </script>
@@ -250,82 +231,6 @@ export default {
 .update {
   padding: 20px;
 }
-.title_form {
-  display: flex;
-}
-.title_form h4 {
-  padding: 10px;
-  opacity: 0.9;
-}
-.title_lang {
-  display: flex;
-  padding-left: 20px;
-}
-.title_lang h4 {
-  padding: 10px;
-  opacity: 0.7;
-  font-size: 16px;
-  position: relative;
-  cursor: pointer;
-}
-.act {
-  color: #0040ff;
-  /* background-color: #0040ff; */
-}
-.act::before {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  -webkit-transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  will-change: border, opacity, transform;
-  content: " ";
-  background-color: #377dff;
-  width: 100%;
-  height: 3px;
-}
-.nav_tabel {
-  display: flex;
-  justify-content: space-around;
-}
-
-.nav_tabel .child1,
-.nav_tabel .child4,
-.nav_tabel .child5 {
-  width: 10% !important;
-  display: flex;
-  justify-content: center;
-}
-
-.nav_tabel .child2 {
-  width: 30% !important;
-  display: flex;
-  justify-content: center;
-}
-.nav_tabel .child3 {
-  width: 20% !important;
-  display: flex;
-  justify-content: center;
-}
-.nav_tabel .child6 {
-  width: 30% !important;
-  display: flex;
-  justify-content: center;
-}
-/* form */
 .parent {
   display: flex;
   width: 100%;
@@ -343,6 +248,73 @@ export default {
 .parent .child_4 {
   width: 100%;
 }
+/* name */
+.depname {
+  display: flex;
+  width: 70%;
+}
+.divlang {
+  cursor: pointer;
+  padding: 5px 0;
+}
+.divlang select {
+  border: none;
+  height: 3.3rem;
+  cursor: pointer;
+  color: #dbd9d9;
+  border: 1px solid #dbd9d9;
+  background-color: #1cc3d5;
+}
+/*  */
+/* select */
+.selectdrop {
+  float: left;
+  padding-left: 0;
+}
+.select select {
+  /* Reset Select */
+  appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  color: #000;
+  border: 1px solid #dbd9d9;
+  background-image: none;
+  cursor: pointer;
+}
+/* Remove IE arrow */
+.select select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  left: 0;
+  position: relative;
+  display: flex;
+  width: 25em;
+  height: 4em;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.2em;
+  color: #dbd9d9;
+  background-color: #1cc3d5;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #fff;
+}
+/*  */
 .alert {
   display: none;
   padding: 20px;
