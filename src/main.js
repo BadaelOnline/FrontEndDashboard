@@ -20,6 +20,7 @@ import App from "./App";
 
 // validate
 import Vuelidate from "vuelidate";
+// import "bootstrap/dist/css/bootstrap.min";
 // vue-i18n
 import i18n from "./js/i18n";
 import VueI18n from "vue-i18n";
@@ -76,9 +77,9 @@ require("./store/subscriber");
 /* eslint-disable no-new */
 store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
   // if (server == "admin") {
-  axios.defaults.baseURL = "http://admin.e-dalely.com/public";
+  // axios.defaults.baseURL = "http://admin.e-dalely.com/public";
   // } else if (server == "edalily") {
-  //   axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
+  axios.defaults.baseURL = "http://edalili.e-dalely.com/public";
   // }
   new Vue({
     el: "#app",

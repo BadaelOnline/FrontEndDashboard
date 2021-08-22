@@ -11,6 +11,7 @@ import NewStore from "@/pages/Store/View/NewStore.vue";
 import EditStore from "@/pages/Store/View/EditStore.vue";
 // Ctegories
 import Categories from "@/pages/Categories/View/Categories.vue";
+import NewCategory from "@/pages/Categories/View/NewCategory.vue";
 import EditCategory from "@/pages/Categories/View/EditCategory.vue";
 // Brands
 import AllBrands from "@/pages/Brands/View/AllBrands.vue";
@@ -134,6 +135,11 @@ const routes = [
         path: "/admin/categories",
         name: "Categories",
         component: Categories,
+      },
+      {
+        path: "/admin/category/create",
+        name: "NewCategory",
+        component: NewCategory,
       },
       {
         path: "category/update/:id",

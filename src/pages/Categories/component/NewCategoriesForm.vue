@@ -1,103 +1,142 @@
 <template>
-  <div class="parent">
-    <div class="alert" id="alert">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';"
-        >&times;</span
-      >
-      <strong>One or more fields have an error!</strong>
-      please check and try again...this fields is require
-      <!-- </div> -->
-      <div>One or more fields have an error!</div>
-      <div>
-        <span>this fields is require!</span>
+  <md-card>
+    <div class="create">
+      <!-- tab -->
+      <div class="title_form">
+        <h4>Category Form</h4>
       </div>
-      <p>please check and try again</p>
-    </div>
-    <div class="alertt" id="alertt">
-      <strong>Category New successfully</strong>
-    </div>
-    <div class="child_1">
-      <md-field
-        id="arabic"
-        class="md-layout-item md-size-80 "
-        data-background-color="dataBackgroundColor"
-      >
-        <label for="name">Name</label>
-        <md-input
-          id="name"
-          class="text required"
-          v-model="categories.category[1].name"
-        ></md-input>
-      </md-field>
-      <md-field
-        id="english"
-        class="md-layout-item md-size-80 "
-        data-background-color="dataBackgroundColor"
-      >
-        <label for="name">Name</label>
-        <md-input
-          id="name"
-          class="text required"
-          v-model="categories.category[0].name"
-        ></md-input>
-      </md-field>
-      <md-field
-        class="md-layout-item md-size-80 "
-        data-background-color="dataBackgroundColor"
-      >
-        <label for="name">Section</label>
-
-        <md-select
-          class="md-layout-item md-size-100 required"
-          v-model="categories.section_id"
-          name="font"
-          id="name"
-          md-dense
-        >
-          <md-option
-            class="text"
-            v-for="item in sections"
-            :key="item.id"
-            :value="item.id"
-            >{{ item.name }}</md-option
+      <hr style="color: #fff;opacity: 0.5;" />
+      <div class="parent">
+        <!-- alert -->
+        <div class="alert" id="alert">
+          <span
+            class="closebtn"
+            onclick="this.parentElement.style.display='none';"
+            >&times;</span
           >
-        </md-select>
-      </md-field>
-
-      <md-field
-        class="md-layout-item md-size-80 "
-        data-background-color="dataBackgroundColor"
-      >
-        <label class="title" for="font">Categories Parent</label>
-        <md-select
-          class="md-layout-item md-size-100 required"
-          v-model="categories.parent_id"
-          name="font"
-          id="font"
-          md-dense
-        >
-          <md-option
-            class="text"
-            v-for="category in Categories"
-            :key="category.id"
-            :value="category.id"
-            >{{ category.name }}</md-option
+          <strong>One or more fields have an error!</strong>
+          please check and try again...this fields is require
+          <!-- </div> -->
+          <div>One or more fields have an error!</div>
+          <div>
+            <span>this fields is require!</span>
+          </div>
+          <p>please check and try again</p>
+        </div>
+        <div class="alertt" id="alertt">
+          <strong>Category New successfully</strong>
+        </div>
+        <div class="child_1">
+          <div class="depname">
+            <md-field
+              id="arabic"
+              class="divname"
+              data-background-color="dataBackgroundColor"
+            >
+              <label for="name">Name</label>
+              <md-input
+                v-if="lang == 'ar'"
+                id="arabic"
+                class="text required"
+                v-model="categories.category[1].name"
+              ></md-input>
+              <md-input
+                v-else
+                id="english"
+                class="text required"
+                v-model="categories.category[0].name"
+              ></md-input>
+            </md-field>
+            <div class="divlang">
+              <select
+                name=""
+                id=""
+                v-model="lang"
+                @change="handleChange($event)"
+              >
+                <option value="en">EN</option>
+                <option value="ar">AR</option>
+              </select>
+            </div>
+          </div>
+          <!-- slug  -->
+          <div class="depname">
+            <md-field
+              class="divname"
+              data-background-color="dataBackgroundColor"
+            >
+              <label for="name">Slug</label>
+              <md-input
+                class="text required"
+                v-model="categories.slug"
+              ></md-input>
+            </md-field>
+          </div>
+          <!-- section -->
+          <div
+            class="md-layout-item md-size-80 selectdrop input-group error"
+            id="error"
+            data-background-color="dataBackgroundColor"
           >
-        </md-select>
-        <md-input class="text"></md-input>
-      </md-field>
+            <label id="label">section *</label>
+            <div class="select">
+              <select v-model="categories.section_id">
+                <option
+                  value="Section"
+                  selected="selected"
+                  disabled
+                  style="color:#000"
+                  >Choose the section</option
+                >
+                <option
+                  v-for="item in sections"
+                  :key="item.id"
+                  :value="item.id"
+                  >{{ item.name }}</option
+                >
+              </select>
+            </div>
+            <div class="error-message" id="error-message">
+              section is a required field.
+            </div>
+          </div>
+          <!-- category parent -->
+          <div
+            class="md-layout-item md-size-80 selectdrop"
+            data-background-color="dataBackgroundColor"
+          >
+            <div class="select">
+              <select v-model="categories.parent_id">
+                <option
+                  value="Section"
+                  selected="selected"
+                  disabled
+                  style="color:#000"
+                  >Choose the Categories Parent</option
+                >
+                <option
+                  v-for="category in Categories"
+                  :key="category.id"
+                  :value="category.id"
+                  >{{ category.name }}</option
+                >
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="child_4">
+          <UploadImagesCategory> </UploadImagesCategory>
+          <md-button
+            :data-background-color="'blue'"
+            @click="postCategory()"
+            class="toggle-disabled"
+            id="btnAdd"
+            >Add</md-button
+          >
+        </div>
+      </div>
     </div>
-    <div class="child_4">
-      <UploadImagesCategory> </UploadImagesCategory>
-      <md-button
-        :data-background-color="'blue'"
-        @click="postCategory()"
-        class="toggle-disabled"
-        id="btnAdd"
-        >Add</md-button
-      >
-    </div>
-  </div>
+  </md-card>
 </template>
 
 <script>
@@ -116,9 +155,11 @@ export default {
     },
   },
   data() {
+    const lang = localStorage.getItem("lang") || "en";
     let lang1 = localStorage.getItem("lang1");
     return {
       lang1: lang1,
+      lang: lang,
       categories: {
         category: [
           {
@@ -133,7 +174,7 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "hbjhk",
+        slug: null,
         parent_id: null,
         images: [
           {
@@ -159,42 +200,62 @@ export default {
     this.$store.dispatch("loadSections");
   },
   methods: {
+    handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+      // window.location.reload();
+    },
     postCategory() {
       axios.post("/api/categories/create", this.categories);
       if (
-        this.categories.category[0].name == null ||
+        this.categories.category[0].name == null &&
+        this.categories.category[1].name == null &&
+        this.categories.section_id == null &&
+        this.categories.parent_id == null
+      ) {
+        alert("please input all");
+      } else if (
+        this.categories.category[0].name == null &&
         this.categories.category[1].name == null
       ) {
-        alert("please input");
+        alert("please input name");
       } else if (this.categories.category[1].name == null) {
         alert("please input arabic");
       } else if (this.categories.category[0].name == null) {
         alert("please input english");
-      } else if (
-        this.categories.section_id == null ||
-        this.categories.parent_id == null
-      ) {
-        document.getElementById("alert").classList.add("block");
-      }
-      // window.scrollTo(0, 20);
-      else {
+      } else if (this.categories.section_id == null) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").style.display = "block";
+      } else if (this.categories.parent_id == null) {
+        alert("please input parent category");
+      } else {
+        // document.getElementById("alert").classList.add("block");
         if (localStorage.getItem("lang1") == "ar") {
           console.log(JSON.stringify(this.categories));
-          alert("please input english");
+          // alert("please input english");
         } else {
           console.log(JSON.stringify(this.categories));
-          alert("please input arabic");
+          // alert("please input arabic");
         }
-        // console.log(JSON.stringify(this.categories));
-        // document.getElementById("alert").classList.remove("block");
-        // document.getElementById("alertt").classList.add("block1");
-        // if (lang1 == "en") {
-        //   console.log(JSON.stringify(this.categories));
-        //   alert("please input english");
-        // } else {
-        //   console.log(JSON.stringify(this.categories));
-        // }
       }
+      // window.scrollTo(0, 20);
+      // else {
+      // if (localStorage.getItem("lang1") == "ar") {
+      // console.log(JSON.stringify(this.categories));
+      // alert("please input english");
+      // } else {
+      // console.log(JSON.stringify(this.categories));
+      // alert("please input arabic");
+      // }
+      // console.log(JSON.stringify(this.categories));
+      // document.getElementById("alert").classList.remove("block");
+      // document.getElementById("alertt").classList.add("block1");
+      // if (lang1 == "en") {
+      //   console.log(JSON.stringify(this.categories));
+      //   alert("please input english");
+      // } else {
+      //   console.log(JSON.stringify(this.categories));
+      // }
+      // }
     },
     // if (
     //   this.categories.category[0].name == null ||
@@ -217,6 +278,9 @@ export default {
 </script>
 
 <style scoped>
+.create {
+  padding: 20px;
+}
 .parent {
   display: flex;
   width: 100%;
@@ -234,6 +298,102 @@ export default {
 .parent .child_4 {
   width: 100%;
 }
+/* name */
+.depname {
+  display: flex;
+  width: 80%;
+}
+.divlang {
+  cursor: pointer;
+  padding: 5px 0;
+}
+.divlang select {
+  border: none;
+  height: 3.3rem;
+  cursor: pointer;
+  color: #dbd9d9;
+  border: 1px solid #dbd9d9;
+  background-color: #1cc3d5;
+}
+/*validation  */
+.error-message {
+  color: #cc0033;
+  /* display: inline-block; */
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
+
+.input-group .error-message {
+  display: none;
+}
+
+/* Error Styling */
+.error-message {
+  color: #cc0033;
+  /* display: inline-block; */
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+}
+
+#error .error-message {
+  display: none;
+}
+#error label {
+  display: none;
+  color: #cc0033;
+}
+
+/* select */
+.selectdrop {
+  float: left;
+  padding-left: 0;
+}
+.select select {
+  /* Reset Select */
+  appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  color: #000;
+  border: 1px solid #dbd9d9;
+  background-image: none;
+  cursor: pointer;
+}
+/* Remove IE arrow */
+.select select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  left: 0;
+  position: relative;
+  display: flex;
+  width: 25em;
+  height: 4em;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.2em;
+  color: #dbd9d9;
+  background-color: #1cc3d5;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #fff;
+}
+/*  */
 .alert {
   display: none;
   padding: 20px;

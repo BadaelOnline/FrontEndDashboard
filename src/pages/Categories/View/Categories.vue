@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <form>
-      <md-card>
+      <!-- <md-card>
         <div class="title_form"><h4>New Category</h4></div>
         <hr style="color: #fff;opacity: 0.5;" />
         <div class="title_lang nav">
@@ -33,18 +33,26 @@
             </div>
           </div>
         </md-card-content>
-      </md-card>
+      </md-card> -->
       <md-card>
-        <div class="title_form"><h4>Category Tabel</h4></div>
+        <div class="title_form">
+          <h4>Category Tabel</h4>
+          <router-link :to="`/admin/category/create`"
+            ><md-button class="md-accent" :data-background-color="'blue'">
+              New Category</md-button
+            ></router-link
+          >
+        </div>
         <hr style="color: #fff;opacity: 0.5;" />
 
         <div class="nav_tabel">
           <div class="child1"><H4>Category Id</H4></div>
           <div class="child2"><H4>Img</H4></div>
           <div class="child3"><H4>Name</H4></div>
-          <div class="child4"><H4>Section</H4></div>
-          <div class="child5"><H4>Status</H4></div>
-          <div class="child6"><H4>Action</H4></div>
+          <div class="child4"><H4>slug</H4></div>
+          <div class="child5"><H4>Section</H4></div>
+          <div class="child6"><H4>Status</H4></div>
+          <div class="child7"><H4>Action</H4></div>
         </div>
 
         <!-- <md-table-empty-state
@@ -60,6 +68,7 @@
           :key="item.pr"
           :id="item.id"
           :name="item.name"
+          :slug="item.slug"
           :image="item.image"
           :section_id="item.section_id"
           :is_active="item.is_active"
@@ -75,7 +84,6 @@
 <script>
 import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
-import { NewCategoriesForm } from "@/pages";
 const toLower = (text) => {
   return text.toString().toLowerCase();
 };
@@ -96,7 +104,7 @@ export default {
       searched: [],
     };
   },
-  components: { Categories, NewCategoriesForm },
+  components: { Categories },
   name: "AllCategories",
   computed: {
     ...mapState({
@@ -148,6 +156,8 @@ export default {
 <style scoped>
 .title_form {
   display: flex;
+  justify-content: center;
+  gap: 60%;
 }
 .title_form h4 {
   padding: 10px;
@@ -199,8 +209,8 @@ export default {
 }
 
 .nav_tabel .child1,
-.nav_tabel .child4,
-.nav_tabel .child5 {
+.nav_tabel .child5,
+.nav_tabel .child6 {
   width: 10% !important;
   display: flex;
   justify-content: center;
@@ -211,12 +221,13 @@ export default {
   display: flex;
   justify-content: center;
 }
-.nav_tabel .child3 {
+.nav_tabel .child3,
+.nav_tabel .child4 {
   width: 20% !important;
   display: flex;
   justify-content: center;
 }
-.nav_tabel .child6 {
+.nav_tabel .child7 {
   width: 30% !important;
   display: flex;
   justify-content: center;

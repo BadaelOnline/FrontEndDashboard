@@ -12,8 +12,9 @@
       </div>
     </div>
     <div class="child3">{{ name }}</div>
-    <div class="child4">{{ section_id }}</div>
-    <div class="child5">
+    <div class="child4">{{ slug }}</div>
+    <div class="child5">{{ section_id }}</div>
+    <div class="child6">
       <i
         v-if="is_active == 'Active'"
         class="fa fa-check"
@@ -21,32 +22,40 @@
       ></i>
       <i v-else class="fa fa-times" style="color: #f20b07;"></i>
     </div>
-    <div class="child6">
+    <div class="child7">
       <!-- <router-link :to="`category/update/${id}`"> -->
       <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
         <md-button
           class="md-primary"
-          style="width: 70px;"
+          style="width: 20px;"
           :data-background-color="'blue'"
         >
-          <i class="fas fa-edit" style="margin: 0 10px;"></i>Edit</md-button
-        >
+          <i class="fas fa-edit" style="margin: 0 10px;"></i
+        ></md-button>
       </router-link>
       <md-button
-        style="width: 70px;"
+        style="width: 20px;"
         @click="delettcategory()"
         class="md-accent"
         :data-background-color="'red'"
       >
-        <i class="fa fa-trash" style="margin: 0 10px;"></i>Delete</md-button
-      >
+        <i class="fa fa-trash" style="margin: 0 10px;"></i
+      ></md-button>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-  props: ["id", "name", "image", "is_active", "section_id", "category_images"],
+  props: [
+    "id",
+    "name",
+    "image",
+    "is_active",
+    "section_id",
+    "category_images",
+    "slug",
+  ],
   methods: {
     delettcategory() {
       // this.$store.dispatch("deleteCategory", items);
@@ -64,8 +73,8 @@ export default {
 }
 
 .parent .child1,
-.parent .child4,
-.parent .child5 {
+.parent .child5,
+.parent .child6 {
   width: 10% !important;
   display: flex;
   justify-content: center;
@@ -78,14 +87,15 @@ export default {
   display: flex;
   justify-content: center;
 }
-.parent .child3 {
+.parent .child3,
+.parent .child4 {
   width: 20% !important;
   display: flex;
   justify-content: center;
   margin: auto;
   opacity: 0.7;
 }
-.parent .child6 {
+.parent .child7 {
   width: 30% !important;
   display: flex;
   justify-content: center;
