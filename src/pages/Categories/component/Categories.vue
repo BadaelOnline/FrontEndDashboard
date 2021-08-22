@@ -25,22 +25,17 @@
     <div class="child7">
       <!-- <router-link :to="`category/update/${id}`"> -->
       <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
-        <md-button
-          class="md-primary"
-          style="width: 20px;"
-          :data-background-color="'blue'"
-        >
-          <i class="fas fa-edit" style="margin: 0 10px;"></i
-        ></md-button>
+        <button style="width: 50px;" :data-background-color="'blue'">
+          <i class="fas fa-edit" style="margin: 0 10px;"></i>
+        </button>
       </router-link>
-      <md-button
-        style="width: 20px;"
+      <button
         @click="delettcategory()"
         class="md-accent"
         :data-background-color="'red'"
       >
-        <i class="fa fa-trash" style="margin: 0 10px;"></i
-      ></md-button>
+        <i class="fa fa-trash" style="margin: 0 10px;"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -71,8 +66,6 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-
-.parent .child1,
 .parent .child5,
 .parent .child6 {
   width: 10% !important;
@@ -87,6 +80,7 @@ export default {
   display: flex;
   justify-content: center;
 }
+.parent .child1,
 .parent .child3,
 .parent .child4 {
   width: 20% !important;
@@ -100,6 +94,12 @@ export default {
   display: flex;
   justify-content: center;
   margin: auto;
+}
+.parent .child7 button {
+  width: 50px;
+  height: 40px;
+  margin: 5px;
+  border: none;
 }
 .parent .child2 .imag {
   width: 210px;
