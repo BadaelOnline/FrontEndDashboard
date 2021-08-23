@@ -3,11 +3,15 @@
     <div class="md-toolbar-row" style="justify-content: space-between;">
       <div class="">
         <h3 class="md-title">{{ $route.name }}</h3>
-        <label >wtite your domain</label>
-        <input type="text" placeholder="http://example/public" v-model="server_change">
+        <label>wtite your domain</label>
+        <input
+          type="text"
+          placeholder="http://example/public"
+          v-model="server_change"
+        />
         <button @click="handleChange()">change</button>
       </div>
-    
+
       <div class="">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
@@ -29,29 +33,44 @@
               <label>Search...</label>
             </md-autocomplete>
           </div>
-                <li class="md-list-item">
-              <a
-                href="#/notifications"
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
-                <div class="md-list-item-content">
-                  <drop-down>
-                    <md-button
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      
-                      <i class="fa fa-globe" aria-hidden="true"></i>    
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="" class="md-list-item-container">English</a> </li>
-                      <li><a href="" class="md-list-item-container">العربية</a> </li>
-                    </ul>
-                  </drop-down>
-                </div>
-              </a>
-            </li>
+          <li class="md-list-item">
+            <a
+              href="#/notifications"
+              class="md-list-item-router md-list-item-container md-button-clean dropdown"
+            >
+              <div class="md-list-item-content">
+                <drop-down>
+                  <md-button
+                    slot="title"
+                    class="md-button md-just-icon md-simple"
+                    data-toggle="dropdown"
+                  >
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                  </md-button>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                      <a
+                        id="en"
+                        href=""
+                        class="md-list-item-container"
+                        @click="enlang()"
+                        >English</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        id="ar"
+                        href=""
+                        class="md-list-item-container"
+                        @click="arlang()"
+                        >العربية</a
+                      >
+                    </li>
+                  </ul>
+                </drop-down>
+              </div>
+            </a>
+          </li>
           <md-list>
             <li class="md-list-item">
               <a
@@ -86,26 +105,23 @@
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
           </md-list>
-    
         </div>
-    
       </div>
-        
     </div>
   </md-toolbar>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
-    // const lang = localStorage.getItem("lang") || "en"; 
-    const server = localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
+    const lang = localStorage.getItem("lang") || "en";
+    const server =
+      localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
     return {
-      // lang: lang,
+      lang: lang,
       selectedEmployee: null,
       server: server,
-     server_change: null,
+      server_change: null,
       employees: [
         "Jim Halpert",
         "Dwight Schrute",
@@ -119,26 +135,47 @@ export default {
     };
   },
   methods: {
+    arlang() {
+      localStorage.setItem("lang", "ar");
+    },
+    enlang() {
+      localStorage.setItem("lang", "en");
+    },
+    // act() {
+    // var ar = document.getElementById("title_lang2");
+    // var en = document.getElementById("title_lang1");
+    // if (localStorage.getItem("lang1") == "ar") {
+    //   en.classList.remove("act");
+    //   ar.classList.toggle("act");
+    //   arabic.style.display = "block";
+    //   english.style.display = "none";
+    // } else {
+    //   ar.classList.remove("act");
+    //   en.classList.toggle("act");
+    //   arabic.style.display = "none";
+    //   english.style.display = "block";
+    // }
+    // },
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
 
-     handleChange() {
-       this.server = this.server_change
-       localStorage.setItem('server', this.server);
-      alert("succed change youe new domain is :" + this.server)
-        window.location.reload();
-     },
+    handleChange() {
+      this.server = this.server_change;
+      localStorage.setItem("server", this.server);
+      alert("succed change youe new domain is :" + this.server);
+      window.location.reload();
+    },
   },
- 
 };
 </script>
 
 <style scoped lang="css">
-.md-toolbar .dropdown-menu li > a:hover, .md-toolbar .dropdown-menu li > a:focus {
-    color: #FFFFFF !important;
-    background-color: #55ae59 !important;
-    -webkit-box-shadow: 0 12px 20px -10px #55ae59;
-    box-shadow: 0 12px 20px -10px #55ae59;
+.md-toolbar .dropdown-menu li > a:hover,
+.md-toolbar .dropdown-menu li > a:focus {
+  color: #ffffff !important;
+  background-color: #55ae59 !important;
+  -webkit-box-shadow: 0 12px 20px -10px #55ae59;
+  box-shadow: 0 12px 20px -10px #55ae59;
 }
 </style>

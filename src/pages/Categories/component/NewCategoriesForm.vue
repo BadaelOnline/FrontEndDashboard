@@ -8,12 +8,12 @@
       <hr style="color: #fff;opacity: 0.5;" />
       <div class="parent">
         <!-- alert -->
-        <div class="alert" id="alert">
-          <span
+        <div class="alert" id="alert" @click="hideerror()">
+          <!-- <span
             class="closebtn"
             onclick="this.parentElement.style.display='none';"
             >&times;</span
-          >
+          > -->
           <strong>One or more fields have an error!</strong>
           please check and try again...this fields is require
           <!-- </div> -->
@@ -23,10 +23,16 @@
           </div>
           <p>please check and try again</p>
         </div>
-        <div class="alertt" id="alertt">
+        <div class="alertt" id="alertt" @click="hidesucces()">
           <strong>Category New successfully</strong>
         </div>
         <div class="child_1">
+          <div class="alertlang" id="alertlangen">
+            <strong>Please enter your name in English also</strong>
+          </div>
+          <div class="alertlang" id="alertlangar">
+            <strong>Please enter your name in Arabic also</strong>
+          </div>
           <div class="depname">
             <md-field
               id="arabic"
@@ -59,6 +65,7 @@
               </select>
             </div>
           </div>
+          <div id="error-message1">name is a required field.</div>
           <!-- slug  -->
           <div class="depname">
             <md-field
@@ -72,13 +79,15 @@
               ></md-input>
             </md-field>
           </div>
+          <div id="error-message2">
+            slug is a required field.
+          </div>
           <!-- section -->
           <div
-            class="md-layout-item md-size-80 selectdrop input-group error"
-            id="error"
+            class="md-layout-item md-size-80 selectdrop "
+            id="error1"
             data-background-color="dataBackgroundColor"
           >
-            <label id="label">section *</label>
             <div class="select">
               <select v-model="categories.section_id">
                 <option
@@ -96,7 +105,7 @@
                 >
               </select>
             </div>
-            <div class="error-message" id="error-message">
+            <div id="error-message3">
               section is a required field.
             </div>
           </div>
@@ -121,6 +130,9 @@
                   >{{ category.name }}</option
                 >
               </select>
+            </div>
+            <div id="error-message4">
+              Category parent is a required field.
             </div>
           </div>
         </div>
@@ -174,7 +186,7 @@ export default {
           },
         ],
         is_active: 1,
-        slug: null,
+        slug: "null",
         parent_id: null,
         images: [
           {
@@ -204,6 +216,16 @@ export default {
       localStorage.setItem("lang", event.target.value);
       // window.location.reload();
     },
+    hidelang() {
+      document.getElementById("alertlang").style.display = "none";
+    },
+    hidesucces() {
+      document.getElementById("alertt").style.display = "none";
+      this.$router.push({ path: "/admin/categories" });
+    },
+    hideerror() {
+      document.getElementById("alert").style.display = "none";
+    },
     postCategory() {
       axios.post("/api/categories/create", this.categories);
       if (
@@ -212,67 +234,25 @@ export default {
         this.categories.section_id == null &&
         this.categories.parent_id == null
       ) {
-        alert("please input all");
+        document.getElementById("alert").classList.add("block");
       } else if (
         this.categories.category[0].name == null &&
         this.categories.category[1].name == null
       ) {
-        alert("please input name");
+        document.getElementById("error-message1").style.display = "block";
       } else if (this.categories.category[1].name == null) {
-        alert("please input arabic");
+        document.getElementById("alertlangar").style.display = "block";
       } else if (this.categories.category[0].name == null) {
-        alert("please input english");
+        document.getElementById("alertlangen").style.display = "block";
       } else if (this.categories.section_id == null) {
-        document.getElementById("error").style.display = "block";
-        document.getElementById("error").style.display = "block";
+        document.getElementById("error-message3").style.display = "block";
       } else if (this.categories.parent_id == null) {
-        alert("please input parent category");
+        document.getElementById("error-message4").style.display = "block";
       } else {
-        // document.getElementById("alert").classList.add("block");
-        if (localStorage.getItem("lang1") == "ar") {
-          console.log(JSON.stringify(this.categories));
-          // alert("please input english");
-        } else {
-          console.log(JSON.stringify(this.categories));
-          // alert("please input arabic");
-        }
+        console.log(JSON.stringify(this.categories));
+        document.getElementById("alertt").classList.add("block1");
       }
-      // window.scrollTo(0, 20);
-      // else {
-      // if (localStorage.getItem("lang1") == "ar") {
-      // console.log(JSON.stringify(this.categories));
-      // alert("please input english");
-      // } else {
-      // console.log(JSON.stringify(this.categories));
-      // alert("please input arabic");
-      // }
-      // console.log(JSON.stringify(this.categories));
-      // document.getElementById("alert").classList.remove("block");
-      // document.getElementById("alertt").classList.add("block1");
-      // if (lang1 == "en") {
-      //   console.log(JSON.stringify(this.categories));
-      //   alert("please input english");
-      // } else {
-      //   console.log(JSON.stringify(this.categories));
-      // }
-      // }
     },
-    // if (
-    //   this.categories.category[0].name == null ||
-    //   this.categories.category[1].name == null ||
-    //   this.categories.section_id == null ||
-    //   this.categories.parent_id == null
-    // ) {
-    //   document.getElementById("alert").classList.add("block");
-    //   window.scrollTo(0, 20);
-    // } else {
-    //   setTimeout(function() {
-    //     console.log(JSON.stringify(this.categories));
-    //     document.getElementById("alert").classList.remove("block");
-    //     document.getElementById("alertt").classList.add("block1");
-    //     this.$router.push({ name: "allCategories" });
-    //   }, 1000);
-    // document.getElementById("alertt").classList.remove("block1");
   },
 };
 </script>
@@ -316,86 +296,16 @@ export default {
   background-color: #1cc3d5;
 }
 /*validation  */
-.error-message {
-  color: #cc0033;
-  /* display: inline-block; */
-  font-size: 12px;
-  line-height: 15px;
-  margin: 5px 0 0;
-}
-
-.input-group .error-message {
+#error-message1,
+#error-message2,
+#error-message3,
+#error-message4 {
   display: none;
+  color: red;
 }
-
-/* Error Styling */
-.error-message {
-  color: #cc0033;
-  /* display: inline-block; */
-  font-size: 12px;
-  line-height: 15px;
-  margin: 5px 0 0;
-}
-
-#error .error-message {
-  display: none;
-}
-#error label {
-  display: none;
-  color: #cc0033;
-}
-
-/* select */
-.selectdrop {
-  float: left;
-  padding-left: 0;
-}
-.select select {
-  /* Reset Select */
-  appearance: none;
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  /* Personalize */
-  flex: 1;
-  color: #000;
-  border: 1px solid #dbd9d9;
-  background-image: none;
-  cursor: pointer;
-}
-/* Remove IE arrow */
-.select select::-ms-expand {
-  display: none;
-}
-/* Custom Select wrapper */
-.select {
-  left: 0;
-  position: relative;
-  display: flex;
-  width: 25em;
-  height: 4em;
-  border-radius: 0.25em;
-  overflow: hidden;
-}
-/* Arrow */
-.select::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1.2em;
-  color: #dbd9d9;
-  background-color: #1cc3d5;
-  transition: 0.25s all ease;
-  pointer-events: none;
-}
-/* Transition */
-.select:hover::after {
-  color: #fff;
-}
-/*  */
 .alert {
   display: none;
+  cursor: pointer;
   padding: 20px;
   transition: all 0.5s;
   border: 0;
@@ -406,7 +316,7 @@ export default {
   padding: 20px 15px;
   line-height: 20px;
   margin-bottom: 20px;
-  background-color: red;
+  background-color: #1cc3d5;
   color: #ffffff;
   border-radius: 3px;
   -webkit-box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
@@ -419,33 +329,42 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
+#alertlangen,
+#alertlangar {
+  display: none;
+  color: red;
+}
 .alertt {
   display: none;
+  cursor: pointer;
+  bottom: 10px;
+  left: 20px;
   padding: 20px;
-  background-color: #00b618;
   color: white;
+  text-align: center;
+  position: fixed;
+  background-color: rgb(12, 99, 33);
+  z-index: 1000;
+  width: 30%;
+  font-size: 18px;
 }
 .block {
   display: block;
   text-align: center;
   position: fixed;
   margin: auto;
-  background-color: rgb(112, 13, 13);
+  background-color: red;
   z-index: 1000;
   color: #000;
   width: 40%;
   font-size: 18px;
+  opacity: 1;
 }
 .block1 {
-  display: block;
+  display: flex;
+  color: white;
   text-align: center;
-  position: fixed;
-  margin: auto;
   background-color: rgb(12, 99, 33);
-  z-index: 1000;
-  color: #000;
-  width: 40%;
-  font-size: 18px;
 }
 .closebtn {
   background-color: #fff;
@@ -521,4 +440,53 @@ export default {
   color: #999;
   /* margin-top: 200px; */
 }
+/* select */
+.selectdrop {
+  float: left;
+  padding-left: 0;
+}
+.select select {
+  /* Reset Select */
+  appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  color: #000;
+  border: 1px solid #dbd9d9;
+  background-image: none;
+  cursor: pointer;
+}
+/* Remove IE arrow */
+.select select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  left: 0;
+  position: relative;
+  display: flex;
+  width: 25em;
+  height: 4em;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.2em;
+  color: #dbd9d9;
+  background-color: #1cc3d5;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #fff;
+}
+/*  */
 </style>

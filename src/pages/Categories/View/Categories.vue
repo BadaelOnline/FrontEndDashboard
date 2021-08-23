@@ -1,39 +1,6 @@
 <template>
   <div class="content">
     <form>
-      <!-- <md-card>
-        <div class="title_form"><h4>New Category</h4></div>
-        <hr style="color: #fff;opacity: 0.5;" />
-        <div class="title_lang nav">
-          <h4
-            id="title_lang1"
-            @click="
-              enlang();
-              act();
-            "
-          >
-            English(EN)
-          </h4>
-          <h4
-            id="title_lang2"
-            @click="
-              arlang();
-              act();
-            "
-          >
-            Arabic - العربية(AR)
-          </h4>
-        </div>
-        <hr style="color: #fff;opacity: 0.5;" />
-        <md-card-content>
-          <div class="content">
-            <div class="md-layout">
-              <NewCategoriesForm data-background-color="green">
-              </NewCategoriesForm>
-            </div>
-          </div>
-        </md-card-content>
-      </md-card> -->
       <md-card>
         <div class="title_form">
           <h4>Category Tabel</h4>
@@ -208,7 +175,6 @@ export default {
   justify-content: space-around;
 }
 
-.nav_tabel .child1,
 .nav_tabel .child5,
 .nav_tabel .child6 {
   width: 10% !important;
@@ -221,6 +187,7 @@ export default {
   display: flex;
   justify-content: center;
 }
+.nav_tabel .child1,
 .nav_tabel .child3,
 .nav_tabel .child4 {
   width: 20% !important;
