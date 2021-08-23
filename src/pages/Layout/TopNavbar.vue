@@ -127,9 +127,7 @@ export default {
        this.server = this.server_change
        localStorage.setItem('server', this.server);
       alert("succed change youe new domain is :" + this.server)
-      window.location.reload();
-     
-        
+        window.location.reload();
      },
   },
  

@@ -33,12 +33,13 @@
               class="divname"
               data-background-color="dataBackgroundColor"
             >
-              <label for="name">Name</label>
+              <label for="name">name</label>
               <md-input
                 id="arabic"
                 class="text required"
                 v-model="categories.category[1].name"
               ></md-input>
+             
               <md-input
                 id="english"
                 class="text required"
