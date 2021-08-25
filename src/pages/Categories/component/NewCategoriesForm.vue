@@ -137,7 +137,9 @@
           </div>
         </div>
         <div class="child_4">
-          <UploadImagesCategory> </UploadImagesCategory>
+          <!-- <input type="file" @change="onFileSelected" /> -->
+          <UploadImagesCategory v-model="categories.images[0].image">
+          </UploadImagesCategory>
           <md-button
             :data-background-color="'blue'"
             @click="postCategory()"
@@ -186,11 +188,11 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "null",
+        slug: null,
         parent_id: null,
         images: [
           {
-            image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+            image: null,
             is_cover: 1,
           },
         ],
@@ -199,6 +201,7 @@ export default {
         created_at: null,
         updated_at: null,
       },
+      // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
   computed: {
@@ -212,6 +215,9 @@ export default {
     this.$store.dispatch("loadSections");
   },
   methods: {
+    onFileSelected(event) {
+      console.log(event);
+    },
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
       // window.location.reload();
@@ -227,7 +233,23 @@ export default {
       document.getElementById("alert").style.display = "none";
     },
     postCategory() {
-      axios.post("/api/categories/create", this.categories);
+      axios
+        .post("/api/categories/create", this.categories)
+        .then(function(response) {
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.statusText);
+          console.log(response.headers);
+          console.log(response.config);
+          document.getElementById("alertt").classList.add("block1");
+        })
+        .catch(function(error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
       if (
         this.categories.category[0].name == null &&
         this.categories.category[1].name == null &&
@@ -244,13 +266,14 @@ export default {
         document.getElementById("alertlangar").style.display = "block";
       } else if (this.categories.category[0].name == null) {
         document.getElementById("alertlangen").style.display = "block";
+      } else if (this.categories.slug == null) {
+        document.getElementById("error-message2").style.display = "block";
       } else if (this.categories.section_id == null) {
         document.getElementById("error-message3").style.display = "block";
       } else if (this.categories.parent_id == null) {
         document.getElementById("error-message4").style.display = "block";
       } else {
         console.log(JSON.stringify(this.categories));
-        document.getElementById("alertt").classList.add("block1");
       }
     },
   },
@@ -337,14 +360,16 @@ export default {
 .alertt {
   display: none;
   cursor: pointer;
-  bottom: 10px;
-  left: 20px;
+  /* bottom: 10px; */
+  /* left: 20px; */
   padding: 20px;
   color: white;
   text-align: center;
   position: fixed;
+  margin: auto;
   background-color: rgb(12, 99, 33);
   z-index: 1000;
+  opacity: 0.8;
   width: 30%;
   font-size: 18px;
 }
@@ -467,7 +492,7 @@ export default {
   left: 0;
   position: relative;
   display: flex;
-  width: 25em;
+  width: 30em;
   height: 4em;
   border-radius: 0.25em;
   overflow: hidden;
