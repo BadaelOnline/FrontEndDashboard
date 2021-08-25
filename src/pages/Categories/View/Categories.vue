@@ -174,10 +174,24 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-
+@media (max-width: 800px) {
+  .nav_tabel {
+    /* display: block; */
+  }
+  .nav_tabel .child1,
+  .nav_tabel .child2,
+  .nav_tabel .child3,
+  .nav_tabel .child4,
+  .nav_tabel .child5,
+  .nav_tabel .child6,
+  .nav_tabel .child7 {
+    width: 10%;
+    font-size: 15px;
+  }
+}
 .nav_tabel .child5,
 .nav_tabel .child6 {
-  width: 10% !important;
+  width: 20% !important;
   display: flex;
   justify-content: center;
 }
@@ -195,7 +209,7 @@ export default {
   justify-content: center;
 }
 .nav_tabel .child7 {
-  width: 30% !important;
+  width: 20% !important;
   display: flex;
   justify-content: center;
 }

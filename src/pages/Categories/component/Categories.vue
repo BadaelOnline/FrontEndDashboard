@@ -25,11 +25,15 @@
     <div class="child7">
       <!-- <router-link :to="`category/update/${id}`"> -->
       <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
-        <button style="width: 50px;" :data-background-color="'blue'">
+        <button
+          style="width: 50px; cursor:pointer"
+          :data-background-color="'blue'"
+        >
           <i class="fas fa-edit" style="margin: 0 10px;"></i>
         </button>
       </router-link>
       <button
+        style="cursor:pointer"
         @click="delettcategory()"
         class="md-accent"
         :data-background-color="'red'"
@@ -61,14 +65,28 @@ export default {
 };
 </script>
 <style>
-/* start alaa */
 .parent {
   display: flex;
   justify-content: space-around;
 }
+@media (max-width: 800px) {
+  .parent {
+    /* display: block; */
+  }
+  .parent .child1,
+  .parent .child2,
+  .parent .child3,
+  .parent .child4,
+  .parent .child5,
+  .parent .child6,
+  .parent .child7 {
+    width: 10%;
+    font-size: 15px;
+  }
+}
 .parent .child5,
 .parent .child6 {
-  width: 10% !important;
+  width: 20% !important;
   display: flex;
   justify-content: center;
   margin: auto;
@@ -90,7 +108,7 @@ export default {
   opacity: 0.7;
 }
 .parent .child7 {
-  width: 30% !important;
+  width: 20% !important;
   display: flex;
   justify-content: center;
   margin: auto;
