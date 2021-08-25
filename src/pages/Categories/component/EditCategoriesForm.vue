@@ -39,23 +39,14 @@
               class="divname"
               data-background-color="dataBackgroundColor"
             >
-<<<<<<< HEAD
-              <label for="name">name</label>
-=======
               <label for="name">{{ CategoryID.name }}</label>
->>>>>>> 53277cdc86fd7a05be22443e81b3aad5fdb0ea84
               <md-input
                 v-if="lang == 'ar'"
                 id="arabic"
                 class="text required"
                 v-model="categories.category[1].name"
-<<<<<<< HEAD
-              ></md-input>
-             
-=======
               >
               </md-input>
->>>>>>> 53277cdc86fd7a05be22443e81b3aad5fdb0ea84
               <md-input
                 v-else
                 id="english"
