@@ -34,26 +34,27 @@
             <strong>Please enter your name in Arabic also</strong>
           </div>
           <div class="depname">
-            <md-field
+            <div
               id="arabic"
               class="divname"
               data-background-color="dataBackgroundColor"
             >
-              <label for="name">{{ CategoryID.name }}</label>
-              <md-input
+              <!-- <label for="name">Name</label> -->
+              <input
                 v-if="lang == 'ar'"
                 id="arabic"
+                :placeholder="CategoryID.name"
                 class="text required"
                 v-model="categories.category[1].name"
-              >
-              </md-input>
-              <md-input
+              />
+              <input
                 v-else
                 id="english"
+                :placeholder="CategoryID.name"
                 class="text required"
                 v-model="categories.category[0].name"
-              ></md-input>
-            </md-field>
+              />
+            </div>
             <div class="divlang">
               <select
                 name=""
@@ -69,16 +70,14 @@
           <div id="error-message1">name is a required field.</div>
           <!-- slug  -->
           <div class="depname">
-            <md-field
-              class="divname"
-              data-background-color="dataBackgroundColor"
-            >
-              <label for="name">Slug</label>
-              <md-input
-                class="text required"
+            <div class="divname1" data-background-color="dataBackgroundColor">
+              <!-- <label for="name">Slug</label> -->
+              <input
+                class="text slug"
                 v-model="categories.slug"
-              ></md-input>
-            </md-field>
+                :placeholder="CategoryID.slug"
+              />
+            </div>
           </div>
           <div id="error-message2">
             slug is a required field.
@@ -233,7 +232,7 @@ export default {
       let lang = window.localStorage.getItem("lang1");
       axios.put(
         `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
-        this.CategoryID
+        this.categories
       );
       if (
         this.categories.category[0].name == null &&
@@ -256,7 +255,7 @@ export default {
       } else if (this.categories.parent_id == null) {
         document.getElementById("error-message4").style.display = "block";
       } else {
-        console.log(JSON.stringify(this.CategoryID));
+        console.log(JSON.stringify(this.categories));
         document.getElementById("alertt").classList.add("block1");
       }
     },
@@ -288,7 +287,23 @@ export default {
 /* name */
 .depname {
   display: flex;
-  width: 80%;
+  width: 85%;
+}
+.depname .divname {
+  width: 82%;
+  height: 50px;
+  margin-top: 7px;
+}
+.depname .divname1 {
+  width: 93%;
+  height: 50px;
+  margin-top: 7px;
+}
+.depname .text {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border: 1px solid #dbd9d9;
 }
 .divlang {
   cursor: pointer;

@@ -137,7 +137,9 @@
           </div>
         </div>
         <div class="child_4">
-          <UploadImagesCategory> </UploadImagesCategory>
+          <!-- <input type="file" @change="onFileSelected" /> -->
+          <UploadImagesCategory v-model="categories.images[0].image">
+          </UploadImagesCategory>
           <md-button
             :data-background-color="'blue'"
             @click="postCategory()"
@@ -186,11 +188,11 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "null",
+        slug: null,
         parent_id: null,
         images: [
           {
-            image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+            image: null,
             is_cover: 1,
           },
         ],
@@ -199,6 +201,7 @@ export default {
         created_at: null,
         updated_at: null,
       },
+      // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
   computed: {
@@ -212,6 +215,9 @@ export default {
     this.$store.dispatch("loadSections");
   },
   methods: {
+    onFileSelected(event) {
+      console.log(event);
+    },
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
       // window.location.reload();
@@ -227,7 +233,8 @@ export default {
       document.getElementById("alert").style.display = "none";
     },
     postCategory() {
-      axios.post("/api/categories/create", this.categories);
+      let res = axios.post("/api/categories/create", this.categories);
+      // console.log("res", res);
       if (
         this.categories.category[0].name == null &&
         this.categories.category[1].name == null &&
@@ -250,7 +257,11 @@ export default {
         document.getElementById("error-message4").style.display = "block";
       } else {
         console.log(JSON.stringify(this.categories));
+        // if (StatusCode == "true") {
         document.getElementById("alertt").classList.add("block1");
+        // } else {
+        // document.getElementById("alert").classList.add("block");
+        // }
       }
     },
   },

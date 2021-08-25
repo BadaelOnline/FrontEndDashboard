@@ -5,8 +5,15 @@
     </div> -->
 
     <md-card-content>
-      <UploadImage class="upload_img" :max="3" />
-      <!-- <md-button class="md-round md-success"></md-button> -->
+      <UploadImage
+        class="upload_img"
+        :max="3"
+        v-model="categories.images[0].image"
+        @change="handleImages(Imgs)"
+      />
+      <md-button class="md-round md-success" @click="postCategory()"
+        >save</md-button
+      >
     </md-card-content>
   </md-card>
 </template>
@@ -32,13 +39,8 @@ export default {
       categories: {
         category: [
           {
-            name: "accessories",
+            name: null,
             local: "en",
-            language_id: 1,
-          },
-          {
-            name: "accessories",
-            local: "fr",
             language_id: 1,
           },
           {
@@ -48,11 +50,11 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "hbjhk",
+        slug: "null",
         parent_id: null,
         images: [
           {
-            image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
+            image: null,
             is_cover: 1,
           },
         ],
@@ -68,23 +70,39 @@ export default {
     postCategory() {
       axios.post("/api/categories/create", this.categories);
       console.log(JSON.stringify(this.categories));
-      this.$router.push({ name: "categories_dash" });
+      // this.$router.push({ name: "categories_dash" });
     },
-    handleImages() {
-      console.log("file is drag");
+    // handleImages() {
+    //   console.log("file is drag");
+    // },
+    onFilesSelected() {
+      console.log(this.files);
     },
     // handleImages(Imgs) {
-    //     this.categories.images[0].image = 'http://localhost:8081/img/' + Imgs[0].name;
-    //     for (var i = 0; i < Imgs.length; i++) {
-    //         this.categories.images[i] = Imgs[i].name;
-    //         this.categories.images[i] = {
-    //             image: Imgs[i].name,
-    //             product_id: this.CategoryID.id,
-    //             is_cover: i === 0 ? 1 : 0,
-    //         };
-    //     }
-    //     console.log(this.categories.images);
+    //   this.categories.images[0].image = Imgs.name;
+    //   for (var i = 0; i < Imgs.length; i++) {
+    //     this.categories.images[i] = Imgs[i].name;
+    //     this.categories.images[i] = {
+    //       image: Imgs[i].name,
+    //       // product_id: this.CategoryID.id,
+    //       is_cover: i === 0 ? 1 : 0,
+    //     };
+    //   }
+    //   console.log(this.categories.images);
     // },
+    handleImages(Imgs) {
+      this.categories.images[0].image =
+        "http://localhost:8081/img/" + Imgs[0].name;
+      for (var i = 0; i < Imgs.length; i++) {
+        this.categories.images[i] = Imgs[i].name;
+        this.categories.images[i] = {
+          image: Imgs[i].name,
+          // product_id: this.ProductID.id,
+          is_cover: i === 0 ? 1 : 0,
+        };
+      }
+      console.log(this.categories.images);
+    },
   },
 
   computed: {
