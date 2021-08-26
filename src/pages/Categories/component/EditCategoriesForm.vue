@@ -34,27 +34,25 @@
             <strong>Please enter your name in Arabic also</strong>
           </div>
           <div class="depname">
-            <div
+            <md-field
               id="arabic"
               class="divname"
               data-background-color="dataBackgroundColor"
             >
-              <!-- <label for="name">Name</label> -->
-              <input
+              <label for="name">Name</label>
+              <md-input
                 v-if="lang == 'ar'"
                 id="arabic"
-                :placeholder="CategoryID.name"
                 class="text required"
                 v-model="categories.category[1].name"
-              />
-              <input
+              ></md-input>
+              <md-input
                 v-else
                 id="english"
-                :placeholder="CategoryID.name"
                 class="text required"
                 v-model="categories.category[0].name"
-              />
-            </div>
+              ></md-input>
+            </md-field>
             <div class="divlang">
               <select
                 name=""
@@ -70,14 +68,16 @@
           <div id="error-message1">name is a required field.</div>
           <!-- slug  -->
           <div class="depname">
-            <div class="divname1" data-background-color="dataBackgroundColor">
-              <!-- <label for="name">Slug</label> -->
-              <input
-                class="text slug"
+            <md-field
+              class="divname"
+              data-background-color="dataBackgroundColor"
+            >
+              <label for="name">Slug</label>
+              <md-input
+                class="text required"
                 v-model="categories.slug"
-                :placeholder="CategoryID.slug"
-              />
-            </div>
+              ></md-input>
+            </md-field>
           </div>
           <div id="error-message2">
             slug is a required field.
@@ -185,7 +185,7 @@ export default {
           },
         ],
         is_active: 1,
-        slug: "null",
+        slug: null,
         parent_id: null,
         images: [
           {
@@ -223,17 +223,32 @@ export default {
     },
     hidesucces() {
       document.getElementById("alertt").style.display = "none";
-      this.$router.push({ path: "/admin/categories" });
     },
     hideerror() {
       document.getElementById("alert").style.display = "none";
     },
     updateCategory() {
       let lang = window.localStorage.getItem("lang1");
-      axios.put(
-        `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
-        this.categories
-      );
+      axios
+        .put(
+          `/api/categories/update/${this.CategoryID.id}?lang=${lang}`,
+          this.categories
+        )
+        .then(function(response) {
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.statusText);
+          console.log(response.headers);
+          console.log(response.config);
+          document.getElementById("alertt").classList.add("block1");
+        })
+        .catch(function(error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
       if (
         this.categories.category[0].name == null &&
         this.categories.category[1].name == null &&
@@ -250,13 +265,15 @@ export default {
         document.getElementById("alertlangar").style.display = "block";
       } else if (this.categories.category[0].name == null) {
         document.getElementById("alertlangen").style.display = "block";
+      } else if (this.categories.slug == null) {
+        document.getElementById("error-message2").style.display = "block";
       } else if (this.categories.section_id == null) {
         document.getElementById("error-message3").style.display = "block";
       } else if (this.categories.parent_id == null) {
         document.getElementById("error-message4").style.display = "block";
       } else {
         console.log(JSON.stringify(this.categories));
-        document.getElementById("alertt").classList.add("block1");
+        // this.$router.push({ name: "Categories" });
       }
     },
   },
@@ -270,6 +287,42 @@ export default {
 .parent {
   display: flex;
   width: 100%;
+}
+@media (max-width: 800px) {
+  .parent {
+    display: block;
+  }
+  .parent .child_1 {
+    max-width: 90%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 70%;
+    margin: 20px auto;
+  }
+  .parent .child_4 .btn {
+    margin: auto;
+  }
+}
+@media (max-width: 500px) {
+  .parent .child_1 {
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 90%;
+    margin: 20px auto;
+  }
 }
 .parent .child_1 {
   width: 100%;
@@ -287,23 +340,7 @@ export default {
 /* name */
 .depname {
   display: flex;
-  width: 85%;
-}
-.depname .divname {
-  width: 82%;
-  height: 50px;
-  margin-top: 7px;
-}
-.depname .divname1 {
-  width: 93%;
-  height: 50px;
-  margin-top: 7px;
-}
-.depname .text {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border: 1px solid #dbd9d9;
+  width: 80%;
 }
 .divlang {
   cursor: pointer;
@@ -359,14 +396,16 @@ export default {
 .alertt {
   display: none;
   cursor: pointer;
-  bottom: 10px;
-  left: 20px;
+  /* bottom: 10px; */
+  /* left: 20px; */
   padding: 20px;
   color: white;
   text-align: center;
   position: fixed;
+  margin: auto;
   background-color: rgb(12, 99, 33);
   z-index: 1000;
+  opacity: 0.8;
   width: 30%;
   font-size: 18px;
 }
@@ -489,7 +528,7 @@ export default {
   left: 0;
   position: relative;
   display: flex;
-  width: 25em;
+  width: 100%;
   height: 4em;
   border-radius: 0.25em;
   overflow: hidden;

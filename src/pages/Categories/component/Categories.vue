@@ -58,7 +58,16 @@ export default {
   methods: {
     delettcategory() {
       // this.$store.dispatch("deleteCategory", items);
-      axios.put(`/api/categories/trash/${this.id}`, this.details);
+      let res = confirm(`Are you sure you want to delete ${this.id}`);
+      if (res) {
+        axios.put(`/api/categories/trash/${this.id}`);
+        console.log(JSON.stringify(this.is_active));
+      }
+    },
+    status() {
+      if (this.is_active == "Active") {
+        return this.is_active == "NotActive";
+      }
       console.log(JSON.stringify(this.is_active));
     },
   },
@@ -71,6 +80,7 @@ export default {
 }
 @media (max-width: 800px) {
   .parent {
+    width: 120%;
     /* display: block; */
   }
   .parent .child1,
@@ -82,6 +92,18 @@ export default {
   .parent .child7 {
     width: 10%;
     font-size: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .parent {
+    width: 150%;
+    /* display: block; */
+  }
+}
+@media (max-width: 300px) {
+  .parent {
+    width: 180%;
+    /* display: block; */
   }
 }
 .parent .child5,
@@ -98,6 +120,9 @@ export default {
   display: flex;
   justify-content: center;
 }
+.parent .child1 {
+  font-weight: 700;
+}
 .parent .child1,
 .parent .child3,
 .parent .child4 {
@@ -106,6 +131,9 @@ export default {
   justify-content: center;
   margin: auto;
   opacity: 0.7;
+}
+.parent .child3 {
+  font-weight: 600;
 }
 .parent .child7 {
   width: 20% !important;
@@ -157,5 +185,10 @@ export default {
   display: inline-flex;
   gap: 10px;
   justify-content: center;
+}
+#messageDelete {
+  position: fixed;
+  background-color: #0fb7cf;
+  margin: auto;
 }
 </style>

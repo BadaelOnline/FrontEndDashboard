@@ -37,10 +37,10 @@ export const editCategory = ({ commit }, CategoryID) => {
   commit("Edit_Category", newCategory);
   return newCategory;
 };
-export const deleteCategory = ({ commit }, items) => {
+export const deleteCategory = ({ commit }, CategoryID) => {
   axios.put(
-    `/api/categories/trash/${items.id}`,
-    commit("Delete_Category", items.id)
+    `/api/categories/trash/${CategoryID}`,
+    commit("Delete_Category", CategoryID)
   );
 };
 export const loadSections = ({ commit }) => {

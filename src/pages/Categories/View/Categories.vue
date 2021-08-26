@@ -12,37 +12,37 @@
         </div>
         <hr style="color: #fff;opacity: 0.5;" />
 
-        <div class="nav_tabel">
-          <div class="child1"><H4>Category Id</H4></div>
-          <div class="child2"><H4>Img</H4></div>
-          <div class="child3"><H4>Name</H4></div>
-          <div class="child4"><H4>slug</H4></div>
-          <div class="child5"><H4>Section</H4></div>
-          <div class="child6"><H4>Status</H4></div>
-          <div class="child7"><H4>Action</H4></div>
-        </div>
+        <div class="table" v-if="Categories.length > 0">
+          <div class="nav_tabel">
+            <div class="child1">Category Id</div>
+            <div class="child2">Img</div>
+            <div class="child3">Name</div>
+            <div class="child4">slug</div>
+            <div class="child5">Section</div>
+            <div class="child6">Status</div>
+            <div class="child7">Action</div>
+          </div>
 
-        <!-- <md-table-empty-state
-            md-label="No users found"
-            :md-description="
-              `No user found for this '${search}' query. Try a different search term or create a new user.`
-            "
+          <Categories
+            v-for="item in Categories"
+            :key="item.pr"
+            :id="item.id"
+            :name="item.name"
+            :slug="item.slug"
+            :image="item.image"
+            :section_id="item.section_id"
+            :is_active="item.is_active"
+            :category_images="item.category_images"
+            style="margin: 10px 0"
           >
-          </md-table-empty-state> -->
-        <!-- loop products -->
-        <Categories
-          v-for="item in Categories"
-          :key="item.pr"
-          :id="item.id"
-          :name="item.name"
-          :slug="item.slug"
-          :image="item.image"
-          :section_id="item.section_id"
-          :is_active="item.is_active"
-          :category_images="item.category_images"
-          style="margin: 10px 0"
-        >
-        </Categories>
+          </Categories>
+        </div>
+        <div class="unavaible_category" v-else>
+          <div class="unavaible">
+            <img src="../../../../public/img/unavalible.jpg" />
+            <h2>Ops... Categories not available.</h2>
+          </div>
+        </div>
       </md-card>
     </form>
   </div>
@@ -51,25 +51,9 @@
 <script>
 import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
-const toLower = (text) => {
-  return text.toString().toLowerCase();
-};
-
-const searchByName = (items, term) => {
-  if (term) {
-    return items.filter((name) => toLower(name).includes(toLower(term)));
-  }
-
-  return items;
-};
 export default {
   data() {
-    let lang1 = window.localStorage.getItem("lang1");
-    return {
-      lang1: lang1,
-      search: null,
-      searched: [],
-    };
+    return {};
   },
   components: { Categories },
   name: "AllCategories",
@@ -82,40 +66,6 @@ export default {
   mounted() {
     this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadSections");
-  },
-  methods: {
-    newUser() {
-      window.alert("Noop");
-    },
-    searchOnTable() {
-      this.searched = searchByName(this.Categories, this.search);
-    },
-    arlang() {
-      localStorage.setItem("lang1", "ar");
-    },
-    enlang() {
-      localStorage.setItem("lang1", "en");
-    },
-    act() {
-      var ar = document.getElementById("title_lang2");
-      var en = document.getElementById("title_lang1");
-      var english = document.getElementById("english");
-      var arabic = document.getElementById("arabic");
-      if (localStorage.getItem("lang1") == "ar") {
-        en.classList.remove("act");
-        ar.classList.toggle("act");
-        arabic.style.display = "block";
-        english.style.display = "none";
-      } else {
-        ar.classList.remove("act");
-        en.classList.toggle("act");
-        arabic.style.display = "none";
-        english.style.display = "block";
-      }
-    },
-  },
-  created() {
-    this.searched = this.Categories;
   },
 };
 </script>
@@ -173,10 +123,31 @@ export default {
 .nav_tabel {
   display: flex;
   justify-content: space-around;
+  background-color: #36bdca;
+  height: 4em;
+  align-items: center;
+  opacity: 0.8;
+}
+.nav_tabel .child1,
+.nav_tabel .child2,
+.nav_tabel .child3,
+.nav_tabel .child4,
+.nav_tabel .child5,
+.nav_tabel .child6,
+.nav_tabel .child7 {
+  font-weight: 900;
 }
 @media (max-width: 800px) {
   .nav_tabel {
     /* display: block; */
+    width: 120%;
+  }
+  .table {
+    overflow: scroll;
+    height: 600px;
+  }
+  .content {
+    height: 20%;
   }
   .nav_tabel .child1,
   .nav_tabel .child2,
@@ -187,6 +158,18 @@ export default {
   .nav_tabel .child7 {
     width: 10%;
     font-size: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .nav_tabel {
+    /* display: block; */
+    width: 150%;
+  }
+}
+@media (max-width: 300px) {
+  .nav_tabel {
+    /* display: block; */
+    width: 180%;
   }
 }
 .nav_tabel .child5,
@@ -220,6 +203,25 @@ export default {
   gap: 60%;
   justify-content: center;
   align-items: center;
+}
+.unavaible_category {
+  background-color: #ecf0f1;
+  height: auto;
+  width: 100%;
+  margin: auto;
+}
+.unavaible {
+  margin: 50px auto;
+  width: 90%;
+  text-align: center;
+}
+.unavaible_product img {
+  margin-bottom: 25px;
+  max-height: 200px;
+}
+.unavaible_product h2 {
+  font-size: 3em;
+  color: gray;
 }
 </style>
 
