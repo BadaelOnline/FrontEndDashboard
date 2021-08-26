@@ -5,12 +5,7 @@
     </div> -->
 
     <md-card-content>
-      <UploadImage
-        class="upload_img"
-        :max="3"
-        v-model="categories.images[0].image"
-        @change="handleImages(Imgs)"
-      />
+      <UploadImage class="upload_img" :max="3" @change="handleImages($event)" />
       <md-button class="md-round md-success" @click="postCategory()"
         >save</md-button
       >
@@ -78,30 +73,19 @@ export default {
     onFilesSelected() {
       console.log(this.files);
     },
-    // handleImages(Imgs) {
-    //   this.categories.images[0].image = Imgs.name;
-    //   for (var i = 0; i < Imgs.length; i++) {
-    //     this.categories.images[i] = Imgs[i].name;
-    //     this.categories.images[i] = {
-    //       image: Imgs[i].name,
-    //       // product_id: this.CategoryID.id,
-    //       is_cover: i === 0 ? 1 : 0,
-    //     };
-    //   }
-    //   console.log(this.categories.images);
-    // },
-    handleImages(Imgs) {
-      this.categories.images[0].image =
-        "http://localhost:8081/img/" + Imgs[0].name;
-      for (var i = 0; i < Imgs.length; i++) {
-        this.categories.images[i] = Imgs[i].name;
-        this.categories.images[i] = {
-          image: Imgs[i].name,
-          // product_id: this.ProductID.id,
-          is_cover: i === 0 ? 1 : 0,
-        };
-      }
-      console.log(this.categories.images);
+    handleImages(files) {
+      console.log(files);
+      // this.categories.image = "http://localhost:8081/admin/img/" + Imgs[0].name;
+      // for (var i = 0; i < Imgs.length; i++) {
+      //   this.categories.images[i] = Imgs[i].name;
+      //   this.categories.images[i] = {
+      //     image: Imgs[i].name,
+      //     product_id: this.ProductID.id,
+      //     is_cover: i === 0 ? 1 : 0,
+      //   };
+      // }
+      // console.log(this.categories.images);
+      // console.log(Imgs[0].name);
     },
   },
 
