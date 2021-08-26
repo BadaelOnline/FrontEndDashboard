@@ -11,8 +11,8 @@ export const Edit_Category = (state, CategoryID) => {
     }
   });
 };
-export const Delete_Category = (state, itemsId) => {
-  let Categories = state.Categories.filter((v) => v.id != itemsId);
+export const Delete_Category = (state, itemId) => {
+  let Categories = state.Categories.filter((v) => v.id != itemId);
   state.Categories = Categories;
 };
 export const SET_Sections = (state, sections) => {

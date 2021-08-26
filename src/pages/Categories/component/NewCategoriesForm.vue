@@ -138,12 +138,11 @@
         </div>
         <div class="child_4">
           <!-- <input type="file" @change="onFileSelected" /> -->
-          <UploadImagesCategory v-model="categories.images[0].image">
-          </UploadImagesCategory>
+          <UploadImagesCategory class="image"> </UploadImagesCategory>
           <md-button
             :data-background-color="'blue'"
             @click="postCategory()"
-            class="toggle-disabled"
+            class="btn"
             id="btnAdd"
             >Add</md-button
           >
@@ -157,10 +156,12 @@
 import { mapState } from "vuex";
 import axios from "axios";
 import UploadImagesCategory from "./UploadImagesCategory.vue";
+// import UploadCategoryImages from "./media/UploadCategoryImages.vue";
 export default {
   name: "NewCategoryForm",
   components: {
     UploadImagesCategory,
+    // UploadCategoryImages,
   },
   props: {
     dataBackgroundColor: {
@@ -274,6 +275,7 @@ export default {
         document.getElementById("error-message4").style.display = "block";
       } else {
         console.log(JSON.stringify(this.categories));
+        // this.$router.push({ name: "Categories" });
       }
     },
   },
@@ -287,6 +289,42 @@ export default {
 .parent {
   display: flex;
   width: 100%;
+}
+@media (max-width: 800px) {
+  .parent {
+    display: block;
+  }
+  .parent .child_1 {
+    max-width: 90%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 70%;
+    margin: 20px auto;
+  }
+  .parent .child_4 .btn {
+    margin: auto;
+  }
+}
+@media (max-width: 500px) {
+  .parent .child_1 {
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 90%;
+    margin: 20px auto;
+  }
 }
 .parent .child_1 {
   width: 100%;
@@ -492,7 +530,7 @@ export default {
   left: 0;
   position: relative;
   display: flex;
-  width: 30em;
+  width: 100%;
   height: 4em;
   border-radius: 0.25em;
   overflow: hidden;

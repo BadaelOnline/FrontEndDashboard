@@ -20,7 +20,7 @@ import Categories from "../pages/Categories/component/Categories.vue";
 import NewCategoriesForm from "../pages/Categories/component/NewCategoriesForm.vue";
 import EditCategoriesForm from "../pages/Categories/component/EditCategoriesForm.vue";
 import UploadImagesCategory from "../pages/Categories/component/UploadImagesCategory.vue";
-
+// import UploadCategoryImages from "../pages/Categories/component/media/UploadCategoryImages.vue";
 //brand
 import Brands from "../pages/Brands/component/Brands.vue";
 import NewBrandForm from "../pages/Brands/component/NewBrandForm.vue";
@@ -64,6 +64,7 @@ export {
   UploadImagesStore,
   UpImagStrProd,
   UploadImagesCategory,
+  // UploadCategoryImages,
   UploadImagesProduct,
   UploadImagesBrand,
   UploadImagesDoctor,
