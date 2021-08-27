@@ -5,7 +5,7 @@
     </div> -->
 
     <md-card-content>
-      <UploadImage class="upload_img" :max="3" @change="handleImages($event)" />
+      <UploadImage class="upload_img" :max="3" @change="handleImages()" />
       <md-button class="md-round md-success" @click="postCategory()"
         >save</md-button
       >
@@ -73,19 +73,19 @@ export default {
     onFilesSelected() {
       console.log(this.files);
     },
-    handleImages(files) {
-      console.log(files);
-      // this.categories.image = "http://localhost:8081/admin/img/" + Imgs[0].name;
-      // for (var i = 0; i < Imgs.length; i++) {
-      //   this.categories.images[i] = Imgs[i].name;
-      //   this.categories.images[i] = {
-      //     image: Imgs[i].name,
-      //     product_id: this.ProductID.id,
-      //     is_cover: i === 0 ? 1 : 0,
-      //   };
-      // }
-      // console.log(this.categories.images);
-      // console.log(Imgs[0].name);
+    handleImages(e, Imgs) {
+      this.File = e.target.files;
+      this.File = e.dataTransfer.files;
+      console.log(File);
+      this.categories.image = Imgs[0].name;
+      for (var i = 0; i < Imgs.length; i++) {
+        this.categories.images[i] = Imgs[i].name;
+        this.categories.images[i] = {
+          image: Imgs[i].name,
+          is_cover: i === 0 ? 1 : 0,
+        };
+      }
+      console.log(this.categories.images);
     },
   },
 
