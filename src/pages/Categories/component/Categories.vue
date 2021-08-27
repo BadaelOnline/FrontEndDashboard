@@ -14,13 +14,14 @@
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
     <div class="child5">{{ section_id }}</div>
-    <div class="child6">
+    <div class="child6" @click="statusCategory()" style="cursor:pointer;">
       <i
         v-if="is_active == 'Active'"
+        id="Active"
         class="fa fa-check"
         style="color: green;"
       ></i>
-      <i v-else class="fa fa-times" style="color: #f20b07;"></i>
+      <i v-else id="norActive" class="fa fa-times" style="color: #f20b07;"></i>
     </div>
     <div class="child7">
       <!-- <router-link :to="`category/update/${id}`"> -->
@@ -64,11 +65,27 @@ export default {
         console.log(JSON.stringify(this.is_active));
       }
     },
-    status() {
-      if (this.is_active == "Active") {
-        return this.is_active == "NotActive";
-      }
+    Active() {
+      axios.put(`/api/categories/trash/${this.id}`);
       console.log(JSON.stringify(this.is_active));
+    },
+    notActive() {
+      axios.put(`/api/categories/restoreTrashed/${this.id}`);
+      console.log(JSON.stringify(this.is_active));
+    },
+    statusCategory() {
+      console.log(JSON.stringify(this.is_active));
+      if (this.is_active == "Active") {
+        axios.put(`/api/categories/trash/${this.id}`);
+        // window.location.reload();
+      } else {
+        axios.put(`/api/categories/restoreTrashed/${this.id}`);
+        // window.location.reload();
+      }
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
+      //
     },
   },
 };
