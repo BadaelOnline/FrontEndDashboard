@@ -58,20 +58,17 @@ export default {
   ],
   methods: {
     delettcategory() {
+      console.log(JSON.stringify(this.is_active));
       // this.$store.dispatch("deleteCategory", items);
-      let res = confirm(`Are you sure you want to delete ${this.id}`);
-      if (res) {
-        axios.put(`/api/categories/trash/${this.id}`);
-        console.log(JSON.stringify(this.is_active));
+      if (this.is_active == "Active") {
+        let res = confirm(`Are you sure you want to delete ${this.id}`);
+        if (res) {
+          axios.put(`/api/categories/trash/${this.id}`);
+          console.log(JSON.stringify(this.is_active));
+        }
+      } else {
+        alert("You cannot delete it because it has already been deleted");
       }
-    },
-    Active() {
-      axios.put(`/api/categories/trash/${this.id}`);
-      console.log(JSON.stringify(this.is_active));
-    },
-    notActive() {
-      axios.put(`/api/categories/restoreTrashed/${this.id}`);
-      console.log(JSON.stringify(this.is_active));
     },
     statusCategory() {
       console.log(JSON.stringify(this.is_active));
