@@ -139,6 +139,9 @@
         <div class="child_4">
           <div class="image">
             <div>
+              <div id="error-message5">
+                images is a required field.
+              </div>
               <div
                 class="container"
                 @dragover.prevent="dragOver"
@@ -161,108 +164,10 @@
                     @change="previewImgs"
                     multiple
                   />
-                  <svg
-                    class="icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                  >
-                    <title>Upload Image</title>
-                    <g id="Upload_Image" data-name="Upload Image">
-                      <g id="_Group_" data-name="&lt;Group&gt;">
-                        <g id="_Group_2" data-name="&lt;Group&gt;">
-                          <g id="_Group_3" data-name="&lt;Group&gt;">
-                            <circle
-                              id="_Path_"
-                              data-name="&lt;Path&gt;"
-                              cx="18.5"
-                              cy="16.5"
-                              r="5"
-                              style="
-                    fill: none;
-                    stroke: #303c42;
-                    stroke-linecap: round;
-                    stroke-linejoin: round;
-                  "
-                            />
-                          </g>
-                          <polyline
-                            id="_Path_2"
-                            data-name="&lt;Path&gt;"
-                            points="16.5 15.5 18.5 13.5 20.5 15.5"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                          <line
-                            id="_Path_3"
-                            data-name="&lt;Path&gt;"
-                            x1="18.5"
-                            y1="13.5"
-                            x2="18.5"
-                            y2="19.5"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                        </g>
-                        <g id="_Group_4" data-name="&lt;Group&gt;">
-                          <polyline
-                            id="_Path_4"
-                            data-name="&lt;Path&gt;"
-                            points="0.6 15.42 6 10.02 8.98 13"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                          <polyline
-                            id="_Path_5"
-                            data-name="&lt;Path&gt;"
-                            points="17.16 11.68 12.5 7.02 7.77 11.79"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                          <circle
-                            id="_Path_6"
-                            data-name="&lt;Path&gt;"
-                            cx="8"
-                            cy="6.02"
-                            r="1.5"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                          <path
-                            id="_Path_7"
-                            data-name="&lt;Path&gt;"
-                            d="M19.5,11.6V4A1.5,1.5,0,0,0,18,2.5H2A1.5,1.5,0,0,0,.5,4V15A1.5,1.5,0,0,0,2,16.5H13.5"
-                            style="
-                  fill: none;
-                  stroke: #303c42;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                "
-                          />
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-
+                  <img
+                    class="imgupload"
+                    src="../../../../public/img/uploadimg.png"
+                  />
                   <p class="mainMessage">
                     {{
                       uploadMsg
@@ -278,7 +183,7 @@
 
                   <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
                     <img :src="img" />
-                    <label>{{ files[0].name }}</label>
+                    <!-- <label>{{ files[0].name }}</label> -->
                     <span
                       class="delete"
                       style="color: white"
@@ -308,16 +213,15 @@
               <!-- <button @click="postImages()">save</button> -->
             </div>
           </div>
-
-          <md-button
-            :data-background-color="'blue'"
-            @click="postCategory()"
-            class="btn"
-            id="btnAdd"
-            >Add</md-button
-          >
         </div>
       </div>
+      <md-button
+        :data-background-color="'blue'"
+        @click="postCategory()"
+        class="btn"
+        id="btnAdd"
+        >Add</md-button
+      >
     </div>
   </md-card>
 </template>
@@ -413,7 +317,10 @@ export default {
     },
     postCategory() {
       axios
-        .post("/api/categories/create", this.categories)
+        .post(
+          "http://edalili.e-dalely.com/public/api/categories/create",
+          this.categories
+        )
         .then(function(response) {
           console.log(response.data);
           console.log(response.status);
@@ -433,7 +340,8 @@ export default {
         this.categories.category[0].name == null &&
         this.categories.category[1].name == null &&
         this.categories.section_id == null &&
-        this.categories.parent_id == null
+        this.categories.parent_id == null &&
+        this.categories.images[0].image == null
       ) {
         document.getElementById("alert").classList.add("block");
       } else if (
@@ -451,6 +359,8 @@ export default {
         document.getElementById("error-message3").style.display = "block";
       } else if (this.categories.parent_id == null) {
         document.getElementById("error-message4").style.display = "block";
+      } else if (this.categories.images[0].image == null) {
+        document.getElementById("error-message5").style.display = "block";
       } else {
         console.log(JSON.stringify(this.categories));
         // this.$router.push({ name: "Categories" });
@@ -486,7 +396,8 @@ export default {
             : `Unsupported file type`;
         }
       }
-      console.log(files[0].name);
+      console.log(files);
+      this.categories.images[0].image = this.files[0].name;
       this.dropped = 0;
     },
     append() {
@@ -542,11 +453,6 @@ export default {
       this.files = [];
       this.$emit("changed", this.files);
     },
-    postImages() {
-      axios.post("/api/categories/create", this.categories);
-      console.log(JSON.stringify(this.categories));
-      // this.$router.push({ name: "categories_dash" });
-    },
   },
 };
 </script>
@@ -554,10 +460,14 @@ export default {
 <style scoped>
 .create {
   padding: 20px;
+  height: auto;
+  width: 100%;
+  text-align: center;
 }
 .parent {
   display: flex;
   width: 100%;
+  height: auto;
 }
 @media (max-width: 800px) {
   .parent {
@@ -597,7 +507,7 @@ export default {
 }
 .parent .child_1 {
   width: 100%;
-  height: 100px;
+  height: auto;
 }
 .md-field {
   border: 1px solid #d0cece;
@@ -607,6 +517,7 @@ export default {
 }
 .parent .child_4 {
   width: 100%;
+  margin: auto;
 }
 /* name */
 .depname {
@@ -629,7 +540,8 @@ export default {
 #error-message1,
 #error-message2,
 #error-message3,
-#error-message4 {
+#error-message4,
+#error-message5 {
   display: none;
   color: red;
 }
@@ -820,16 +732,20 @@ export default {
 .select:hover::after {
   color: #fff;
 }
-/*  */
 /* images */
 .container {
   width: 100%;
-  height: 100%;
+  height: 200px;
   background: #f7fafc;
   border: 0.5px solid #a3a8b1;
   border-radius: 10px;
   padding: 30px;
   position: relative;
+  align-items: center;
+}
+.imgupload {
+  width: 1000px;
+  max-height: 800px;
 }
 .drop {
   width: 100%;
