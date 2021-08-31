@@ -27,7 +27,8 @@ import VueI18n from "vue-i18n";
 import FlagIcon from "vue-flag-icon";
 //store.js
 import store from "./store/Store";
-
+import  "bootstrap";
+import 'bootstrap/dist/css/bootstrap.css';
 //axios
 import axios from "axios";
 
@@ -49,6 +50,7 @@ const server = localStorage.getItem("server") || "http://edalili.e-dalely.com/pu
 axios.defaults.baseURL = server;
 const router = new VueRouter({
   mode: "history",
+  
   routes, // short for routes: routes
   linkExactActiveClass: "nav-item active",
 });

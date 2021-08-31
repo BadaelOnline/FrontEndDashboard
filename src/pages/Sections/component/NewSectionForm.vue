@@ -1,253 +1,346 @@
 <template>
-  <form>
-    <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">New Section</h4>
-
-        <p class="category">Complete your profile</p>
-      </md-card-header>
-
-      <md-card-content>
-        <div>
-          <div class="alert" id="alert">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-            <strong>Danger!</strong> You must fill in all fields.
-          </div>
-          <div class="alertt" id="alertt">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-            <strong>Good</strong> "operation accomplished successfully.
-          </div>
-          <div class="md-layout md-size-100">
-            <div class="md-layout-item  md-size-100 div">
-              <md-card-header data-background-color="dataBackgroundColor">
-                <h4 class="title">Name</h4>
-                <md-field
-                  class="md-layout-item md-size-100 name"
-                  data-background-color="dataBackgroundColor"
-                >
-                  <md-input
-                    class="text"
-                    v-model="Sections.section[1].name"
-                  ></md-input>
-                  <!-- <md-input
-                    class="text"
-                    v-else-if="lang1 == 'en'"
-                    v-model="Sections.section[0].name"
-                  ></md-input>
-                  <md-field class="md-layout md-size-50 lang">
-                    <select
-                      class="langselect"
-                      v-model="lang1"
-                      @change="handleChange1($event)"
-                    >
-                      <option label="lang" disabled>lang</option>
-                      <option value="en">EN</option>
-                      <option value="ar">AR</option>
-                    </select>
-                  </md-field> -->
-                </md-field>
-              </md-card-header>
-            </div>
-            <div class="md-layout-item md-size-100">
-              <UploadImagesSection> </UploadImagesSection>
-            </div>
-          </div>
-          <div class="md-layout md-medium-size-100 ">
-            <md-button @click="postSection()">Add</md-button>
-          </div>
-        </div>
-      </md-card-content>
-    </md-card>
-  </form>
+  <md-card>
+    <div class="create">
+      
+         <div  id="su" class="alert alert-success" role="alert">
+ {{Massage_success}} .
+</div> 
+<svg  id="sp" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+</svg>
+<div id="m" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{Massage_warning}} .
+  <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
+</div>
+      <!-- tab -->
+      <div class="title_form">
+        <h4>Section Form</h4>
+      </div>
+      <hr style="color: #fff;opacity: 0.5;" />
+      <div class="parent"> 
+      </div>
+<form class="row g-3 needs-validation" novalidate>
+  <div class="col-md-8">
+    <label for="validationCustom01" class="form-label">English Name </label>
+    <input type="text" class="form-control" id="validationCustom01" 
+    v-model="sections.section[0].name"   required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+    <div class="col-md-8">
+    <label for="validationCustom02" class="form-label">Arabic Name</label>
+    <input type="text" class="form-control" id="validationCustom02" 
+     v-model="sections.section[1].name" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-8">
+    <label for="validationCustom02" class="form-label">slug</label>
+    <input type="text" class="form-control" id="validationCustom02" 
+    v-model="sections.slug" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  
+</form>
+ 
+      <md-button
+        :data-background-color="'blue'"
+        @click="updateSections()"
+        class="btn"
+        id="btnAdd"
+        >Add</md-button
+      >
+    
+    </div>
+  </md-card>
 </template>
-
 <script>
-import { mapState } from "vuex";
 import axios from "axios";
-import UploadImagesSection from "./UploadImagesSection.vue";
-
 export default {
-  name: "NewSectionForm",
+  name: "CreateProductForm",
   components: {
-    UploadImagesSection,
+  
   },
   props: {
-    dataBackgroundColor: {
-      type: String,
-      default: "",
-    },
+   
   },
   data() {
-    let lang1 = window.localStorage.getItem("lang1");
+   const lang = localStorage.getItem("lang") || "en";
     return {
-      lang1: lang1,
-      Sections: {
-        section: [
-          {
-            name: "null",
-            local: "en",
-            description: "null",
-            section_id: 1,
-          },
-          {
-            name: null,
-            local: "ar",
-            description: "null",
-            section_id: 1,
-          },
-        ],
-        slug: "fahed",
-        is_active: 1,
-        image: "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg",
-        created_at: null,
-        updated_at: null,
-      },
+    Massage_success: "",
+    Massage_warning:"",
+      statusnumber: null,
+      lang: lang,
+      sections: {
+    "section": [
+        {
+            "name": "",
+            "local": "en",
+            "description": "asasas",
+            "section_id": 1
+        },
+        {
+            "name": "",
+            "local": "ar",
+            "description": "asasas",
+            "section_id": 1
+        },
+        {
+            "name": "fahed",
+            "local": "fr",
+            "description": "asasas",
+            "section_id": 1
+        }  
+    ],
+    "slug": "",
+    "is_active": 1,
+    "image": "fafaffafa",
+    "created_at": "",
+    "updated_at": ""
+},
     };
   },
-  computed: {
-    ...mapState({
-      sections: (state) => state.All.sections,
-    }),
-  },
   mounted() {
-    this.$store.dispatch("loadSections");
+  
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('click', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+           form.classList.add('was-validated')
+          
+        }
+
+       
+      }, false)
+    })
+})()
   },
   methods: {
-    postSection() {
-      axios.post(`/api/sections/create`, this.Sections);
-      if (this.Sections.section[1].name == null) {
-        document.getElementById("alert").classList.add("block");
-        window.scrollTo(0, 20);
-      } else {
-        document.getElementById("alert").classList.remove("block");
-        document.getElementById("alertt").classList.add("block");
-        console.log(JSON.stringify(this.Sections));
-        this.$router.push({ name: "allSection" });
+       close(){
+          document.getElementById(`m`).classList.toggle('cvs');
+     },
+  updateSections() {
+    var self = this;
+      //  if (this.categories.images[0].image == "") {
+      // alert('select img is required');
+      // } 
+     
+      if (this.sections.section[0].name == "") {
+       this.Massage_warning ='english name is required you must enter name';
+      document.getElementById(`m`).classList.toggle('cvs');
+      }  
+      else if (this.sections.section[1].name == "" ) {
+      this.Massage_warning ='arabic name is required you must enter name';
+      document.getElementById(`m`).classList.toggle('cvs');
+      }  
+       else if (this.sections.slug == "") {
+         this.Massage_warning ='slug is required you must enter slug';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
+      else {
+          document.getElementById('sp').classList.toggle('cvs');
+        axios
+        .post(
+           `/api/sections/create`,
+          this.sections
+        )
+        .then(function(response) {
+           console.log(response.data.stateNum);
+          if(response.data.stateNum == 201 || self.statusnumber == 200){
+          document.getElementById('sp').classList.toggle('cvs');
+          self.statusnumber = response.data.stateNum;
+          self.Massage_success ='Create sections Request Success do you want go to category tabel';
+          document.getElementById("su").classList.toggle('cvs');
+                        setTimeout(() => {
+          self.$router.push({ name: 'section' });
+              
+                }, 2000);
+          }  
+          else{
+              document.getElementById('sp').classList.toggle('cvs');
+              self.Massage_warning = "Error : " + response.data.msg;
+            document.getElementById('m').classList.toggle('cvs'); 
+          }
+        
+        })
+               .catch(function(error) {
+          if (error.response) {
+        document.getElementById('sp').classList.toggle('cvs');
+            console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            self.Massage_warning = "Error : " + error.response.data.message;
+            document.getElementById('m').classList.toggle('cvs'); 
+            
+          }
+        });
+    
       }
     },
-    handleChange1(event) {
-      localStorage.setItem("lang1", event.target.value);
-    },
+
   },
 };
 </script>
-
 <style scoped>
-.md-layout-item.md-size-33 {
-  min-width: 100%;
-  max-width: 100%;
-  flex: 0 1 33.3333%;
+input{
+  border: 1px solid #ddd;
 }
-.md-steppers-navigation {
-  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
-    0 1px 5px 0 rgb(0 0 0 / 12%);
-  display: flex;
-  gap: 10px;
-  margin: 20px auto;
-}
-.div {
-  min-width: 100%;
-  max-width: 100%;
-  margin-left: 0 !important;
-  flex: 1 1 100%;
-  margin: 40px;
-}
-.md-layout-item.md-size-60 {
-  min-width: 60%;
-  max-width: 60%;
-  flex: 0 1 60%;
-  /* padding: 20px; */
-  margin: auto;
-}
-.md-menu.md-select {
-  display: flex;
-  flex: 1;
-  overflow: auto;
-}
-.alert {
-  display: none;
+.create {
   padding: 20px;
-  transition: all 0.5s;
-  border: 0;
-  margin: 20px;
-  gap: 20px;
-  border-radius: 0;
-  position: relative;
-  padding: 20px 15px;
-  line-height: 20px;
-  margin-bottom: 20px;
-  background-color: red;
-  color: #ffffff;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
-    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
-  box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
-    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
-}
-.alertt {
-  display: none;
-  padding: 20px;
-  background-color: #00b618;
-  color: white;
-}
-.block {
-  display: flex;
-  background-color: red;
-}
-.req {
-  display: none;
-  color: red;
-  /* margin-top: 30px; */
-}
-.req1 {
-  display: none;
-  color: red;
-}
-.req2 {
-  display: none;
-  color: red;
-}
-.lang {
-  border: none;
-}
-.langselect {
-  border: none;
-  /* border: solid #7c7979; */
-  background-color: #d1c9c9;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.name {
+  height: auto;
   width: 100%;
-  max-height: 20px;
-  min-height: 48px;
-  margin: 4px 0 24px;
-  padding-top: 16px;
-  display: flex;
-  position: relative;
-  font-family: inherit;
-}
-.lang {
-  max-height: 30px;
-  min-height: 30px;
-  margin: auto;
-  padding: 0;
-}
-.text {
   text-align: center;
 }
-.md-card .title {
-  margin-top: 0;
-  text-align: start;
-  margin-bottom: 5px;
+.parent {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 800px) {
+  .parent {
+    display: block;
+  }
+  .parent .child_1 {
+    max-width: 90%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 70%;
+    margin: 20px auto;
+  }
+  .parent .child_4 .btn {
+    margin: auto;
+  }
+}
+@media (max-width: 500px) {
+  .parent .child_1 {
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 {
+    display: inline-grid;
+    max-width: 100%;
+    margin: auto;
+  }
+  .parent .child_4 .image {
+    max-width: 90%;
+    margin: 20px auto;
+  }
+}
+.parent .child_1 {
+  width: 100%;
+  height: auto;
+}
+.md-field {
+  border: 1px solid #d0cece;
+}
+.md-field label {
   padding-left: 10px;
+}
+.parent .child_4 {
+  width: 100%;
+  margin: auto;
+}
+h4{
+font-size: 20px;
+font-weight: bold;
+border: 1px solid #158a8ade;
+padding: 10px;
+}
+</style>
+<style lang="scss" scoped>
+ $offset: 187;
+ $duration: 1.4s;
+
+ .spinner {
+   animation: rotator $duration linear infinite;
+   position: absolute;
+   z-index: 50;
+   top: 50%;
+  left: 50%;
+   visibility: hidden;
+ }
+ .spin-hide{
+     display: none;
+ }
+ @keyframes rotator {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(270deg); }
+ }
+
+ .path {
+   stroke-dasharray: $offset;
+   stroke-dashoffset: 0;
+   transform-origin: center;
+   animation:
+     dash $duration ease-in-out infinite, 
+     colors ($duration*4) ease-in-out infinite;
+ }
+
+ @keyframes colors {
+   0% { stroke: #4285F4; }
+   25% { stroke: #DE3E35; }
+   50% { stroke: #F7C223; }
+   75% { stroke: #1B9A59; }
+   100% { stroke: #4285F4; }
+ }
+
+ @keyframes dash {
+  0% { stroke-dashoffset: $offset; }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform:rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform:rotate(450deg);
+  }
+ }
+ .alert-danger{
+position: fixed !important;
+width: 75%;
+height: 150px;
+visibility: hidden;
+display: flex;
+justify-content: center;
+font-size: 20px;
+align-items: center;
+left: 20%;
+ z-index: 5;
+}
+.alert-success{
+  visibility: hidden;
+  position: fixed !important;
+ width: 75%;
+height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  font-size: 20px;
+  left: 20%;
+}
+.cvs{
+visibility: visible !important;
 }
 </style>

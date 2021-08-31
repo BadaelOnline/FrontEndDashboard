@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <notifications></notifications>
 
     <side-bar
       :sidebar-item-color="sidebarBackground"
@@ -13,7 +12,7 @@
         :md-offset-x="127"
         :md-offset-y="-36"
       >
-        <!-- <md-button md-menu-trigger
+        <!-- <md-button md-menu-trigger notifications
           >Languages
       
           <select class="cu_1" v-model="lang" @change="handleChange($event)">

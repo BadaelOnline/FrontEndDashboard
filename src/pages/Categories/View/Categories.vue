@@ -23,7 +23,7 @@
             <div class="child7">Action</div>
           </div>
 
-          <Categories
+          <Categories 
             v-for="item in Categories"
             :key="item.pr"
             :id="item.id"
@@ -38,9 +38,13 @@
           </Categories>
         </div>
         <div class="unavaible_category" v-else>
+           <router-link :to="`/admin/category/create`"
+            ><md-button class="md-accent" :data-background-color="'blue'">
+              New Category</md-button
+            ></router-link
+          >
           <div class="unavaible">
-            <img src="../../../../public/img/unavalible.jpg" />
-            <h2>Ops... Categories not available.</h2>
+            <h2>Ops... Categories doesnt exist yet.</h2>
           </div>
         </div>
       </md-card>
@@ -53,7 +57,9 @@ import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
   components: { Categories },
   name: "AllCategories",
@@ -66,7 +72,11 @@ export default {
   mounted() {
     this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadSections");
+       
   },
+  methods:{
+    
+  }
 };
 </script>
 
@@ -90,35 +100,6 @@ export default {
   font-size: 16px;
   position: relative;
   cursor: pointer;
-}
-.act {
-  color: #0040ff;
-  /* background-color: #0040ff; */
-}
-.act::before {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  -webkit-transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  transition: border 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
-    -webkit-transform 0s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  will-change: border, opacity, transform;
-  content: " ";
-  background-color: #377dff;
-  width: 100%;
-  height: 3px;
 }
 .nav_tabel {
   display: flex;
@@ -177,6 +158,14 @@ export default {
   width: 20% !important;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+.nav_tabel .child6::before {
+content: '(click to restore)';
+opacity: .6;
+font-size: 13px;
+position: absolute;
+bottom: -15px;  
 }
 
 .nav_tabel .child2 {
@@ -214,10 +203,7 @@ export default {
   margin: 50px auto;
   width: 90%;
   text-align: center;
-}
-.unavaible_product img {
-  margin-bottom: 25px;
-  max-height: 200px;
+  height: 300px;
 }
 .unavaible_product h2 {
   font-size: 3em;
