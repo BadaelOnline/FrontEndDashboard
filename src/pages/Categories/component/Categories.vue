@@ -14,7 +14,7 @@
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
     <div class="child5">{{ section_id }}</div>
-    <div class="child6" @click="statusCategory()" style="cursor:pointer;">
+    <div class="child6" v-if="is_active"  @click="statusCategory(id)" style="cursor:pointer;">
       <i
         v-if="is_active == 'Active'"
         id="Active"
@@ -22,6 +22,9 @@
         style="color: green;"
       ></i>
       <i v-else id="norActive" class="fa fa-times" style="color: #f20b07;"></i>
+    </div>
+  <div class="child6" v-else>
+Active key  doesnt exist 
     </div>
     <div class="child7">
       <!-- <router-link :to="`category/update/${id}`"> -->
@@ -33,20 +36,38 @@
           <i class="fas fa-edit" style="margin: 0 10px;"></i>
         </button>
       </router-link>
-      <button
-        style="cursor:pointer"
-        @click="delettcategory()"
-        class="md-accent"
-        :data-background-color="'red'"
+      <div
+        @click="deletCategory(id)"
+        class="delet"
+        :class="{ non_active_delete : !is_active}"
       >
         <i class="fa fa-trash" style="margin: 0 10px;"></i>
-      </button>
+      </div>
     </div>
+    
+<div  :id="`s${id}`" class="alert alert-success" role="alert">
+ {{Massage_success}} .
+</div> 
+<svg  :id="`sp${id}`" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+</svg>
+<div :id="`m${id}`" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{Massage_warning}} .
+  <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
+</div>
   </div>
 </template>
 <script>
+
 import axios from "axios";
 export default {
+   data() {
+    return {
+     deleted: null,
+     Massage_success: "",
+     Massage_warning:""
+    };
+  },
   props: [
     "id",
     "name",
@@ -56,41 +77,133 @@ export default {
     "category_images",
     "slug",
   ],
-  methods: {
-    delettcategory() {
-      console.log(JSON.stringify(this.is_active));
-      // this.$store.dispatch("deleteCategory", items);
-      if (this.is_active == "Active") {
-        let res = confirm(`Are you sure you want to delete ${this.id}`);
-        if (res) {
-          axios.put(`/api/categories/trash/${this.id}`);
-          console.log(JSON.stringify(this.is_active));
-        }
-      } else {
-        alert("You cannot delete it because it has already been deleted");
+  methods: { 
+     close(){
+          document.getElementById(`m${this.id}`).classList.toggle('cvs');
+     },
+      deletCategory(i) {
+           var self = this;
+        if(this.is_active == 'Not Active'){
+        this.Massage_warning ='This not Active element you can not delete it please choose restore item on the left side';
+        document.getElementById(`sp${i}`).classList.toggle('cvs');
+      }
+      else{
+         var r = confirm(`Are you sure you want to delete Categoty id ${i}`);
+        if (r == true) {
+          document.getElementById(`sp${i}`).classList.toggle('cvs');
+          axios.put(`/api/categories/trash/${this.id}`).then(function( response ){
+                
+                 if(response.statusText == 'OK'){
+                self.Massage_success = 'Success Item Delete';
+                    document.getElementById(`sp${i}`).classList.toggle('cvs');
+                     document.getElementById(`s${i}`).classList.toggle('cvs');
+                     setTimeout(() => {
+                        document.getElementById(`s${i}`).classList.toggle('cvs');
+                     }, 3000);
+                     setTimeout(() => {
+                        window.location.reload(); 
+                     }, 3500);
+                      
+                 }
+                  else{
+                      document.getElementById(`sp${i}`).classList.toggle('cvs');
+                this.Massage_warning =` error !! Sorry we will work for this error soon `
+               document.getElementById(`m${i}`).classList.toggle('cvs');
+                }
+                })
+                .catch(function(error) {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            // console.log(error.response.headers);
+            document.getElementById(`sp${i}`).classList.toggle('cvs');
+               this.Massage_warning =` error !! Sorry we will work for this error soon `
+               document.getElementById(`m${i}`).classList.toggle('cvs');
+          }
+        });
+        } 
+         
+       this.$forceUpdate();
+                   
+          
       }
     },
-    statusCategory() {
-      console.log(JSON.stringify(this.is_active));
-      if (this.is_active == "Active") {
-        axios.put(`/api/categories/trash/${this.id}`);
-        // window.location.reload();
-      } else {
-        axios.put(`/api/categories/restoreTrashed/${this.id}`);
-        // window.location.reload();
+    statusCategory(i) {
+      var self = this;
+      if(this.is_active == 'Active'){
+       this.Massage_warning ='This Active element you can not restore it please choose delete item on the right side';
+        document.getElementById(`m${i}`).classList.toggle('cvs');
       }
-      setTimeout(function() {
-        window.location.reload();
-      }, 1000);
+      else{
+         let res = confirm(`Are you sure you want to restore Categoty id ${i}`);
+      if (res) {
+               document.getElementById(i).classList.toggle('cvs');
+      axios.put(`/api/categories/restoreTrashed/${this.id}`).then(function( response ){
+               
+               if(response.statusText == 'OK'){
+                self.Massage_success = 'Success Item Restore Delete';
+                 console.log(response.statusText);
+                    document.getElementById(i).classList.toggle('cvs');
+                     document.getElementById(`s${i}`).classList.toggle('cvs');
+                     setTimeout(() => {
+                        document.getElementById(`s${i}`).classList.toggle('cvs');
+                     }, 3000);
+                      setTimeout(() => {
+                        window.location.reload(); 
+                     }, 3500);
+                 }
+             
+                })
+              .catch(function(error) {
+          if (error.response) {
+            console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            document.getElementById(i).classList.toggle('cvs');
+               self.Massage_warning = error.response.data.message;
+               document.getElementById(`m${i}`).classList.toggle('cvs');
+          }
+        }); 
+      } 
+       
+       this.$forceUpdate(); 
+    }
       //
     },
   },
+ 
+ 
 };
 </script>
 <style>
 .parent {
   display: flex;
   justify-content: space-around;
+  position: relative;
+}
+.alert-danger{
+position: absolute !important;
+width: 100%;
+height: 100%;
+visibility: hidden;
+display: flex;
+justify-content: center;
+font-size: 20px;
+align-items: center;
+}
+.alert-success{
+  visibility: hidden;
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  font-size: 20px;
+}
+.cvs{
+visibility: visible !important;
 }
 @media (max-width: 800px) {
   .parent {
@@ -172,37 +285,66 @@ export default {
   height: 100%;
   border-radius: 0;
 }
-/* end alaa */
-.md-field:not(.md-disabled)::after {
-  display: none;
+.delet{
+  cursor: pointer;
+display: flex;
+align-items: center;
+width: 50px;
+height: 40px;
+justify-content: center;
+margin-top: 13px;
+background-color: #e8403c !important;
+color: #fff;
 }
-.md-layout-item.md-size-20 {
-  min-width: 20%;
-  max-width: 20%;
-  height: 60px;
-  /* max-height: 100%; */
+.non_active_delete{
+  background-color: #ddd !important;
+  cursor: default !important; 
 }
-.md-card img {
-  max-width: 30%;
-  height: 100%;
-  border-radius: 50%;
-  min-height: 60%;
-  max-height: 60px;
-}
-.md-layout {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.actionbutton {
-  flex: 0 1 10%;
-  display: inline-flex;
-  gap: 10px;
-  justify-content: center;
-}
-#messageDelete {
-  position: fixed;
-  background-color: #0fb7cf;
-  margin: auto;
-}
+</style>
+<style lang="scss" scoped>
+ $offset: 187;
+ $duration: 1.4s;
+
+ .spinner {
+   animation: rotator $duration linear infinite;
+   position: absolute;
+   z-index: 50;
+   visibility: hidden;
+ }
+ .spin-hide{
+     display: none;
+ }
+ @keyframes rotator {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(270deg); }
+ }
+
+ .path {
+   stroke-dasharray: $offset;
+   stroke-dashoffset: 0;
+   transform-origin: center;
+   animation:
+     dash $duration ease-in-out infinite, 
+     colors ($duration*4) ease-in-out infinite;
+ }
+
+ @keyframes colors {
+   0% { stroke: #4285F4; }
+   25% { stroke: #DE3E35; }
+   50% { stroke: #F7C223; }
+   75% { stroke: #1B9A59; }
+   100% { stroke: #4285F4; }
+ }
+
+ @keyframes dash {
+  0% { stroke-dashoffset: $offset; }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform:rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform:rotate(450deg);
+  }
+ }
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div class="md-layout">
-    <div class="md-layout-item md-small-size-100 md-size-10">1</div>
+    <div class="md-layout-item md-small-size-100 md-size-10"></div>
 
     <div class="md-layout-item md-small-size-100 md-size-20">
-      <img v-lazy="" />
+      <img src="" />
     </div>
 
-    <div class="md-layout-item md-small-size-100 md-size-20">Head & Shoulders</div>
-    <div class="md-layout-item md-small-size-100 md-size-20">8 Hours</div>
+    <div class="md-layout-item md-small-size-100 md-size-20"></div>
+    <div class="md-layout-item md-small-size-100 md-size-20"></div>
     <div class="md-layout-item md-small-size-100 md-size-10">
       <i v-if="is_appear == 'Appear'" class="fa fa-check"></i>
       <i v-else class="fa fa-times"></i>

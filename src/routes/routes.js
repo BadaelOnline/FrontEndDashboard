@@ -83,7 +83,7 @@ const routes = [
       // Products
       {
         path: "/admin/products",
-        name: "AllProducts",
+        name: "Products",
         component: AllProducts,
       },
 
@@ -150,7 +150,7 @@ const routes = [
       // Brands
       {
         path: "/admin/brands",
-        name: "AllBrands",
+        name: "Brands",
         component: AllBrands,
       },
       {
@@ -166,7 +166,7 @@ const routes = [
       //sections
       {
         path: "/admin/sections",
-        name: "AllSection",
+        name: "section",
         component: AllSections,
       },
       {
@@ -182,7 +182,7 @@ const routes = [
       // Offers
       {
         path: "/admin/offers",
-        name: "AllOffers",
+        name: "Offers",
         component: allOffers,
       },
       {
@@ -199,7 +199,7 @@ const routes = [
       // Doctors
       {
         path: "/admin/doctors",
-        name: "allDoctors",
+        name: "Doctors",
         component: AllDoctors,
       },
       {
@@ -215,7 +215,7 @@ const routes = [
       //Restaurant
       {
         path: "/admin/restaurants",
-        name: "AllRestaurant",
+        name: "Restaurant",
         component: AllRestaurant,
       },
       {
@@ -231,7 +231,7 @@ const routes = [
       // Restaurant meals
       {
         path: "allmeals",
-        name: "AllMeals",
+        name: "Meals",
         component: AllMeals,
       },
       {
@@ -247,7 +247,7 @@ const routes = [
       //Restaurant user
       {
         path: "allusers",
-        name: "AllUsers",
+        name: "Users",
         component: AllUsers,
       },
       {
@@ -263,7 +263,7 @@ const routes = [
       //Restaurant Menu
       {
         path: "allmenus",
-        name: "AllMenu",
+        name: "Menu",
         component: AllMenu,
       },
       {

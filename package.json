@@ -10,6 +10,7 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.3",
     "@vuelidate/core": "^2.0.0-alpha.24",
     "@vuelidate/validators": "^2.0.0-alpha.21",
     "axios": "^0.21.1",
@@ -20,6 +21,7 @@
     "file-upload-with-preview": "^4.1.0",
     "google-maps": "4.2.3",
     "mdbvue": "^6.7.3",
+    "popper.js": "^1.16.1",
     "swr": "^0.5.6",
     "swrv": "^0.9.3",
     "vue": "2.6.11",

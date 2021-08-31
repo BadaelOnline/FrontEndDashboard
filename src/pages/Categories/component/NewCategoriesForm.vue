@@ -1,59 +1,23 @@
 <template>
   <md-card>
     <div class="create">
+
+         <div  id="su" class="alert alert-success" role="alert">
+ {{Massage_success}} .
+</div> 
+<svg  id="sp" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+</svg>
+<div id="m" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{Massage_warning}} .
+  <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
+</div>
       <!-- tab -->
       <div class="title_form">
-        <h4>Category Form</h4>
-      </div>
-      <hr style="color: #fff;opacity: 0.5;" />
-      <div class="parent">
-        <!-- alert -->
-        <div class="alert" id="alert" @click="hideerror()">
-          <!-- <span
-            class="closebtn"
-            onclick="this.parentElement.style.display='none';"
-            >&times;</span
-          > -->
-          <strong>One or more fields have an error!</strong>
-          please check and try again...this fields is require
-          <!-- </div> -->
-          <div>One or more fields have an error!</div>
-          <div>
-            <span>this fields is require!</span>
-          </div>
-          <p>please check and try again</p>
-        </div>
-        <div class="alertt" id="alertt" @click="hidesucces()">
-          <strong>Category New successfully</strong>
-        </div>
-        <div class="child_1">
-          <div class="alertlang" id="alertlangen">
-            <strong>Please enter your name in English also</strong>
-          </div>
-          <div class="alertlang" id="alertlangar">
-            <strong>Please enter your name in Arabic also</strong>
-          </div>
-          <div class="depname">
-            <md-field
-              id="arabic"
-              class="divname"
-              data-background-color="dataBackgroundColor"
-            >
-              <label for="name">Name</label>
-              <md-input
-                v-if="lang == 'ar'"
-                id="arabic"
-                class="text required"
-                v-model="categories.category[1].name"
-              ></md-input>
-              <md-input
-                v-else
-                id="english"
-                class="text required"
-                v-model="categories.category[0].name"
-              ></md-input>
-            </md-field>
-            <div class="divlang">
+       
+      <div class="lng">
+      <h4>Category Form</h4>
+      <div class="divlang">
               <select
                 name=""
                 id=""
@@ -64,79 +28,65 @@
                 <option value="ar">AR</option>
               </select>
             </div>
-          </div>
-          <div id="error-message1">name is a required field.</div>
-          <!-- slug  -->
-          <div class="depname">
-            <md-field
-              class="divname"
-              data-background-color="dataBackgroundColor"
-            >
-              <label for="name">Slug</label>
-              <md-input
-                class="text required"
-                v-model="categories.slug"
-              ></md-input>
-            </md-field>
-          </div>
-          <div id="error-message2">
-            slug is a required field.
-          </div>
-          <!-- section -->
-          <div
-            class="md-layout-item md-size-80 selectdrop "
-            id="error1"
-            data-background-color="dataBackgroundColor"
-          >
-            <div class="select">
-              <select v-model="categories.section_id">
-                <option
-                  value="Section"
-                  selected="selected"
-                  disabled
-                  style="color:#000"
-                  >Choose the section</option
-                >
-                <option
+              </div>
+      </div>
+      <hr style="color: #fff;opacity: 0.5;" />
+      <div class="parent"> 
+      </div>
+<form class="row g-3 needs-validation" novalidate>
+  <div class="col-md-6">
+    <label for="validationCustom01" class="form-label">Name </label>
+    <input type="text" class="form-control" id="validationCustom01" 
+    v-model="categories.category[1].name"  v-if="lang == 'ar'" required>
+     <input type="text" class="form-control" id="validationCustom01"   
+     v-model="categories.category[0].name" required  v-else>
+  
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="validationCustom02" class="form-label">Slug</label>
+    <input type="text" class="form-control" id="validationCustom02" v-model="categories.slug" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="validationCustom04" class="form-label">section_id</label>
+    <select class="form-select" id="validationCustom04"  v-model="categories.section_id" required>
+      <option selected disabled value="">Choose...</option>
+       <option
                   v-for="item in sections"
                   :key="item.id"
                   :value="item.id"
-                  >{{ item.name }}</option
-                >
-              </select>
-            </div>
-            <div id="error-message3">
-              section is a required field.
-            </div>
-          </div>
-          <!-- category parent -->
-          <div
-            class="md-layout-item md-size-80 selectdrop"
-            data-background-color="dataBackgroundColor"
-          >
-            <div class="select">
-              <select v-model="categories.parent_id">
-                <option
-                  value="Section"
-                  selected="selected"
-                  disabled
-                  style="color:#000"
-                  >Choose the Categories Parent</option
-                >
-                <option
+                  >{{ item.name }}
+      </option >
+    </select>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+ 
+  <div class="col-md-6">
+    <label for="validationCustom04" class="form-label">parent_id </label>
+    <select class="form-select" id="validationCustom04" v-model="categories.parent_id" required>
+      <option selected disabled value="">Choose...</option>
+      <option 
                   v-for="category in Categories"
                   :key="category.id"
                   :value="category.id"
-                  >{{ category.name }}</option
-                >
-              </select>
-            </div>
-            <div id="error-message4">
-              Category parent is a required field.
-            </div>
-          </div>
-        </div>
-        <div class="child_4">
+                  >{{ category.name }}
+      </option>
+    </select>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+
+</form>
+ <div class="child_4">
           <div class="image">
             <div>
               <div id="error-message5">
@@ -166,8 +116,9 @@
                   />
                   <img
                     class="imgupload"
-                    src="../../../../public/img/uploadimg.png"
+                    src=""
                   />
+                         <!-- ../../../../public/img/uploadimg.png  -->
                   <p class="mainMessage">
                     {{
                       uploadMsg
@@ -214,7 +165,6 @@
             </div>
           </div>
         </div>
-      </div>
       <md-button
         :data-background-color="'blue'"
         @click="postCategory()"
@@ -222,6 +172,7 @@
         id="btnAdd"
         >Add</md-button
       >
+ 
     </div>
   </md-card>
 </template>
@@ -247,6 +198,9 @@ export default {
     const lang = localStorage.getItem("lang") || "en";
     let lang1 = localStorage.getItem("lang1");
     return {
+    Massage_success: "",
+    Massage_warning:"",
+      statusnumber: null,
       error: "",
       files: [],
       dropped: 0,
@@ -254,32 +208,32 @@ export default {
       lang1: lang1,
       lang: lang,
       categories: {
-        category: [
+        "category": [
           {
-            name: null,
-            local: "en",
-            language_id: 1,
+            "name": "",
+            "local": "en",
+            "language_id": 1
           },
           {
-            name: null,
-            local: "ar",
-            language_id: 1,
-          },
+            "name": "",
+            "local": "ar",
+            "language_id": 1
+          }
         ],
-        is_active: 1,
-        slug: null,
-        parent_id: null,
-        images: [
+        "is_active": 1,
+        "slug": "",
+        "parent_id": "",
+        "images": [
           {
-            image: null,
-            is_cover: 1,
-          },
+            "image": "",
+            "is_cover": 1
+          }
         ],
-        section_id: null,
-        lang_id: 1,
-        created_at: null,
-        updated_at: null,
-      },
+        "section_id": "1",
+        "lang_id": 1,
+        "created_at": "13",
+        "updated_at": "14"
+      }
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
@@ -299,73 +253,108 @@ export default {
   mounted() {
     this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadSections");
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('click', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+           form.classList.add('was-validated')
+          
+        }
+
+       
+      }, false)
+    })
+})()
   },
   methods: {
+       close(){
+          document.getElementById(`m`).classList.toggle('cvs');
+     },
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
       // window.location.reload();
     },
-    hidelang() {
-      document.getElementById("alertlang").style.display = "none";
-    },
-    hidesucces() {
-      document.getElementById("alertt").style.display = "none";
-      this.$router.push({ path: "/admin/categories" });
-    },
-    hideerror() {
-      document.getElementById("alert").style.display = "none";
-    },
     postCategory() {
-      axios
+    var self = this;
+       if (this.categories.images[0].image == "") {
+     this.Massage_warning ='select img is required';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
+      else if (this.categories.category[1].name == "") {
+       this.Massage_warning ='arabic name is required you must enter name';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
+      else if (this.categories.category[0].name == "") {
+        this.Massage_warning ='english name is required you must enter name';
+      document.getElementById(`m`).classList.toggle('cvs');
+     
+      }   
+       else if (this.categories.section_id == "") {
+
+      this.Massage_warning ='section_id is required you must enter section_id';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
+       else if (this.categories.parent_id == "") {
+         this.Massage_warning ='parent_id is required you must enter parent_id';
+      document.getElementById(`m`).classList.toggle('cvs');
+    
+      } 
+       else if (this.categories.slug == "") {
+          this.Massage_warning ='slug is required you must enter slug';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
+      else {
+        document.getElementById('sp').classList.toggle('cvs');
+        axios
         .post(
           "http://edalili.e-dalely.com/public/api/categories/create",
           this.categories
         )
         .then(function(response) {
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.statusText);
-          console.log(response.headers);
-          console.log(response.config);
-          document.getElementById("alertt").classList.add("block1");
+           console.log(response.data);
+          if(response.data.stateNum == 201 || self.statusnumber == 200){
+               document.getElementById('sp').classList.toggle('cvs');
+            self.statusnumber = response.data.stateNum;
+         self.Massage_success ='Create Category Request Success do you want go to category tabel';
+         document.getElementById("su").classList.toggle('cvs');
+                setTimeout(() => {
+    self.$router.push({ name: 'Categories' });
+      
+        }, 2000);
+          }
+          else{
+              document.getElementById('sp').classList.toggle('cvs');
+              self.Massage_warning = "Error : " + response.data.msg;
+            document.getElementById('m').classList.toggle('cvs'); 
+          }
+        
         })
-        .catch(function(error) {
+             .catch(function(error) {
           if (error.response) {
+        document.getElementById('sp').classList.toggle('cvs');
             console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            self.Massage_warning = "Error : " + error.response.data.message;
+            document.getElementById('m').classList.toggle('cvs'); 
+            
           }
         });
-      if (
-        this.categories.category[0].name == null &&
-        this.categories.category[1].name == null &&
-        this.categories.section_id == null &&
-        this.categories.parent_id == null &&
-        this.categories.images[0].image == null
-      ) {
-        document.getElementById("alert").classList.add("block");
-      } else if (
-        this.categories.category[0].name == null &&
-        this.categories.category[1].name == null
-      ) {
-        document.getElementById("error-message1").style.display = "block";
-      } else if (this.categories.category[1].name == null) {
-        document.getElementById("alertlangar").style.display = "block";
-      } else if (this.categories.category[0].name == null) {
-        document.getElementById("alertlangen").style.display = "block";
-      } else if (this.categories.slug == null) {
-        document.getElementById("error-message2").style.display = "block";
-      } else if (this.categories.section_id == null) {
-        document.getElementById("error-message3").style.display = "block";
-      } else if (this.categories.parent_id == null) {
-        document.getElementById("error-message4").style.display = "block";
-      } else if (this.categories.images[0].image == null) {
-        document.getElementById("error-message5").style.display = "block";
-      } else {
-        console.log(JSON.stringify(this.categories));
-        // this.$router.push({ name: "Categories" });
+    
       }
     },
+    
     // images
     dragOver() {
       this.dropped = 2;
@@ -397,7 +386,7 @@ export default {
         }
       }
       console.log(files);
-      this.categories.images[0].image = this.files[0].name;
+      this.categories.images[0].image = `${this.files[0].name}`;
       this.dropped = 0;
     },
     append() {
@@ -444,7 +433,7 @@ export default {
         this.Imgs = values;
       });
       console.log(this.files);
-      this.categories.images[0].image = this.files[0].name;
+      this.categories.images[0].image =`${this.files[0].name}`;
       // console.log(data);
     },
     reset() {
@@ -458,72 +447,30 @@ export default {
 </script>
 
 <style scoped>
+
+input{
+  border: 1px solid #ddd;
+}
+
+.lng{
+    display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.lng h4{
+  font-size: 20px;
+font-weight: bold;
+border: 1px solid #158a8ade;
+padding: 10px;
+}
 .create {
   padding: 20px;
   height: auto;
   width: 100%;
   text-align: center;
+  position: relative;
 }
-.parent {
-  display: flex;
-  width: 100%;
-  height: auto;
-}
-@media (max-width: 800px) {
-  .parent {
-    display: block;
-  }
-  .parent .child_1 {
-    max-width: 90%;
-    margin: auto;
-  }
-  .parent .child_4 {
-    display: inline-grid;
-    max-width: 100%;
-    margin: auto;
-  }
-  .parent .child_4 .image {
-    max-width: 70%;
-    margin: 20px auto;
-  }
-  .parent .child_4 .btn {
-    margin: auto;
-  }
-}
-@media (max-width: 500px) {
-  .parent .child_1 {
-    max-width: 100%;
-    margin: auto;
-  }
-  .parent .child_4 {
-    display: inline-grid;
-    max-width: 100%;
-    margin: auto;
-  }
-  .parent .child_4 .image {
-    max-width: 90%;
-    margin: 20px auto;
-  }
-}
-.parent .child_1 {
-  width: 100%;
-  height: auto;
-}
-.md-field {
-  border: 1px solid #d0cece;
-}
-.md-field label {
-  padding-left: 10px;
-}
-.parent .child_4 {
-  width: 100%;
-  margin: auto;
-}
-/* name */
-.depname {
-  display: flex;
-  width: 80%;
-}
+
 .divlang {
   cursor: pointer;
   padding: 5px 0;
@@ -532,207 +479,19 @@ export default {
   border: none;
   height: 3.3rem;
   cursor: pointer;
-  color: #dbd9d9;
-  border: 1px solid #dbd9d9;
-  background-color: #1cc3d5;
-}
-/*validation  */
-#error-message1,
-#error-message2,
-#error-message3,
-#error-message4,
-#error-message5 {
-  display: none;
-  color: red;
-}
-.alert {
-  display: none;
-  cursor: pointer;
-  padding: 20px;
-  transition: all 0.5s;
-  border: 0;
-  margin: 20px;
-  gap: 20px;
-  border-radius: 0;
-  position: relative;
-  padding: 20px 15px;
-  line-height: 20px;
-  margin-bottom: 20px;
-  background-color: #1cc3d5;
-  color: #ffffff;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
-    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
-  box-shadow: 0 12px 20px -10px rgb(153 153 153 / 28%),
-    0 4px 20px 0px rgb(0 0 0 / 12%), 0 7px 8px -5px rgb(153 153 153 / 20%);
-}
-.alert div {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-}
-#alertlangen,
-#alertlangar {
-  display: none;
-  color: red;
-}
-.alertt {
-  display: none;
-  cursor: pointer;
-  /* bottom: 10px; */
-  /* left: 20px; */
-  padding: 20px;
-  color: white;
-  text-align: center;
-  position: fixed;
-  margin: auto;
-  background-color: rgb(12, 99, 33);
-  z-index: 1000;
-  opacity: 0.8;
-  width: 30%;
-  font-size: 18px;
-}
-.block {
-  display: block;
-  text-align: center;
-  position: fixed;
-  margin: auto;
-  background-color: red;
-  z-index: 1000;
-  color: #000;
-  width: 40%;
-  font-size: 18px;
-  opacity: 1;
-}
-.block1 {
-  display: flex;
-  color: white;
-  text-align: center;
-  background-color: rgb(12, 99, 33);
-}
-.closebtn {
-  background-color: #fff;
-  width: 20px;
-}
-.alert div:first-of-type {
-  animation: showup 7s infinite;
-}
-
-.alert div:last-of-type {
-  width: 0px;
-  animation: reveal 7s infinite;
-}
-
-.alert div:last-of-type span {
-  margin-left: -355px;
-  animation: slidein 7s infinite;
-}
-
-@keyframes showup {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes slidein {
-  0% {
-    margin-left: -800px;
-  }
-  20% {
-    margin-left: -800px;
-  }
-  35% {
-    margin-left: 0px;
-  }
-  100% {
-    margin-left: 0px;
-  }
-}
-
-@keyframes reveal {
-  0% {
-    opacity: 0;
-    width: 0px;
-  }
-  20% {
-    opacity: 1;
-    width: 0px;
-  }
-  30% {
-    width: 355px;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    width: 355px;
-  }
-}
-
-.alert p {
-  font-size: 12px;
-  color: #999;
-  /* margin-top: 200px; */
-}
-/* select */
-.selectdrop {
-  float: left;
-  padding-left: 0;
-}
-.select select {
-  /* Reset Select */
-  appearance: none;
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  /* Personalize */
-  flex: 1;
-  color: #000;
-  border: 1px solid #dbd9d9;
-  background-image: none;
-  cursor: pointer;
-}
-/* Remove IE arrow */
-.select select::-ms-expand {
-  display: none;
-}
-/* Custom Select wrapper */
-.select {
-  left: 0;
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 4em;
-  border-radius: 0.25em;
-  overflow: hidden;
-}
-/* Arrow */
-.select::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1.2em;
-  color: #dbd9d9;
-  background-color: #1cc3d5;
-  transition: 0.25s all ease;
-  pointer-events: none;
-}
-/* Transition */
-.select:hover::after {
   color: #fff;
+  border: 1px solid #dbd9d9;
+  background-color: #1cc3d5;
+  width: 150px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
 }
+
 /* images */
+.image {
+  margin-top: 30px;
+}
 .container {
   width: 100%;
   height: 200px;
@@ -841,5 +600,81 @@ export default {
   background: none;
   border: none;
   cursor: pointer;
+}
+</style>
+<style lang="scss" scoped>
+ $offset: 187;
+ $duration: 1.4s;
+
+ .spinner {
+   animation: rotator $duration linear infinite;
+   position: absolute;
+   z-index: 50;
+   top: 50%;
+  left: 50%;
+   visibility: hidden;
+ }
+ .spin-hide{
+     display: none;
+ }
+ @keyframes rotator {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(270deg); }
+ }
+
+ .path {
+   stroke-dasharray: $offset;
+   stroke-dashoffset: 0;
+   transform-origin: center;
+   animation:
+     dash $duration ease-in-out infinite, 
+     colors ($duration*4) ease-in-out infinite;
+ }
+
+ @keyframes colors {
+   0% { stroke: #4285F4; }
+   25% { stroke: #DE3E35; }
+   50% { stroke: #F7C223; }
+   75% { stroke: #1B9A59; }
+   100% { stroke: #4285F4; }
+ }
+
+ @keyframes dash {
+  0% { stroke-dashoffset: $offset; }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform:rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform:rotate(450deg);
+  }
+ }
+ .alert-danger{
+position: fixed !important;
+width: 75%;
+height: 150px;
+visibility: hidden;
+display: flex;
+justify-content: center;
+font-size: 20px;
+align-items: center;
+left: 20%;
+ z-index: 5;
+}
+.alert-success{
+  visibility: hidden;
+  position: fixed !important;
+ width: 75%;
+height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  font-size: 20px;
+  left: 20%;
+}
+.cvs{
+visibility: visible !important;
 }
 </style>
