@@ -165,7 +165,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .parent {
   display: flex;
   justify-content: space-around;
@@ -271,7 +271,7 @@ visibility: visible !important;
   justify-content: center;
 }
 .parent .child2 .imag img {
-  width: 100%;
+  width: 50%;
   height: 100%;
   border-radius: 0;
 }

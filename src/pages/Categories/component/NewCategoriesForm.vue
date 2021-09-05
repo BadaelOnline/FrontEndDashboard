@@ -54,14 +54,14 @@
   </div>
 
   <div class="col-md-6">
-    <label for="validationCustom04" class="form-label">section_id</label>
-    <select class="form-select" id="validationCustom04"  v-model="categories.section_id" required>
+    <label for="validationCustom05" class="form-label">section_id</label>
+    <select class="form-select" id="validationCustom05"  v-model="categories.section_id" required>
       <option selected disabled value="">Choose...</option>
        <option
-                  v-for="item in sections"
-                  :key="item.id"
-                  :value="item.id"
-                  >{{ item.name }}
+                  v-for="sec in sections"
+                  :key="sec.id"
+                  :value="sec.id"
+                  >{{ sec.name }}
       </option >
     </select>
     <div class="invalid-feedback">
@@ -84,87 +84,15 @@
       Please select a valid state.
     </div>
   </div>
-
+ 
 </form>
+       <form @submit="formSubmit" enctype="multipart/form-data" style="margin-top: 10px;">
+        <UploadImages @changed="handleImages"/>
+        <button class="btn btn-primary btn-block" style="margin-top: 10px;">Upload</button>
+        <h2 v-if="Progress !== 0" style="opacity: .7;">Progress : <span style="color: green;">{{Progress}} %</span> </h2>
+    </form>
  <div class="child_4">
-          <div class="image">
-            <div>
-              <div id="error-message5">
-                images is a required field.
-              </div>
-              <div
-                class="container"
-                @dragover.prevent="dragOver"
-                @dragleave.prevent="dragLeave"
-                @drop.prevent="drop($event)"
-              >
-                <div class="drop" v-show="dropped == 2"></div>
-                <!-- Error Message -->
-                <div v-show="error" class="error">
-                  {{ error }}
-                </div>
-
-                <!-- To inform user how to upload image -->
-                <div v-show="Imgs.length == 0" class="beforeUpload">
-                  <input
-                    type="file"
-                    style="z-index: 1"
-                    accept="image/*"
-                    ref="uploadInput"
-                    @change="previewImgs"
-                    multiple
-                  />
-                  <img
-                    class="imgupload"
-                    src=""
-                  />
-                         <!-- ../../../../public/img/uploadimg.png  -->
-                  <p class="mainMessage">
-                    {{
-                      uploadMsg
-                        ? uploadMsg
-                        : "Click to upload or drop your images here"
-                    }}
-                  </p>
-                </div>
-                <div class="imgsPreview" v-show="Imgs.length > 0">
-                  <button type="button" class="clearButton" @click="reset">
-                    {{ clearAll ? clearAll : "clear All" }}
-                  </button>
-
-                  <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
-                    <img :src="img" />
-                    <!-- <label>{{ files[0].name }}</label> -->
-                    <span
-                      class="delete"
-                      style="color: white"
-                      @click="deleteImg(--i)"
-                    >
-                      <svg
-                        class="icon"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </span>
-                    <div class="plus" @click="append" v-if="++i == Imgs.length">
-                      +
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <button @click="postImages()">save</button> -->
-            </div>
-          </div>
-        </div>
+       
       <md-button
         :data-background-color="'blue'"
         @click="postCategory()"
@@ -172,7 +100,7 @@
         id="btnAdd"
         >Add</md-button
       >
- 
+     </div>
     </div>
   </md-card>
 </template>
@@ -180,13 +108,11 @@
 <script>
 import { mapState } from "vuex";
 import axios from "axios";
-// import UploadImagesCategory from "./UploadImagesCategory.vue";
-// import UploadCategoryImages from "./media/UploadCategoryImages.vue";
+import UploadImages from "vue-upload-drop-images";
 export default {
   name: "NewCategoryForm",
   components: {
-    // UploadImagesCategory,
-    // UploadCategoryImages,
+    UploadImages
   },
   props: {
     dataBackgroundColor: {
@@ -202,38 +128,28 @@ export default {
     Massage_warning:"",
       statusnumber: null,
       error: "",
-      files: [],
-      dropped: 0,
-      Imgs: [],
+      Progress: 0,
+      file: [],
       lang1: lang1,
       lang: lang,
-      categories: {
-        "category": [
-          {
+       categories: {
+    "category": [
+        {
             "name": "",
-            "local": "en",
-            "language_id": 1
-          },
-          {
+            "local": "en"
+        },
+        {
             "name": "",
-            "local": "ar",
-            "language_id": 1
-          }
-        ],
-        "is_active": 1,
-        "slug": "",
-        "parent_id": "",
-        "images": [
-          {
-            "image": "",
-            "is_cover": 1
-          }
-        ],
-        "section_id": "1",
-        "lang_id": 1,
-        "created_at": "13",
-        "updated_at": "14"
-      }
+            "local": "ar"
+        }
+    ],
+    "image": "",
+    "slug": "",
+    "is_active": 1,
+    "section_id": "",
+    "parent_id": ""
+}
+      
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
@@ -278,6 +194,53 @@ export default {
 })()
   },
   methods: {
+        handleImages(e) { 
+          this.file = e[0];
+      console.log(e[0]);     
+    },
+            formSubmit(e) {
+              var self = this;
+                e.preventDefault();
+                let data = new FormData();
+                data.append('image', this.file,this.file.name);
+
+                document.getElementById('sp').classList.toggle('cvs');
+                axios.post(`/api/categories/upload`, data,{
+                  onUploadProgress : uploadEvent => {
+                    console.log('Upload Progress : ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
+                    self.Progress = Math.round(uploadEvent.loaded / uploadEvent.total * 100);
+                  }
+                })
+                    .then(function (res) {
+                         console.log(res);
+                      if( res.status == 201 || res.status == 200){
+                     
+                          self.categories.image = res.data;
+                        document.getElementById('sp').classList.toggle('cvs');
+                        self.Massage_success ='Upload Success ';
+                        document.getElementById("su").classList.toggle('cvs');
+                        setTimeout(() => {
+                        document.getElementById("su").classList.toggle('cvs');
+                         }, 2000);
+                      
+                      }
+                      else{
+                       document.getElementById('sp').classList.toggle('cvs');
+                       self.Massage_warning = "Error : " + res.statusText;
+                       document.getElementById('m').classList.toggle('cvs'); 
+                      } 
+                          
+                    })
+                    .catch(function(error) {
+                          if (error.response) {
+                            document.getElementById('sp').classList.toggle('cvs');
+                            console.log(error.response.data);
+                            self.Massage_warning = "Error : " + error.response.data.message;
+                            document.getElementById('m').classList.toggle('cvs'); 
+                            
+                          }
+                     });
+            },
        close(){
           document.getElementById(`m`).classList.toggle('cvs');
      },
@@ -287,11 +250,8 @@ export default {
     },
     postCategory() {
     var self = this;
-       if (this.categories.images[0].image == "") {
-     this.Massage_warning ='select img is required';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else if (this.categories.category[1].name == "") {
+    
+     if (this.categories.category[1].name == "") {
        this.Massage_warning ='arabic name is required you must enter name';
       document.getElementById(`m`).classList.toggle('cvs');
       } 
@@ -314,6 +274,10 @@ export default {
           this.Massage_warning ='slug is required you must enter slug';
       document.getElementById(`m`).classList.toggle('cvs');
       } 
+      else if (this.categories.images == "") {
+     this.Massage_warning ='select img is required you must select img and upload it.';
+      document.getElementById(`m`).classList.toggle('cvs');
+      } 
       else {
         document.getElementById('sp').classList.toggle('cvs');
         axios
@@ -326,12 +290,12 @@ export default {
           if(response.data.stateNum == 201 || self.statusnumber == 200){
                document.getElementById('sp').classList.toggle('cvs');
             self.statusnumber = response.data.stateNum;
-         self.Massage_success ='Create Category Request Success do you want go to category tabel';
+         self.Massage_success ='Create Category Request Success';
          document.getElementById("su").classList.toggle('cvs');
-                setTimeout(() => {
-    self.$router.push({ name: 'Categories' });
+                 setTimeout(() => {
+     self.$router.push({ name: 'Categories' });
       
-        }, 2000);
+         }, 2000);
           }
           else{
               document.getElementById('sp').classList.toggle('cvs');
@@ -355,93 +319,7 @@ export default {
       }
     },
     
-    // images
-    dragOver() {
-      this.dropped = 2;
-    },
-    dragLeave() {},
-    drop(e) {
-      let status = true;
-      let files = Array.from(e.dataTransfer.files);
-      if (e && files) {
-        files.forEach((file) => {
-          if (file.type.startsWith("image") === false) status = false;
-        });
-        if (status == true) {
-          if (
-            this.$props.max &&
-            files.length + this.files.length > this.$props.max
-          ) {
-            this.error = this.$props.maxError
-              ? this.$props.maxError
-              : `Maximum files is` + this.$props.max;
-          } else {
-            this.files.push(...files);
-            this.previewImgs();
-          }
-        } else {
-          this.error = this.$props.fileError
-            ? this.$props.fileError
-            : `Unsupported file type`;
-        }
-      }
-      console.log(files);
-      this.categories.images[0].image = `${this.files[0].name}`;
-      this.dropped = 0;
-    },
-    append() {
-      this.$refs.uploadInput.click();
-    },
-    readAsDataURL(file) {
-      return new Promise(function(resolve, reject) {
-        let fr = new FileReader();
-        fr.onload = function() {
-          resolve(fr.result);
-        };
-        fr.onerror = function() {
-          reject(fr);
-        };
-        fr.readAsDataURL(file);
-      });
-    },
-    deleteImg(index) {
-      this.Imgs.splice(index, 1);
-      this.files.splice(index, 1);
-      this.$emit("changed", this.files);
-      this.$refs.uploadInput.value = null;
-    },
-    previewImgs(event) {
-      if (
-        this.$props.max &&
-        event &&
-        event.currentTarget.files.length + this.files.length > this.$props.max
-      ) {
-        this.error = this.$props.maxError
-          ? this.$props.maxError
-          : `Maximum files is` + this.$props.max;
-        return;
-      }
-      if (this.dropped == 0) this.files.push(...event.currentTarget.files);
-      this.error = "";
-      this.$emit("changed", this.files);
-      let readers = [];
-      if (!this.files.length) return;
-      for (let i = 0; i < this.files.length; i++) {
-        readers.push(this.readAsDataURL(this.files[i]));
-      }
-      Promise.all(readers).then((values) => {
-        this.Imgs = values;
-      });
-      console.log(this.files);
-      this.categories.images[0].image =`${this.files[0].name}`;
-      // console.log(data);
-    },
-    reset() {
-      this.$refs.uploadInput.value = null;
-      this.Imgs = [];
-      this.files = [];
-      this.$emit("changed", this.files);
-    },
+ 
   },
 };
 </script>
@@ -451,7 +329,16 @@ export default {
 input{
   border: 1px solid #ddd;
 }
+.child_4{
+ box-shadow: 1px 1px 10px #09b2c7;
+border-radius: 5px;
+margin: 20px 0;
+transition: all .5s;
+}
+.child_4:hover{
+ box-shadow: 2px 2px 20px #0d6efd;
 
+}
 .lng{
     display: flex;
   justify-content: space-around;

@@ -46,7 +46,7 @@ import MaterialDashboard from "./material-dashboard";
 import Chartist from "chartist";
 
 // configure router
-const server = localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
+const server = localStorage.getItem("server") || "http://edalili.e-dalely.com";
 axios.defaults.baseURL = server;
 const router = new VueRouter({
   mode: "history",

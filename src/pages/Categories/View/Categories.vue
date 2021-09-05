@@ -27,15 +27,15 @@
             v-for="item in Categories"
             :key="item.pr"
             :id="item.id"
-            :name="item.name"
+            :name	="item.category_translation[0].name"
             :slug="item.slug"
             :image="item.image"
-            :section_id="item.section_id"
+            :section="item.section"
             :is_active="item.is_active"
-            :category_images="item.category_images"
             style="margin: 10px 0"
           >
           </Categories>
+          <!--     -->
         </div>
         <div class="unavaible_category" v-else>
            <router-link :to="`/admin/category/create`"
@@ -66,6 +66,7 @@ export default {
   computed: {
     ...mapState({
       Categories: (state) => state.All.Categories,
+      name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
   },
@@ -85,6 +86,11 @@ export default {
   display: flex;
   justify-content: center;
   gap: 60%;
+}
+@media (max-width: 600px) {
+.title_form {
+  gap: 20%;
+}
 }
 .title_form h4 {
   padding: 10px;
@@ -107,7 +113,7 @@ export default {
   background-color: #36bdca;
   height: 4em;
   align-items: center;
-  opacity: 0.8;
+  color: #fff;
 }
 .nav_tabel .child1,
 .nav_tabel .child2,
@@ -118,41 +124,7 @@ export default {
 .nav_tabel .child7 {
   font-weight: 900;
 }
-@media (max-width: 800px) {
-  .nav_tabel {
-    /* display: block; */
-    width: 120%;
-  }
-  .table {
-    overflow: scroll;
-    height: 600px;
-  }
-  .content {
-    height: 20%;
-  }
-  .nav_tabel .child1,
-  .nav_tabel .child2,
-  .nav_tabel .child3,
-  .nav_tabel .child4,
-  .nav_tabel .child5,
-  .nav_tabel .child6,
-  .nav_tabel .child7 {
-    width: 10%;
-    font-size: 15px;
-  }
-}
-@media (max-width: 600px) {
-  .nav_tabel {
-    /* display: block; */
-    width: 150%;
-  }
-}
-@media (max-width: 300px) {
-  .nav_tabel {
-    /* display: block; */
-    width: 180%;
-  }
-}
+
 .nav_tabel .child5,
 .nav_tabel .child6 {
   width: 20% !important;
