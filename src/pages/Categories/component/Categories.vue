@@ -4,24 +4,22 @@
     <div class="child2">
       <div
         class="imag"
-        v-for="item in category_images.slice(0, 1)"
-        :key="item.id"
+      
       >
-        <img v-if="item.image" :src="item.image" />
-        <img v-else src="../../../../public/img/market-logo.png" />
+        <img :src="image" />
       </div>
     </div>
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
-    <div class="child5">{{ section_id }}</div>
+    <div class="child5">{{ section }}</div>
     <div class="child6" v-if="is_active"  @click="statusCategory(id)" style="cursor:pointer;">
       <i
         v-if="is_active == 'Active'"
-        id="Active"
+        :id="`Active${id}`"
         class="fa fa-check"
         style="color: green;"
       ></i>
-      <i v-else id="norActive" class="fa fa-times" style="color: #f20b07;"></i>
+      <i v-else :id="`NonActive${id}`" class="fa fa-times" style="color: #f20b07;"></i>
     </div>
   <div class="child6" v-else>
 Active key  doesnt exist 
@@ -30,10 +28,10 @@ Active key  doesnt exist
       <!-- <router-link :to="`category/update/${id}`"> -->
       <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
         <button
-          style="width: 50px; cursor:pointer"
+        
           :data-background-color="'blue'"
         >
-          <i class="fas fa-edit" style="margin: 0 10px;"></i>
+          <i class="fas fa-edit" ></i>
         </button>
       </router-link>
       <div
@@ -41,7 +39,7 @@ Active key  doesnt exist
         class="delet"
         :class="{ non_active_delete : !is_active}"
       >
-        <i class="fa fa-trash" style="margin: 0 10px;"></i>
+        <i class="fa fa-trash"></i>
       </div>
     </div>
     
@@ -73,7 +71,7 @@ export default {
     "name",
     "image",
     "is_active",
-    "section_id",
+    "section",
     "category_images",
     "slug",
   ],
@@ -85,7 +83,7 @@ export default {
            var self = this;
         if(this.is_active == 'Not Active'){
         this.Massage_warning ='This not Active element you can not delete it please choose restore item on the left side';
-        document.getElementById(`sp${i}`).classList.toggle('cvs');
+        document.getElementById(`m${i}`).classList.toggle('cvs');
       }
       else{
          var r = confirm(`Are you sure you want to delete Categoty id ${i}`);
@@ -100,9 +98,13 @@ export default {
                      setTimeout(() => {
                         document.getElementById(`s${i}`).classList.toggle('cvs');
                      }, 3000);
-                     setTimeout(() => {
-                        window.location.reload(); 
-                     }, 3500);
+                       self.$store.dispatch("loadCategories");
+                       setTimeout(() => {
+                            document.getElementById(`NonActive${i}`).classList.add('anim');
+                       }, 3000);
+                         setTimeout(() => {
+                            document.getElementById(`NonActive${i}`).classList.remove('anim');
+                       }, 7500);
                       
                  }
                   else{
@@ -123,7 +125,7 @@ export default {
         });
         } 
          
-       this.$forceUpdate();
+    
                    
           
       }
@@ -137,20 +139,24 @@ export default {
       else{
          let res = confirm(`Are you sure you want to restore Categoty id ${i}`);
       if (res) {
-               document.getElementById(i).classList.toggle('cvs');
+               document.getElementById(`sp${i}`).classList.toggle('cvs');
       axios.put(`/api/categories/restoreTrashed/${this.id}`).then(function( response ){
                
                if(response.statusText == 'OK'){
+               document.getElementById(`sp${i}`).classList.toggle('cvs');
+                console.log(response.statusText);
                 self.Massage_success = 'Success Item Restore Delete';
-                 console.log(response.statusText);
-                    document.getElementById(i).classList.toggle('cvs');
-                     document.getElementById(`s${i}`).classList.toggle('cvs');
+                   document.getElementById(`s${i}`).classList.toggle('cvs');
                      setTimeout(() => {
                         document.getElementById(`s${i}`).classList.toggle('cvs');
                      }, 3000);
+                  self.$store.dispatch("loadCategories");
                       setTimeout(() => {
-                        window.location.reload(); 
-                     }, 3500);
+                            document.getElementById(`Active${i}`).classList.add('anim');
+                       }, 3000);
+                           setTimeout(() => {
+                            document.getElementById(`Active${i}`).classList.remove('anim');
+                       }, 7500);
                  }
              
                 })
@@ -159,14 +165,14 @@ export default {
             console.log(error.response.data);
             // console.log(error.response.status);
             // console.log(error.response.headers);
-            document.getElementById(i).classList.toggle('cvs');
+            document.getElementById(`sp${i}`).classList.toggle('cvs');
                self.Massage_warning = error.response.data.message;
                document.getElementById(`m${i}`).classList.toggle('cvs');
           }
         }); 
       } 
        
-       this.$forceUpdate(); 
+     
     }
       //
     },
@@ -175,11 +181,24 @@ export default {
  
 };
 </script>
-<style>
+<style scoped>
+.anim{
+  animation: mymove 1.5s infinite;
+   border-radius: 50%;
+}
+@keyframes mymove {
+  50% {    
+    background-color: darkgreen;
+    color: #fff;
+    box-shadow: 2px 2px 20px darkgreen;
+}
+}
 .parent {
   display: flex;
   justify-content: space-around;
   position: relative;
+  width: 100% ;
+  border-bottom: 10px solid #eee;
 }
 .alert-danger{
 position: absolute !important;
@@ -205,34 +224,7 @@ align-items: center;
 .cvs{
 visibility: visible !important;
 }
-@media (max-width: 800px) {
-  .parent {
-    width: 120%;
-    /* display: block; */
-  }
-  .parent .child1,
-  .parent .child2,
-  .parent .child3,
-  .parent .child4,
-  .parent .child5,
-  .parent .child6,
-  .parent .child7 {
-    width: 10%;
-    font-size: 15px;
-  }
-}
-@media (max-width: 600px) {
-  .parent {
-    width: 150%;
-    /* display: block; */
-  }
-}
-@media (max-width: 300px) {
-  .parent {
-    width: 180%;
-    /* display: block; */
-  }
-}
+
 .parent .child5,
 .parent .child6 {
   width: 20% !important;
@@ -269,30 +261,34 @@ visibility: visible !important;
   margin: auto;
 }
 .parent .child7 button {
-  width: 50px;
-  height: 40px;
-  margin: 5px;
+  width: 30px;
+  height: 30px;
   border: none;
+  border-radius: 5px;
 }
 .parent .child2 .imag {
-  width: 210px;
+  width: 65px;
   height: 100%;
   display: flex;
   justify-content: center;
+  padding: 0;
+  border-radius: 3px;
 }
 .parent .child2 .imag img {
   width: 100%;
   height: 100%;
   border-radius: 0;
+  border-radius: 3px;
 }
 .delet{
   cursor: pointer;
 display: flex;
 align-items: center;
-width: 50px;
-height: 40px;
+width:30px;
+height: 30px;
 justify-content: center;
-margin-top: 13px;
+border-radius: 5px;
+margin-top: 8px;
 background-color: #e8403c !important;
 color: #fff;
 }
