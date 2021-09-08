@@ -16,6 +16,18 @@ export const loadCategories = ({ commit }) => {
       console.log("Error: ", error);
     });
 };
+export const loadCategoriesTrash = ({ commit }) => {
+  axios
+    .get(`api/categories/getTrashed?lang=${lang}`)
+    .then((res) => {
+      console.warn("CategoriesTrash :", res.data.Category);
+      let CategoriesTrash = res.data.Category;
+      commit("SET_CategoriesTrash", CategoriesTrash);
+    })
+    .catch(function(error) {
+      console.log("Error: ", error);
+    });
+};
 export const loadCategory = ({ commit }, CategoryID) => {
   axios
     .get(`/api/categories/getById/${CategoryID}?lang=${lang}`)
