@@ -16,6 +16,18 @@ export const loadCategories = ({ commit }) => {
       console.log("Error: ", error);
     });
 };
+export const loadCategoriesTrash = ({ commit }) => {
+  axios
+    .get(`api/categories/getTrashed?lang=${lang}`)
+    .then((res) => {
+      console.warn("CategoriesTrash :", res.data.Category);
+      let CategoriesTrash = res.data.Category;
+      commit("SET_CategoriesTrash", CategoriesTrash);
+    })
+    .catch(function(error) {
+      console.log("Error: ", error);
+    });
+};
 export const loadCategory = ({ commit }, CategoryID) => {
   axios
     .get(`/api/categories/getById/${CategoryID}?lang=${lang}`)
@@ -77,8 +89,8 @@ export const loadBrands = ({ commit }) => {
   axios
     .get(`/api/brands/getAll?lang=${lang}`)
     .then((res) => {
-      console.warn("Brands :", res.data.Brand.data);
-      let Brands = res.data.Brand.data;
+      console.warn("Brands :", res.data);
+      let Brands = res.data;
       commit("SET_Brands", Brands);
     })
     .catch(function(error) {

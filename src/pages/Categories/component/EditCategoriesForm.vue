@@ -1,106 +1,154 @@
 <template>
   <md-card>
     <div class="create">
-              <div  id="su" class="alert alert-success" role="alert">
- {{Massage_success}} .
-</div> 
-<svg  id="sp" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-</svg>
-<div id="m" class="alert alert-danger alert-dismissible fade show" role="alert">
-  {{Massage_warning}} .
-  <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
-</div>
+      <div id="su" class="alert alert-success" role="alert">
+        {{ Massage_success }} .
+      </div>
+      <svg
+        id="sp"
+        class="spinner"
+        width="65px"
+        height="65px"
+        viewBox="0 0 66 66"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          class="path"
+          fill="none"
+          stroke-width="6"
+          stroke-linecap="round"
+          cx="33"
+          cy="33"
+          r="30"
+        ></circle>
+      </svg>
+      <div
+        id="m"
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        {{ Massage_warning }} .
+        <button
+          type="button"
+          class="btn-close"
+          @click="close()"
+          aria-label="Close"
+        ></button>
+      </div>
       <!-- tab -->
       <div class="title_form">
         <div class="lng">
-      <h4>Category Form</h4>
-      <div class="divlang">
-              <select
-                name=""
-                id=""
-                v-model="lang"
-                @change="handleChange($event)"
-              >
-                <option value="en">EN</option>
-                <option value="ar">AR</option>
-              </select>
-            </div>
-              </div>
-       
+          <h4>Category Form</h4>
+          <div class="divlang">
+            <select name="" id="" v-model="lang" @change="handleChange($event)">
+              <option value="en">EN</option>
+              <option value="ar">AR</option>
+            </select>
+          </div>
+        </div>
       </div>
       <hr style="color: #fff;opacity: 0.5;" />
-     <form class="row g-3 needs-validation" novalidate>
-  <div class="col-md-6">
-    
-    <label for="validationCustom01" class="form-label">Name </label>
-    <input type="text" class="form-control" id="validationCustom01" 
-    v-model="categories.category[1].name"  v-if="lang == 'ar'" required>
-     <input type="text" class="form-control" id="validationCustom01"   
-     v-model="categories.category[0].name" required  v-else>
-  
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="validationCustom02" class="form-label">Slug</label>
-    <input type="text" class="form-control" id="validationCustom02" v-model="categories.slug" required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+          <label for="validationCustom01" class="form-label">Name </label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="categories.category[1].name"
+            v-if="lang == 'ar'"
+            required
+          />
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="categories.category[0].name"
+            required
+            v-else
+          />
 
-  <div class="col-md-6">
-    <label for="validationCustom04" class="form-label">section_id</label>
-    <select class="form-select" id="validationCustom04"  v-model="categories.section_id" required>
-      <option selected disabled value="">Choose...</option>
-       <option
-                  v-for="item in sections"
-                  :key="item.id"
-                  :value="item.id"
-                  >{{ item.name }}
-      </option >
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-  </div>
- 
-  <div class="col-md-6">
-    <label for="validationCustom04" class="form-label">parent_id </label>
-    <select class="form-select" id="validationCustom04" v-model="categories.parent_id" required>
-      <option selected disabled value="">Choose...</option>
-      <option 
-                  v-for="category in Categories"
-                  :key="category.id"
-                  :value="category.id"
-                  >{{ category.name }}
-      </option>
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-  </div>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustom02" class="form-label">Slug</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom02"
+            v-model="categories.slug"
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
 
-</form>
-       
-         <form @submit="formSubmit" enctype="multipart/form-data" style="margin-top: 10px;">
-        <UploadImages @changed="handleImages"/>
-        <button class="btn btn-primary btn-block" style="margin-top: 10px;">Upload</button>
-        <h2 v-if="Progress !== 0" style="opacity: .7;">Progress : <span style="color: green;">{{Progress}} %</span> </h2>
-    </form>
-    <div class="child_4">
-      <md-button
-        :data-background-color="'blue'"
-        @click="updateCategory()"
-        class="toggle-disabled"
-        id="btnAdd"
-        >Update</md-button
+        <div class="col-md-6">
+          <label for="validationCustom04" class="form-label">section_id</label>
+          <select
+            class="form-select"
+            id="validationCustom04"
+            v-model="categories.section_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option v-for="item in sections" :key="item.id" :value="item.id"
+              >{{ item.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="validationCustom04" class="form-label">parent_id </label>
+          <select
+            class="form-select"
+            id="validationCustom04"
+            v-model="categories.parent_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option
+              v-for="category in Categories"
+              :key="category.id"
+              :value="category.id"
+              >{{ category.category_translation[0].name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
+      </form>
+
+      <form
+        @submit="formSubmit"
+        enctype="multipart/form-data"
+        style="margin-top: 10px;"
       >
+        <UploadImages @changed="handleImages" />
+        <button class="btn btn-primary btn-block" style="margin-top: 10px;">
+          Upload
+        </button>
+        <h2 v-if="Progress !== 0" style="opacity: .7;">
+          Progress : <span style="color: green;">{{ Progress }} %</span>
+        </h2>
+      </form>
+      <div class="child_4">
+        <md-button
+          :data-background-color="'blue'"
+          @click="updateCategory()"
+          class="toggle-disabled"
+          id="btnAdd"
+          >Update</md-button
+        >
+      </div>
     </div>
-    </div>
- 
   </md-card>
 </template>
 <script>
@@ -110,7 +158,7 @@ import UploadImages from "vue-upload-drop-images";
 export default {
   name: "EditCategoryForm",
   components: {
-UploadImages
+    UploadImages,
   },
   props: {
     dataBackgroundColor: {
@@ -120,31 +168,31 @@ UploadImages
   },
   data() {
     const lang = localStorage.getItem("lang") || "en";
-        
+
     return {
       Massage_success: "",
-      Massage_warning:"",
+      Massage_warning: "",
       statusnumber: null,
       lang: lang,
       file: [],
       Progress: 0,
-            categories: {
-    "category": [
-        {
-            "name": "",
-            "local": "en"
-        },
-        {
-            "name": "",
-            "local": "ar"
-        }
-    ],
-    "image": "",
-    "slug": "",
-    "is_active": 1,
-    "section_id": "",
-    "parent_id": ""
-}
+      categories: {
+        category: [
+          {
+            name: "",
+            local: "en",
+          },
+          {
+            name: "",
+            local: "ar",
+          },
+        ],
+        image: "",
+        slug: "",
+        is_active: 1,
+        section_id: "",
+        parent_id: "",
+      },
       // CategoryId,
     };
   },
@@ -165,217 +213,211 @@ UploadImages
   },
   mounted() {
     this.$store.dispatch("loadSections");
-     this.fetch();
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+    this.fetch();
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      "use strict";
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll(".needs-validation");
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('click', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-           form.classList.add('was-validated')
-          
-        }
-
-       
-      }, false)
-    })
-})()
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener(
+          "click",
+          function(event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+              form.classList.add("was-validated");
+            }
+          },
+          false
+        );
+      });
+    })();
   },
-  
+
   methods: {
-    close(){
-      document.getElementById(`m`).classList.toggle('cvs');
-     },
-     handleChange(event) {
+    close() {
+      document.getElementById(`m`).classList.toggle("cvs");
+    },
+    handleChange(event) {
       localStorage.setItem("lang", event.target.value);
       // window.location.reload();
     },
     // handle Images when upload from yor disktop
-       handleImages(e) { 
-          this.file = e[0];
-      console.log(e[0]);     
+    handleImages(e) {
+      this.file = e[0];
+      console.log(e[0]);
     },
     // post Images you uploaded to server
     formSubmit(e) {
-              var self = this;
-                e.preventDefault();
-                let data = new FormData();
-                data.append('image', this.file,this.file.name);
+      var self = this;
+      e.preventDefault();
+      let data = new FormData();
+      data.append("image", this.file, this.file.name);
 
-                document.getElementById('sp').classList.toggle('cvs');
-                axios.post(`/api/categories/upload`, data,{
-                  onUploadProgress : uploadEvent => {
-                    console.log('Upload Progress : ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-                    self.Progress = Math.round(uploadEvent.loaded / uploadEvent.total * 100);
-                  }
-                })
-                    .then(function (res) {
-                    console.log(res);
-                      if( res.status == 201 || res.status == 200){
-                     self.categories.image = res.data;
-                        document.getElementById('sp').classList.toggle('cvs');
-                        self.Massage_success ='Upload Success ';
-                        document.getElementById("su").classList.toggle('cvs');
-                        setTimeout(() => {
-                         document.getElementById("su").classList.toggle('cvs');
-                         }, 2000);
-                     
-                      }
-                      else{
-                       document.getElementById('sp').classList.toggle('cvs');
-                       self.Massage_warning = "Error : " + res.statusText;
-                       document.getElementById('m').classList.toggle('cvs'); 
-                      } 
-                          
-                    })
-                    .catch(function(error) {
-                          if (error.response) {
-                            document.getElementById('sp').classList.toggle('cvs');
-                            console.log(error.response.data);
-                            self.Massage_warning = "Error : " + error.response.data.message;
-                            document.getElementById('m').classList.toggle('cvs'); 
-                            
-                          }
-                     });
-            },
-        
-    // fetch data to insert in label for viewer
-    fetch() {
-     axios
-    .get(`/api/categories/getById/${this.$route.params.id}?lang=en`)
-    .then((res) => {
-     
-       this.categories.category[0].name = res.data.Category.name;
-       this.categories.section_id = res.data.Category.section_id;
-      this.categories.parent_id = res.data.Category.parent_id;
-    });
+      document.getElementById("sp").classList.toggle("cvs");
       axios
-    .get(`/api/categories/getById/${this.$route.params.id}?lang=ar`)
-    .then((res) => {
-       this.categories.category[1].name = res.data.Category.name;
-    
-    })
-     .catch(function(error) {
-          if (error) {
-             console.log("error:",error);
-            // console.log(error.response.status);
-            // console.log(error.response.headers);
-         
-             alert(`error !! Sorry category by id request had error we can not return old data.. work soon`);
+        .post(`/api/categories/upload`, data, {
+          onUploadProgress: (uploadEvent) => {
+            console.log(
+              "Upload Progress : " +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
+            );
+            self.Progress = Math.round(
+              (uploadEvent.loaded / uploadEvent.total) * 100
+            );
+          },
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.status == 201 || res.status == 200) {
+            self.categories.image =
+              localStorage.getItem("server") + "/" + res.data;
+            console.log(
+              "image",
+              localStorage.getItem("server") + "/" + res.data
+            );
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_success = "Upload Success ";
+            document.getElementById("su").classList.toggle("cvs");
+            setTimeout(() => {
+              document.getElementById("su").classList.toggle("cvs");
+            }, 2000);
+          } else {
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_warning = "Error : " + res.statusText;
+            document.getElementById("m").classList.toggle("cvs");
           }
         })
+        .catch(function(error) {
+          if (error.response) {
+            document.getElementById("sp").classList.toggle("cvs");
+            console.log(error.response.data);
+            self.Massage_warning = "Error : " + error.response.data.message;
+            document.getElementById("m").classList.toggle("cvs");
+          }
+        });
+    },
 
+    // fetch data to insert in label for viewer
+    fetch() {
+      axios
+        .get(`/api/categories/getById/${this.$route.params.id}?lang=en`)
+        .then((res) => {
+          this.categories.category[0].name = res.data.Category.name;
+          this.categories.section_id = res.data.Category.section_id;
+          this.categories.parent_id = res.data.Category.parent_id;
+        });
+      axios
+        .get(`/api/categories/getById/${this.$route.params.id}?lang=ar`)
+        .then((res) => {
+          this.categories.category[1].name = res.data.Category.name;
+        })
+        .catch(function(error) {
+          if (error) {
+            console.log("error:", error);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+
+            alert(
+              `error !! Sorry category by id request had error we can not return old data.. work soon`
+            );
+          }
+        });
     },
     // post Category to server
     updateCategory() {
-       var self = this;
-     
+      var self = this;
+
       if (this.categories.category[1].name == "") {
-       this.Massage_warning ='arabic name is required you must enter name';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else if (this.categories.category[0].name == "") {
-        this.Massage_warning ='english name is required you must enter name';
-      document.getElementById(`m`).classList.toggle('cvs');
-     
-      }   
-       else if (this.categories.section_id == "") {
-
-      this.Massage_warning ='section_id is required you must enter section_id';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-       else if (this.categories.parent_id == "") {
-         this.Massage_warning ='parent_id is required you must enter parent_id';
-      document.getElementById(`m`).classList.toggle('cvs');
-    
-      } 
-       else if (this.categories.slug == "") {
-          this.Massage_warning ='slug is required you must enter slug';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else if (this.categories.image == "") {
-     this.Massage_warning ='select img is required you must select img and upload it.';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else {
-         document.getElementById('sp').classList.toggle('cvs');
+        this.Massage_warning = "arabic name is required you must enter name";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.categories.category[0].name == "") {
+        this.Massage_warning = "english name is required you must enter name";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.categories.section_id == "") {
+        this.Massage_warning =
+          "section_id is required you must enter section_id";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.categories.parent_id == "") {
+        this.Massage_warning = "parent_id is required you must enter parent_id";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.categories.slug == "") {
+        this.Massage_warning = "slug is required you must enter slug";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.categories.image == "") {
+        this.Massage_warning =
+          "select img is required you must select img and upload it.";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else {
+        document.getElementById("sp").classList.toggle("cvs");
         axios
-        .put(
-           `/api/categories/update/${this.$route.params.id}`,
-          this.categories
-        )
-        .then(function(response) {
-
-           console.log(response.data);
-          if(response.data.stateNum == 201 || response.data.stateNum == 200){
-              document.getElementById('sp').classList.toggle('cvs');
-             self.statusnumber = response.data.stateNum;
-         self.Massage_success ='update Category Request Success';
-                  setTimeout(() => {
-     self.$router.push({ name: 'Categories' });
-      
-         }, 2000);
-          }
-          else{    
-              document.getElementById('sp').classList.toggle('cvs');
+          .put(
+            `/api/categories/update/${this.$route.params.id}`,
+            this.categories
+          )
+          .then(function(response) {
+            console.log(response.data);
+            if (
+              response.data.stateNum == 201 ||
+              response.data.stateNum == 200
+            ) {
+              document.getElementById("sp").classList.toggle("cvs");
+              self.statusnumber = response.data.stateNum;
+              self.Massage_success = "update Category Request Success";
+              setTimeout(() => {
+                self.$router.push({ name: "Categories" });
+              }, 2000);
+            } else {
+              document.getElementById("sp").classList.toggle("cvs");
               self.Massage_warning = "Error : " + response.data.msg;
-            document.getElementById('m').classList.toggle('cvs'); 
-     
-          }
-        })
-              .catch(function(error) {
-          if (error.response) {
-            document.getElementById('sp').classList.toggle('cvs');
-            console.log(error.response.data);
-            // console.log(error.response.status);
-            // console.log(error.response.headers);
-            self.Massage_warning = "Error : " + error.response.data.message;
-            document.getElementById('m').classList.toggle('cvs'); 
-          }
-        });
-   
+              document.getElementById("m").classList.toggle("cvs");
+            }
+          })
+          .catch(function(error) {
+            if (error.response) {
+              document.getElementById("sp").classList.toggle("cvs");
+              console.log(error.response.data);
+              // console.log(error.response.status);
+              // console.log(error.response.headers);
+              self.Massage_warning = "Error : " + error.response.data.message;
+              document.getElementById("m").classList.toggle("cvs");
+            }
+          });
       }
-     
     },
   },
 };
 </script>
 
-
-
 <style scoped>
-.child_4{
- box-shadow: 1px 1px 10px #09b2c7;
-border-radius: 5px;
-margin: 20px 0;
-transition: all .5s;
+.child_4 {
+  box-shadow: 1px 1px 10px #09b2c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  transition: all 0.5s;
 }
-.child_4:hover{
- box-shadow: 2px 2px 20px #0d6efd;
-
+.child_4:hover {
+  box-shadow: 2px 2px 20px #0d6efd;
 }
-input{
+input {
   border: 1px solid #ddd;
 }
 
-.lng{
-    display: flex;
+.lng {
+  display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.lng h4{
+.lng h4 {
   font-size: 20px;
-font-weight: bold;
-border: 1px solid #158a8ade;
-padding: 10px;
+  font-weight: bold;
+  border: 1px solid #158a8ade;
+  padding: 10px;
 }
 .create {
   padding: 20px;
@@ -517,70 +559,85 @@ padding: 10px;
 }
 </style>
 <style lang="scss" scoped>
- $offset: 187;
- $duration: 1.4s;
+$offset: 187;
+$duration: 1.4s;
 
- .spinner {
-   animation: rotator $duration linear infinite;
-   position: absolute;
-   z-index: 50;
-   top: 50%;
+.spinner {
+  animation: rotator $duration linear infinite;
+  position: absolute;
+  z-index: 50;
+  top: 50%;
   left: 50%;
-   visibility: hidden;
- }
- .spin-hide{
-     display: none;
- }
- @keyframes rotator {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(270deg); }
- }
+  visibility: hidden;
+}
+.spin-hide {
+  display: none;
+}
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
 
- .path {
-   stroke-dasharray: $offset;
-   stroke-dashoffset: 0;
-   transform-origin: center;
-   animation:
-     dash $duration ease-in-out infinite, 
-     colors ($duration*4) ease-in-out infinite;
- }
+.path {
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash $duration ease-in-out infinite,
+    colors ($duration * 4) ease-in-out infinite;
+}
 
- @keyframes colors {
-   0% { stroke: #4285F4; }
-   25% { stroke: #DE3E35; }
-   50% { stroke: #F7C223; }
-   75% { stroke: #1B9A59; }
-   100% { stroke: #4285F4; }
- }
+@keyframes colors {
+  0% {
+    stroke: #4285f4;
+  }
+  25% {
+    stroke: #de3e35;
+  }
+  50% {
+    stroke: #f7c223;
+  }
+  75% {
+    stroke: #1b9a59;
+  }
+  100% {
+    stroke: #4285f4;
+  }
+}
 
- @keyframes dash {
-  0% { stroke-dashoffset: $offset; }
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
   50% {
     stroke-dashoffset: $offset/4;
-    transform:rotate(135deg);
+    transform: rotate(135deg);
   }
   100% {
     stroke-dashoffset: $offset;
-    transform:rotate(450deg);
+    transform: rotate(450deg);
   }
- }
- .alert-danger{
-position: fixed !important;
-width: 75%;
-height: 150px;
-visibility: hidden;
-display: flex;
-justify-content: center;
-font-size: 20px;
-align-items: center;
-left: 20%;
- z-index: 5;
 }
-.alert-success{
+.alert-danger {
+  position: fixed !important;
+  width: 75%;
+  height: 150px;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  align-items: center;
+  left: 20%;
+  z-index: 5;
+}
+.alert-success {
   visibility: hidden;
   position: fixed !important;
- width: 75%;
-height: 150px;
+  width: 75%;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -588,7 +645,7 @@ height: 150px;
   font-size: 20px;
   left: 20%;
 }
-.cvs{
-visibility: visible !important;
+.cvs {
+  visibility: visible !important;
 }
 </style>

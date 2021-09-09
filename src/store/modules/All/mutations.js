@@ -1,6 +1,9 @@
 export const SET_Categories = (state, Categories) => {
   state.Categories = Categories;
 };
+export const SET_CategoriesTrash = (state, CategoriesTrash) => {
+  state.CategoriesTrash = CategoriesTrash;
+};
 export const SET_CategoryID = (state, CategoryID) => {
   state.CategoryID = CategoryID;
 };
