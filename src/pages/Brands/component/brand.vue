@@ -7,19 +7,19 @@
       </div>
     </div>
     <div class="child3">{{ name }}</div>
-    <div class="child4">{{ slug }}</div>
-    <div class="child5">{{ section }}</div>
-    <div class="child8">
+    <!-- <div class="child4">{{ slug }}</div> -->
+    <div class="child5">{{ description }}</div>
+    <!-- <div class="child8">
       <div v-for="item in parentCategory" :key="item.id">{{ item.name }}</div>
-    </div>
+    </div> -->
     <div
       class="child6"
       v-if="is_active"
-      @click="statusCategory(id)"
+      @click="statusBrand(id)"
       style="cursor:pointer;"
     >
       <i
-        v-if="is_active == 'Active'"
+        v-if="is_active == true"
         :id="`Active${id}`"
         class="fa fa-check"
         style="color: green;"
@@ -35,13 +35,13 @@
       Active key doesnt exist
     </div>
     <div class="child7">
-      <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
+      <router-link :to="{ path: `brand/update/${id}`, params: { id: id } }">
         <button :data-background-color="'blue'">
           <i class="fas fa-edit"></i>
         </button>
       </router-link>
       <div
-        @click="deletCategory(id)"
+        @click="deletBrand(id)"
         class="delet"
         :class="{ non_active_delete: !is_active }"
       >
@@ -88,6 +88,7 @@
 <script>
 import axios from "axios";
 export default {
+  name: "brands",
   data() {
     return {
       deleted: null,
@@ -95,32 +96,23 @@ export default {
       Massage_warning: "",
     };
   },
-  props: [
-    "id",
-    "name",
-    "image",
-    "is_active",
-    "section",
-    "category_images",
-    "parentCategory",
-    "slug",
-  ],
+  props: ["id", "name", "image", "is_active", "description"],
   methods: {
     close() {
       document.getElementById(`m${this.id}`).classList.toggle("cvs");
     },
-    deletCategory(i) {
+    deletBrand(i) {
       var self = this;
-      if (this.is_active == "Not Active") {
+      if (this.is_active == false) {
         this.Massage_warning =
           "This not Active element you can not delete it please choose restore item on the left side";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
-        var r = confirm(`Are you sure you want to delete Categoty id ${i}`);
+        var r = confirm(`Are you sure you want to delete Brand id ${i}`);
         if (r == true) {
           document.getElementById(`sp${i}`).classList.toggle("cvs");
           axios
-            .put(`/api/categories/trash/${this.id}`)
+            .put(`/api/brands/trash/${this.id}`)
             .then(function(response) {
               if (response.statusText == "OK") {
                 self.Massage_success = "Success Item Delete";
@@ -129,7 +121,7 @@ export default {
                 setTimeout(() => {
                   document.getElementById(`s${i}`).classList.toggle("cvs");
                 }, 3000);
-                self.$store.dispatch("loadCategories");
+                self.$store.dispatch("loadBrands");
                 setTimeout(() => {
                   document
                     .getElementById(`NonActive${i}`)
@@ -159,18 +151,18 @@ export default {
         }
       }
     },
-    statusCategory(i) {
+    statusBrand(i) {
       var self = this;
-      if (this.is_active == "Active") {
+      if (this.is_active == true) {
         this.Massage_warning =
           "This Active element you can not restore it please choose delete item on the right side";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
-        let res = confirm(`Are you sure you want to restore Categoty id ${i}`);
+        let res = confirm(`Are you sure you want to restore Brand id ${i}`);
         if (res) {
           document.getElementById(`sp${i}`).classList.toggle("cvs");
           axios
-            .put(`/api/categories/restoreTrashed/${this.id}`)
+            .put(`/api/brands/restoreTrashed/${this.id}`)
             .then(function(response) {
               if (response.statusText == "OK") {
                 document.getElementById(`sp${i}`).classList.toggle("cvs");
@@ -180,7 +172,7 @@ export default {
                 setTimeout(() => {
                   document.getElementById(`s${i}`).classList.toggle("cvs");
                 }, 3000);
-                self.$store.dispatch("loadCategories");
+                self.$store.dispatch("loadBrands");
                 setTimeout(() => {
                   document.getElementById(`Active${i}`).classList.add("anim");
                 }, 3000);
@@ -194,8 +186,6 @@ export default {
             .catch(function(error) {
               if (error.response) {
                 console.log(error.response.data);
-                // console.log(error.response.status);
-                // console.log(error.response.headers);
                 document.getElementById(`sp${i}`).classList.toggle("cvs");
                 self.Massage_warning = error.response.data.message;
                 document.getElementById(`m${i}`).classList.toggle("cvs");

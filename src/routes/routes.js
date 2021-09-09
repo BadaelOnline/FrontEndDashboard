@@ -154,7 +154,7 @@ const routes = [
         component: AllBrands,
       },
       {
-        path: "brand/create",
+        path: "/admin/brand/create",
         name: "newbrand",
         component: NewBrand,
       },
