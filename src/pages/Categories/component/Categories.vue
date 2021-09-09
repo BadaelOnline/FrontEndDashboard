@@ -9,6 +9,9 @@
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
     <div class="child5">{{ section }}</div>
+    <div class="child8">
+      <div v-for="item in parentCategory" :key="item.id">{{ item.name }}</div>
+    </div>
     <div
       class="child6"
       v-if="is_active"
@@ -100,6 +103,7 @@ export default {
     "is_active",
     "section",
     "category_images",
+    "parentCategory",
     "slug",
   ],
   methods: {
@@ -249,12 +253,36 @@ export default {
   visibility: visible !important;
 }
 
-.parent .child5 {
+.parent .child5,
+.parent .child8 {
   width: 20% !important;
-  display: flex;
+  display: block;
   justify-content: center;
+  text-align: center;
   margin: auto;
   opacity: 0.7;
+}
+.parent .child8 {
+  border: 1px #36bdca solid;
+  background: #fefefe;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 80px;
+  scrollbar-color: #6969dd #e0e0e0;
+  scrollbar-width: thin;
+}
+.parent .child8::-webkit-scrollbar {
+  width: 10px;
+}
+
+.parent .child8::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+.parent .child8::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-image: linear-gradient(180deg, #36bdca 0%, #708ad4 99%);
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
 }
 .parent .child6 {
   width: 30% !important;
@@ -263,11 +291,12 @@ export default {
   margin: auto;
   opacity: 0.7;
 }
-
 .parent .child2 {
   width: 30% !important;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: auto;
 }
 .parent .child1 {
   font-weight: 700;
@@ -298,15 +327,18 @@ export default {
 }
 .parent .child2 .imag {
   width: 70px;
-  height: 75px;
+  height: 70px;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0;
+  margin: auto;
   border-radius: 3px;
 }
 .parent .child2 .imag img {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
+  align-items: center;
   border-radius: 0;
   border-radius: 3px;
 }

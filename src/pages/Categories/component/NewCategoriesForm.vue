@@ -118,7 +118,7 @@
               v-for="category in Categories"
               :key="category.id"
               :value="category.id"
-              >{{ category.name }}
+              >{{ category.category_translation[0].name }}
             </option>
           </select>
           <div class="invalid-feedback">
@@ -268,7 +268,12 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.categories.image = res.data;
+            self.categories.image =
+              localStorage.getItem("server") + "/" + res.data;
+            console.log(
+              "image",
+              localStorage.getItem("server") + "/" + res.data
+            );
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Success ";
             document.getElementById("su").classList.toggle("cvs");
@@ -295,7 +300,6 @@ export default {
     },
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
-      // window.location.reload();
     },
     postCategory() {
       var self = this;
@@ -347,8 +351,6 @@ export default {
             if (error.response) {
               document.getElementById("sp").classList.toggle("cvs");
               console.log(error.response.data);
-              // console.log(error.response.status);
-              // console.log(error.response.headers);
               self.Massage_warning = "Error : " + error.response.data.message;
               document.getElementById("m").classList.toggle("cvs");
             }

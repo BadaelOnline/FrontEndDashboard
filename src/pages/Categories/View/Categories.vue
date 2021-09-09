@@ -30,11 +30,11 @@
               </div>
               <input
                 type="input"
-                class="form__field"
+                class="search"
                 name="search"
                 id="name"
                 v-model="searchName"
-                placeholder="Search Name"
+                placeholder="Name"
                 autofocus
                 required
               />
@@ -50,11 +50,18 @@
               </div>
               <input
                 type="text"
+                class="search"
+                name="search"
                 v-model="searchSection"
-                placeholder="Search Section"
+                placeholder="Section"
                 autofocus
                 required
               />
+            </div>
+            <div class="child8">
+              <div class="child">
+                <span>Parent Category</span>
+              </div>
             </div>
             <div class="child6">
               <div class="child">
@@ -81,6 +88,7 @@
             :slug="item.slug"
             :image="item.image"
             :section="item.section.section_translation[0].name"
+            :parentCategory="item.section.category"
             :is_active="item.is_active"
             style="margin: 10px 0"
           >
@@ -123,17 +131,18 @@ export default {
       name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
+
     filteredName() {
       if (this.searchName != "") {
         return this.Categories.filter((el) => {
-          return el.category_translation[0].name.match(this.searchName);
+          var regex = new RegExp(this.searchName, "i");
+          return el.category_translation[0].name.match(regex);
         });
       }
       if (this.searchSection != "") {
         return this.Categories.filter((el) => {
-          return el.section.section_translation[0].name.match(
-            this.searchSection
-          );
+          var regex = new RegExp(this.searchSection, "i");
+          return el.section.section_translation[0].name.match(regex);
         });
       }
       if (this.selectedFilter == "notActive") {
@@ -193,8 +202,9 @@ export default {
 .nav_tabel .child4,
 .nav_tabel .child5,
 .nav_tabel .child6,
-.nav_tabel .child7 {
-  height: 7em;
+.nav_tabel .child7,
+.nav_tabel .child8 {
+  height: 10em;
   align-items: center;
   text-align: center;
   color: #fff;
@@ -205,24 +215,34 @@ export default {
 .nav_tabel .child4 .child,
 .nav_tabel .child5 .child,
 .nav_tabel .child6 .child,
-.nav_tabel .child7 .child {
+.nav_tabel .child7 .child,
+.nav_tabel .child8 .child {
   background-color: #36bdca;
-  height: 3em;
+  height: 4em;
   font-weight: 900;
   margin: auto;
   margin: 10px 0;
 }
-.nav_tabel .child1 input,
-.nav_tabel .child3 input,
-.nav_tabel .child5 input {
-  width: 95%;
+.search {
+  width: 70px;
   height: 2em;
-  margin: auto;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  background-color: white;
+  background-image: url("../../../../public/img/search.png");
+  background-position: 5px 5px;
+  background-size: 15px;
+  background-repeat: no-repeat;
   align-items: center;
-  border: none;
-  color: gray;
-  border: 1px solid rgb(199, 196, 196);
-  background-color: #fff;
+  padding: 12px 20px 12px 30px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+.search:focus {
+  width: 100%;
+  border: 1px solid #36bdca;
 }
 .nav_tabel .child6 select {
   width: 50%;
@@ -239,7 +259,8 @@ export default {
   font-size: 13px;
   margin: auto;
 }
-.nav_tabel .child5 {
+.nav_tabel .child5,
+.nav_tabel .child8 {
   width: 20% !important;
   justify-content: center;
   position: relative;
@@ -268,6 +289,8 @@ export default {
   position: absolute;
   bottom: -15px;
 } */
+.search {
+}
 .new_product {
   display: -ms-flexbox;
   display: flex;
