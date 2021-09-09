@@ -84,7 +84,7 @@
             v-for="item in filteredName"
             :key="item.pr"
             :id="item.id"
-            :name="item.category_translation[0].name"
+            :name="item.name"
             :slug="item.slug"
             :image="item.image"
             :section="item.section.section_translation[0].name"
