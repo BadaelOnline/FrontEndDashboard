@@ -163,7 +163,6 @@ export default {
     this.$store.dispatch("loadCategoriesTrash");
     this.$store.dispatch("loadSections");
   },
-  methods: {},
 };
 </script>
 

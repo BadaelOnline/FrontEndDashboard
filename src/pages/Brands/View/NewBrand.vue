@@ -4,9 +4,6 @@
       <div class="md-layout-item md-medium-size-100 md-size-90">
         <NewBrandForm data-background-color="green"> </NewBrandForm>
       </div>
-      <!-- <div class="md-layout-item md-medium-size-100 md-size-33">
-        <UploadImagesBrand> </UploadImagesBrand>
-      </div> -->
     </div>
   </div>
 </template>

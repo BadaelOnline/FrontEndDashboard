@@ -4,9 +4,6 @@
       <div class="md-layout-item md-medium-size-100 md-size-90">
         <NewCategoriesForm data-background-color="green"> </NewCategoriesForm>
       </div>
-      <!-- <div class="md-layout-item md-medium-size-100 md-size-33">
-        <UploadImagesDoctor> </UploadImagesDoctor>
-      </div> -->
     </div>
   </div>
 </template>

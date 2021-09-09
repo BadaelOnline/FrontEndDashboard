@@ -22,7 +22,7 @@ import EditCategoriesForm from "../pages/Categories/component/EditCategoriesForm
 import UploadImagesCategory from "../pages/Categories/component/UploadImagesCategory.vue";
 // import UploadCategoryImages from "../pages/Categories/component/media/UploadCategoryImages.vue";
 //brand
-import Brands from "../pages/Brands/component/Brands.vue";
+import Brands from "../pages/Brands/component/brand.vue";
 import NewBrandForm from "../pages/Brands/component/NewBrandForm.vue";
 import EditBrandForm from "../pages/Brands/component/EditBrandForm.vue";
 import UploadImagesBrand from "../pages/Brands/component/UploadImagesBrand.vue";
