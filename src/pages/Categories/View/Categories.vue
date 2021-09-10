@@ -136,7 +136,7 @@ export default {
       if (this.searchName != "") {
         return this.Categories.filter((el) => {
           var regex = new RegExp(this.searchName, "i");
-          return el.category_translation[0].name.match(regex);
+          return el.name.match(regex);
         });
       }
       if (this.searchSection != "") {
