@@ -56,6 +56,7 @@
             class="form-control"
             id="validationCustom01"
             v-model="Brands.brand[1].name"
+            min="5"
             v-if="lang == 'ar'"
             required
           />
@@ -64,6 +65,7 @@
             class="form-control"
             id="validationCustom01"
             v-model="Brands.brand[0].name"
+            min="5"
             required
             v-else
           />
@@ -73,22 +75,24 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationCustom01" class="form-label"
+          <label for="validationCustom02" class="form-label"
             >Description
           </label>
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            id="validationCustom02"
             v-model="Brands.brand[1].description"
+            min="5"
             v-if="lang == 'ar'"
             required
           />
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            id="validationCustom02"
             v-model="Brands.brand[0].description"
+            min="5"
             required
             v-else
           />
@@ -98,11 +102,11 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationCustom02" class="form-label">Slug</label>
+          <label for="validationCustom03" class="form-label">Slug</label>
           <input
             type="text"
             class="form-control"
-            id="validationCustom02"
+            id="validationCustom03"
             v-model="Brands.slug"
             required
           />
