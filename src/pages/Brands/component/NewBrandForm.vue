@@ -315,11 +315,11 @@ export default {
         this.Massage_warning =
           "select img is required you must select img and upload it.";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else if (document.querySelectorAll("short").length < 15) {
-        document.getElementById("error").style.display = "block";
-        document.getElementById("good").style.display = "none";
-        window.scrollTo(30, 0);
       } else {
+        if (document.querySelectorAll("short").length < 15) {
+          document.getElementById("error").style.display = "block";
+          document.getElementById("good").style.display = "none";
+        }
         document.getElementById("sp").classList.toggle("cvs");
         axios
           .post(
