@@ -56,7 +56,7 @@
             class="form-control"
             id="validationCustom01"
             v-model="Brands.brand[1].name"
-            min="5"
+            minlength="4"
             v-if="lang == 'ar'"
             required
           />
@@ -65,7 +65,7 @@
             class="form-control"
             id="validationCustom01"
             v-model="Brands.brand[0].name"
-            min="5"
+            minlength="4"
             required
             v-else
           />
@@ -81,23 +81,26 @@
           <input
             type="text"
             class="form-control"
-            id="validationCustom02"
+            id="validationCustom02 short"
             v-model="Brands.brand[1].description"
-            min="5"
+            minlength="15"
             v-if="lang == 'ar'"
             required
           />
           <input
             type="text"
             class="form-control"
-            id="validationCustom02"
+            id="validationCustom02 short"
             v-model="Brands.brand[0].description"
-            min="5"
+            minlength="15"
             required
             v-else
           />
-
-          <div class="valid-feedback">
+          <div id="error">
+            Error! The description field must be filled with at least 15
+            characters
+          </div>
+          <div class="valid-feedback" id="good">
             Looks good!
           </div>
         </div>
@@ -107,6 +110,7 @@
             type="text"
             class="form-control"
             id="validationCustom03"
+            minlength="4"
             v-model="Brands.slug"
             required
           />
@@ -232,14 +236,13 @@ export default {
     },
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
-      // window.location.reload();
     },
     // handle Images when upload from yor disktop
     handleImages(e) {
       this.file = e[0];
       console.log(e[0]);
     },
-    // post Images you uploaded to server
+    // update Images you uploaded to server
     formSubmit(e) {
       var self = this;
       e.preventDefault();
@@ -248,7 +251,7 @@ export default {
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
-        .post(`/api/categories/upload`, data, {
+        .post(`/api/brands/upload`, data, {
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress : " +
@@ -309,15 +312,15 @@ export default {
             console.log("error:", error);
 
             alert(
-              `error !! Sorry category by id request had error we can not return old data.. work soon`
+              `error !! Sorry Brand by id request had error we can not return old data.. work soon`
             );
           }
         });
     },
-    // post Category to server
+    // update brand to server
     updateBrand() {
       var self = this;
-
+      var length = length;
       if (this.Brands.brand[1].name == "") {
         this.Massage_warning = "arabic name is required you must enter name";
         document.getElementById(`m`).classList.toggle("cvs");
@@ -340,6 +343,10 @@ export default {
           "select img is required you must select img and upload it.";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
+        if (document.querySelectorAll("short").length < 15) {
+          document.getElementById("error").style.display = "block";
+          document.getElementById("good").style.display = "none";
+        }
         document.getElementById("sp").classList.toggle("cvs");
         axios
           .put(
@@ -427,7 +434,11 @@ input {
   font-weight: bold;
   font-size: 18px;
 }
-
+#error {
+  display: none;
+  color: red;
+  font-size: 13px;
+}
 /* images */
 .image {
   margin-top: 30px;
