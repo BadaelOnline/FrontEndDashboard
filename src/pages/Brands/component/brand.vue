@@ -12,12 +12,7 @@
     <!-- <div class="child8">
       <div v-for="item in parentCategory" :key="item.id">{{ item.name }}</div>
     </div> -->
-    <div
-      class="child6"
-      v-if="is_active"
-      @click="statusBrand(id)"
-      style="cursor:pointer;"
-    >
+    <div class="child6" @click="statusBrand(id)" style="cursor:pointer;">
       <i
         v-if="is_active == true"
         :id="`Active${id}`"
@@ -31,9 +26,9 @@
         style="color: #f20b07;"
       ></i>
     </div>
-    <div class="child6" v-else>
+    <!-- <div class="child6" v-else>
       Active key doesnt exist
-    </div>
+    </div> -->
     <div class="child7">
       <router-link :to="{ path: `brand/update/${id}`, params: { id: id } }">
         <button :data-background-color="'blue'">

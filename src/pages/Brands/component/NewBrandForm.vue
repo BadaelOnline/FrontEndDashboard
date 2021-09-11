@@ -55,16 +55,18 @@
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            id="validationCustom01 "
             v-model="Brands.brand[1].name"
+            minlength="4"
             v-if="lang == 'ar'"
             required
           />
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            id="validationCustom01 "
             v-model="Brands.brand[0].name"
+            minlength="4"
             required
             v-else
           />
@@ -74,13 +76,14 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationCustom01" class="form-label"
+          <label for="validationCustom02" class="form-label"
             >Description
           </label>
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            id="validationCustom02 short"
+            minlength="15"
             v-model="Brands.brand[1].description"
             v-if="lang == 'ar'"
             required
@@ -88,22 +91,27 @@
           <input
             type="text"
             class="form-control"
-            id="validationCustom01"
+            minlength="15"
+            id="validationCustom02 short"
             v-model="Brands.brand[0].description"
             required
             v-else
           />
-
-          <div class="valid-feedback">
+          <div id="error">
+            Error! The description field must be filled with at least 15
+            characters
+          </div>
+          <div class="valid-feedback" id="good">
             Looks good!
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationCustom02" class="form-label">Slug</label>
+          <label for="validationCustom03" class="form-label">Slug</label>
           <input
             type="text"
             class="form-control"
-            id="validationCustom02"
+            minlength="4"
+            id="validationCustom03"
             v-model="Brands.slug"
             required
           />
@@ -215,6 +223,7 @@ export default {
               event.preventDefault();
               event.stopPropagation();
               form.classList.add("was-validated");
+              // console.log(document.querySelectorAll("short").length);
             }
           },
           false
@@ -284,7 +293,7 @@ export default {
     },
     postBrand() {
       var self = this;
-
+      var length = length;
       if (this.Brands.brand[1].name == "") {
         this.Massage_warning = "arabic name is required you must enter name";
         document.getElementById(`m`).classList.toggle("cvs");
@@ -306,6 +315,10 @@ export default {
         this.Massage_warning =
           "select img is required you must select img and upload it.";
         document.getElementById(`m`).classList.toggle("cvs");
+      } else if (document.querySelectorAll("short").length < 15) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("good").style.display = "none";
+        window.scrollTo(30, 0);
       } else {
         document.getElementById("sp").classList.toggle("cvs");
         axios
@@ -445,6 +458,11 @@ input {
   width: 150px;
   margin: auto;
   display: block;
+}
+#error {
+  display: none;
+  color: red;
+  font-size: 13px;
 }
 .imgsPreview .imageHolder {
   width: 150px;
