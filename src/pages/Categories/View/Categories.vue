@@ -85,10 +85,10 @@
             :key="item.pr"
             :id="item.id"
             :name="item.name"
+            :parent="item.parent"
+            :section="item.section"
             :slug="item.slug"
             :image="item.image"
-            :section="item.section.section_translation[0].name"
-            :parentCategory="item.section.category"
             :is_active="item.is_active"
             style="margin: 10px 0"
           >
@@ -142,7 +142,7 @@ export default {
       if (this.searchSection != "") {
         return this.Categories.filter((el) => {
           var regex = new RegExp(this.searchSection, "i");
-          return el.section.section_translation[0].name.match(regex);
+          return el.section.name.match(regex);
         });
       }
       if (this.selectedFilter == "notActive") {

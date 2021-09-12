@@ -118,7 +118,7 @@
               v-for="category in Categories"
               :key="category.id"
               :value="category.id"
-              >{{ category.category_translation[0].name }}
+              >{{ category.name }}
             </option>
           </select>
           <div class="invalid-feedback">
@@ -196,7 +196,6 @@ export default {
         section_id: "",
         parent_id: "",
       },
-
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },

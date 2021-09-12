@@ -8,9 +8,9 @@
     </div>
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
-    <div class="child5">{{ section }}</div>
+    <div class="child5">{{ section.name }}</div>
     <div class="child8">
-      <div v-for="item in parentCategory" :key="item.id">{{ item.name }}</div>
+      {{ parent.name }}
     </div>
     <div
       class="child6"
@@ -95,16 +95,11 @@ export default {
       Massage_warning: "",
     };
   },
-  props: [
-    "id",
-    "name",
-    "image",
-    "is_active",
-    "section",
-    "category_images",
-    "parentCategory",
-    "slug",
-  ],
+  //
+  // :section="item.section"
+  // :slug="item.slug"
+  //
+  props: ["id", "name", "image", "is_active", "parent", "section", "slug"],
   methods: {
     close() {
       document.getElementById(`m${this.id}`).classList.toggle("cvs");
@@ -261,7 +256,7 @@ export default {
   margin: auto;
   opacity: 0.7;
 }
-.parent .child8 {
+/* .parent .child8 {
   border: 1px #36bdca solid;
   background: #fefefe;
   overflow-y: auto;
@@ -269,8 +264,8 @@ export default {
   height: 80px;
   scrollbar-color: #6969dd #e0e0e0;
   scrollbar-width: thin;
-}
-.parent .child8::-webkit-scrollbar {
+} */
+/* .parent .child8::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -282,7 +277,7 @@ export default {
   border-radius: 100px;
   background-image: linear-gradient(180deg, #36bdca 0%, #708ad4 99%);
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-}
+} */
 .parent .child6 {
   width: 30% !important;
   display: flex;
