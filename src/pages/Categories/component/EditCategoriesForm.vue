@@ -117,7 +117,7 @@
               v-for="category in Categories"
               :key="category.id"
               :value="category.id"
-              >{{ category.category_translation[0].name }}
+              >{{ category.name }}
             </option>
           </select>
           <div class="invalid-feedback">

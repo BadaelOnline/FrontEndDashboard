@@ -6,10 +6,10 @@ Vue.use(Vuex, axios);
 let lang = window.localStorage.getItem("lang");
 export const loadCategories = ({ commit }) => {
   axios
-    .get(`/api/dashcategories/list?lang=${lang}`)
+    .get(`/api/categories/getAll?lang=${lang}`)
     .then((res) => {
-      console.warn("Categories :", res.data.category);
-      let Categories = res.data.category;
+      console.warn("Categories :", res.data.Category.data);
+      let Categories = res.data.Category.data;
       commit("SET_Categories", Categories);
     })
     .catch(function(error) {
