@@ -21,16 +21,15 @@ import App from "./App";
 // validate
 import Vuelidate from "vuelidate";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap/dist/css/bootstrap.min";
 // vue-i18n
 import i18n from "./js/i18n";
 import VueI18n from "vue-i18n";
 import FlagIcon from "vue-flag-icon";
-//store.js
+//store.js 
 import store from "./store/Store";
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap";
 //axios
 import axios from "axios";
 
@@ -45,11 +44,11 @@ import GlobalDirectives from "./globalDirectives";
 import MaterialDashboard from "./material-dashboard";
 import Chartist from "chartist";
 
-import ViewUI from "iview";
-Vue.use(ViewUI);
+// import ViewUI from "iview";
+// Vue.use(ViewUI);
 // configure router
 const server =
-  localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
+  localStorage.getItem("server") || "http://edalili.e-dalely.com";
 axios.defaults.baseURL = server;
 const router = new VueRouter({
   mode: "history",
