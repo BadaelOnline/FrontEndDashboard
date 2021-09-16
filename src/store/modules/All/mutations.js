@@ -1,6 +1,9 @@
 export const SET_Categories = (state, Categories) => {
   state.Categories = Categories;
 };
+export const SET_total_page = (state, total_page) => {
+  state.total_page = total_page;
+};
 export const SET_CategoriesTrash = (state, CategoriesTrash) => {
   state.CategoriesTrash = CategoriesTrash;
 };

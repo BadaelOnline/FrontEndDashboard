@@ -95,14 +95,14 @@
               >
               </Categories>
             </div>
-            <page
-              :total="pageInfo.total"
-              :current="pageInfo.current_page"
-              :page-size="parseInt(pageInfo.per_page)"
-              @on-change="getCategories"
-              style="display:flex; list-style:none"
-              v-if="pageInfo"
-            />
+            <div class="pagenation">
+            <page class="page" 
+              v-for="pag in total_page" :key="pag.pr"
+              :class="{ page_active : pageInfo == pag}"
+            >
+            <span @click="getPage(pag)">{{pag}}</span>
+            </page>
+            </div>
           </main>
         </div>
         <div class="unavaible_category" v-else>
@@ -123,28 +123,27 @@
 <script>
 import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
-import axios from "axios";
-let lang = window.localStorage.getItem("lang");
+// import axios from "axios";
+const page = window.localStorage.getItem("page");
 const perPageOptions = [5, 20, 50, 100];
 export default {
   data() {
     return {
+      page:page,
       searchID: "",
       searchName: "",
       searchSection: "",
       selectedFilter: "",
-      Categories: [],
       perPageOptions,
-      total: 1,
-      pageInfo: null,
-      pagination: {},
+      pageInfo: page,
     };
   },
   components: { Categories },
   name: "AllCategories",
   computed: {
     ...mapState({
-      // Categories: (state) => state.All.Categories,
+       Categories: (state) => state.All.Categories,
+      total_page: (state) => state.All.total_page,
       // CategoriesTrash: (state) => state.All.CategoriesTrash,
       name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
@@ -176,32 +175,39 @@ export default {
       }
     },
   },
-  created() {
-    this.getCategories();
-  },
   methods: {
-    async getCategories(page = 1) {
-      console.log(page);
-      await axios
-        .get(`/api/categories/getAll?page=${page}?lang=${lang}`)
-        .then((res) => {
-          this.Categories = res.data.Category.data;
-          console.warn("Categories", res.data.Category);
-          this.pageInfo = res.data.Category;
-        })
-        .catch(function(error) {
-          console.log("Error: ", error);
-        });
+      getPage(i) {
+        localStorage.setItem("page", i);
+      this.$store.dispatch("loadCategories");
+      window.location.reload();
+    
     },
+ 
   },
   mounted() {
-    // this.$store.dispatch("loadCategories");
+    this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadSections");
   },
 };
 </script>
 
 <style scoped>
+.pagenation{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.page{
+  padding: 5px;
+  cursor: pointer;
+}
+.page_active{
+  background-color: #16bbd0;
+  padding: 5px;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+}
 .title_form {
   display: flex;
   justify-content: center;

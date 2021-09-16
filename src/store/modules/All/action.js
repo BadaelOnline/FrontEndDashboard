@@ -3,15 +3,18 @@ import Vuex from "vuex";
 import axios from "axios";
 
 Vue.use(Vuex, axios);
-let lang = window.localStorage.getItem("lang");
+const lang = window.localStorage.getItem("lang");
+const page = window.localStorage.getItem("page");
 export const loadCategories = ({ commit }) => {
   axios
-    .get(`/api/categories/getAll?lang=${lang}`)
+    .get(`/api/categories/getAll?page=${page}`)
     .then((res) => {
-      console.warn("Categories :", res.data);
+      console.warn("Categories :", res.data.Category);
       let Categories = res.data.Category.data;
-
+      let total_page = res.data.Category.total;
       commit("SET_Categories", Categories);
+      commit("SET_total_page", total_page);
+      console.log("page :", page);
     })
     .catch(function(error) {
       console.log("Error: ", error);
