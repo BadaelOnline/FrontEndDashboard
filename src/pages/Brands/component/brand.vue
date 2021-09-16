@@ -7,11 +7,7 @@
       </div>
     </div>
     <div class="child3">{{ name }}</div>
-    <!-- <div class="child4">{{ slug }}</div> -->
     <div class="child5">{{ description }}</div>
-    <!-- <div class="child8">
-      <div v-for="item in parentCategory" :key="item.id">{{ item.name }}</div>
-    </div> -->
     <div class="child6" @click="statusBrand(id)" style="cursor:pointer;">
       <i
         v-if="is_active == true"
@@ -69,14 +65,16 @@
       :id="`m${id}`"
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
+      @click="close()"
+      style="cursor:pointer"
     >
       {{ Massage_warning }} .
-      <button
+      <!-- <button
         type="button"
         class="btn-close"
         @click="close()"
         aria-label="Close"
-      ></button>
+      ></button> -->
     </div>
   </div>
 </template>
@@ -100,7 +98,7 @@ export default {
       var self = this;
       if (this.is_active == false) {
         this.Massage_warning =
-          "This not Active element you can not delete it please choose restore item on the left side";
+          "You cannot delete this item because it has already been deleted. If you want to restore it, click on the status of the item";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
         var r = confirm(`Are you sure you want to delete Brand id ${i}`);
@@ -150,7 +148,7 @@ export default {
       var self = this;
       if (this.is_active == true) {
         this.Massage_warning =
-          "This Active element you can not restore it please choose delete item on the right side";
+          "Sorry, this active item cannot be restored. Please choose Delete Item on the right side";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
         let res = confirm(`Are you sure you want to restore Brand id ${i}`);

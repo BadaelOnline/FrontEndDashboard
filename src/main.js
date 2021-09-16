@@ -20,6 +20,8 @@ import App from "./App";
 
 // validate
 import Vuelidate from "vuelidate";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap/dist/css/bootstrap.min";
 // vue-i18n
 import i18n from "./js/i18n";
@@ -41,10 +43,10 @@ import GlobalDirectives from "./globalDirectives";
 
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
-// import Pagination from '@material-ui/lab/Pagination';
-// import {Pagination} from '@/components'
 import Chartist from "chartist";
 
+import ViewUI from "iview";
+Vue.use(ViewUI);
 // configure router
 const server =
   localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
@@ -73,6 +75,7 @@ Vue.use(GlobalDirectives);
 Vue.use(i18n, VueI18n);
 Vue.use(FlagIcon);
 Vue.use(Vuelidate);
+Vue.use(BootstrapVue, IconsPlugin);
 // Vue.use(Pagination)
 
 // axios.defaults.baseURL = "http://edalili.e-dalely.com/public";

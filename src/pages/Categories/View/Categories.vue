@@ -79,21 +79,31 @@
               </div>
             </div>
           </div>
-
-          <Categories
-            v-for="item in filteredName"
-            :key="item.pr"
-            :id="item.id"
-            :name="item.name"
-            :parent="item.parent"
-            :section="item.section"
-            :slug="item.slug"
-            :image="item.image"
-            :is_active="item.is_active"
-            style="margin: 10px 0"
-          >
-          </Categories>
-          <!--     -->
+          <main>
+            <div style=" height:auto; overflow:auto">
+              <Categories
+                v-for="item in filteredName"
+                :key="item.pr"
+                :id="item.id"
+                :name="item.name"
+                :parent="item.parent"
+                :section="item.section"
+                :slug="item.slug"
+                :image="item.image"
+                :is_active="item.is_active"
+                style="margin: 30px 0;"
+              >
+              </Categories>
+            </div>
+            <page
+              :total="pageInfo.total"
+              :current="pageInfo.current_page"
+              :page-size="parseInt(pageInfo.per_page)"
+              @on-change="getCategories"
+              style="display:flex; list-style:none"
+              v-if="pageInfo"
+            />
+          </main>
         </div>
         <div class="unavaible_category" v-else>
           <router-link :to="`/admin/category/create`"
@@ -113,6 +123,9 @@
 <script>
 import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
+import axios from "axios";
+let lang = window.localStorage.getItem("lang");
+const perPageOptions = [5, 20, 50, 100];
 export default {
   data() {
     return {
@@ -120,14 +133,19 @@ export default {
       searchName: "",
       searchSection: "",
       selectedFilter: "",
+      Categories: [],
+      perPageOptions,
+      total: 1,
+      pageInfo: null,
+      pagination: {},
     };
   },
   components: { Categories },
   name: "AllCategories",
   computed: {
     ...mapState({
-      Categories: (state) => state.All.Categories,
-      CategoriesTrash: (state) => state.All.CategoriesTrash,
+      // Categories: (state) => state.All.Categories,
+      // CategoriesTrash: (state) => state.All.CategoriesTrash,
       name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
@@ -158,9 +176,26 @@ export default {
       }
     },
   },
+  created() {
+    this.getCategories();
+  },
+  methods: {
+    async getCategories(page = 1) {
+      console.log(page);
+      await axios
+        .get(`/api/categories/getAll?page=${page}?lang=${lang}`)
+        .then((res) => {
+          this.Categories = res.data.Category.data;
+          console.warn("Categories", res.data.Category);
+          this.pageInfo = res.data.Category;
+        })
+        .catch(function(error) {
+          console.log("Error: ", error);
+        });
+    },
+  },
   mounted() {
-    this.$store.dispatch("loadCategories");
-    this.$store.dispatch("loadCategoriesTrash");
+    // this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadSections");
   },
 };
@@ -221,6 +256,9 @@ export default {
   font-weight: 900;
   margin: auto;
   margin: 10px 0;
+}
+main {
+  margin: 20px 0;
 }
 .search {
   width: 70px;
@@ -313,6 +351,13 @@ export default {
 .unavaible_product h2 {
   font-size: 3em;
   color: gray;
+}
+/*  */
+li.ivu-page-next.ivu-page-disabled {
+  background-color: #000;
+}
+li.ivu-page-prev {
+  background-color: #000;
 }
 </style>
 
