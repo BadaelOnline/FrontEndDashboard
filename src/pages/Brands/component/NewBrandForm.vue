@@ -24,16 +24,18 @@
       </svg>
       <div
         id="m"
+        style="cursor:pointer"
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
+        @click="close()"
       >
         {{ Massage_warning }} .
-        <button
+        <!-- <button
           type="button"
           class="btn-close"
           @click="close()"
           aria-label="Close"
-        ></button>
+        ></button> -->
       </div>
       <!-- tab -->
       <div class="title_form">
@@ -295,25 +297,28 @@ export default {
       var self = this;
       var length = length;
       if (this.Brands.brand[1].name == "") {
-        this.Massage_warning = "arabic name is required you must enter name";
+        this.Massage_warning =
+          "Please enter the name field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.Brands.brand[0].name == "") {
-        this.Massage_warning = "english name is required you must enter name";
+        this.Massage_warning =
+          "Please enter the name field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.Brands.brand[1].description == "") {
         this.Massage_warning =
-          "arabic description is required you must enter description";
+          "Please enter the description field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.Brands.brand[0].description == "") {
         this.Massage_warning =
-          "english description is required you must enter description";
+          "Please enter the description field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.Brands.slug == "") {
-        this.Massage_warning = "slug is required you must enter slug";
+        this.Massage_warning =
+          "Please enter the slug field because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.Brands.image == "") {
         this.Massage_warning =
-          "select img is required you must select img and upload it.";
+          "Please choose a picture and upload it because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
         if (document.querySelectorAll("short").length < 15) {

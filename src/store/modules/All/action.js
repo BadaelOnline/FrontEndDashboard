@@ -8,8 +8,9 @@ export const loadCategories = ({ commit }) => {
   axios
     .get(`/api/categories/getAll?lang=${lang}`)
     .then((res) => {
-      console.warn("Categories :", res.data.Category.data);
+      console.warn("Categories :", res.data);
       let Categories = res.data.Category.data;
+
       commit("SET_Categories", Categories);
     })
     .catch(function(error) {

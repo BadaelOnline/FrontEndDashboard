@@ -24,16 +24,18 @@
       </svg>
       <div
         id="m"
+        style="cursor:pointer"
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
+        @click="close()"
       >
         {{ Massage_warning }} .
-        <button
+        <!-- <button
           type="button"
           class="btn-close"
           @click="close()"
           aria-label="Close"
-        ></button>
+        ></button> -->
       </div>
       <!-- tab -->
       <div class="title_form">
@@ -274,7 +276,7 @@ export default {
               localStorage.getItem("server") + "/" + res.data
             );
             document.getElementById("sp").classList.toggle("cvs");
-            self.Massage_success = "Upload Success ";
+            self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
@@ -304,24 +306,28 @@ export default {
       var self = this;
 
       if (this.categories.category[1].name == "") {
-        this.Massage_warning = "arabic name is required you must enter name";
+        this.Massage_warning =
+          "Please enter the name field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.categories.category[0].name == "") {
-        this.Massage_warning = "english name is required you must enter name";
+        this.Massage_warning =
+          "Please enter the name field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.categories.section_id == "") {
         this.Massage_warning =
-          "section_id is required you must enter section_id";
+          "Please select the section because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.categories.parent_id == "") {
-        this.Massage_warning = "parent_id is required you must enter parent_id";
+        this.Massage_warning =
+          "Please select the parent category because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.categories.slug == "") {
-        this.Massage_warning = "slug is required you must enter slug";
+        this.Massage_warning =
+          "Please enter the slug field because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else if (this.categories.images == "") {
         this.Massage_warning =
-          "select img is required you must select img and upload it.";
+          "Please choose a picture and upload it because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
         document.getElementById("sp").classList.toggle("cvs");

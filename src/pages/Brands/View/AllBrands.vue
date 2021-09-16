@@ -39,21 +39,11 @@
                 required
               />
             </div>
-            <!-- <div class="child4">
-              <div class="child">
-                <span>Slug</span>
-              </div>
-            </div> -->
             <div class="child5">
               <div class="child">
                 <span>description</span>
               </div>
             </div>
-            <!-- <div class="child8">
-              <div class="child">
-                <span>Parent Category</span>
-              </div>
-            </div> -->
             <div class="child6">
               <div class="child">
                 <span>Status</span>
