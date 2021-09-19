@@ -42,7 +42,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .md-field:not(.md-disabled)::after {
   display: none;
 }

@@ -19,18 +19,14 @@ import UpImagStrProd from "../pages/Product_Store/component/UpImagStrProd.vue";
 import Categories from "../pages/Categories/component/Categories.vue";
 import NewCategoriesForm from "../pages/Categories/component/NewCategoriesForm.vue";
 import EditCategoriesForm from "../pages/Categories/component/EditCategoriesForm.vue";
-import UploadImagesCategory from "../pages/Categories/component/UploadImagesCategory.vue";
-// import UploadCategoryImages from "../pages/Categories/component/media/UploadCategoryImages.vue";
 //brand
 import Brands from "../pages/Brands/component/brand.vue";
 import NewBrandForm from "../pages/Brands/component/NewBrandForm.vue";
 import EditBrandForm from "../pages/Brands/component/EditBrandForm.vue";
-import UploadImagesBrand from "../pages/Brands/component/UploadImagesBrand.vue";
 //section
 import Section from "../pages/Sections/component/Section";
 import NewSectionForm from "../pages/Sections/component/NewSectionForm";
 import EditSectionForm from "../pages/Sections/component/EditSectionForm";
-import UploadImagesSection from "../pages/Sections/component/UploadImagesSection";
 //Doctors
 import Doctors from "../pages/Doctor/component/Doctors.vue";
 import NewDoctorsForm from "../pages/Doctor/component/NewDoctorsForm.vue";
@@ -63,10 +59,7 @@ export {
   offers,
   UploadImagesStore,
   UpImagStrProd,
-  UploadImagesCategory,
-  // UploadCategoryImages,
   UploadImagesProduct,
-  UploadImagesBrand,
   UploadImagesDoctor,
   EditProductForm,
   CreateProductForm,
@@ -101,7 +94,6 @@ export {
   Section,
   NewSectionForm,
   EditSectionForm,
-  UploadImagesSection,
 };
 
 // export { UploadImages, EditProductForm, CreateProductForm, Products, Stores, CreateStoreForm, EditStoreForm, StoreProd, CreateProductStor, EditProductStor };

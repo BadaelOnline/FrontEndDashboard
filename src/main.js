@@ -20,16 +20,23 @@ import App from "./App";
 
 // validate
 import Vuelidate from "vuelidate";
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-// import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap/dist/css/bootstrap.min";
 // vue-i18n
 import i18n from "./js/i18n";
 import VueI18n from "vue-i18n";
 import FlagIcon from "vue-flag-icon";
-//store.js 
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+// import 'normalize.css';
+// import "../public/fontawesome-free-5.15.1-web/css/all.css";
+// import 'bootstrap/'
+// import "bootstrap/dist/css/bootstrap.min";
+
+Vue.use(BootstrapVue, IconsPlugin);
+
+//store.js
 import store from "./store/Store";
-// import "bootstrap";
 //axios
 import axios from "axios";
 
@@ -44,11 +51,8 @@ import GlobalDirectives from "./globalDirectives";
 import MaterialDashboard from "./material-dashboard";
 import Chartist from "chartist";
 
-// import ViewUI from "iview";
-// Vue.use(ViewUI);
 // configure router
-const server =
-  localStorage.getItem("server") || "http://edalili.e-dalely.com";
+const server = localStorage.getItem("server") || "http://edalili.e-dalely.com";
 axios.defaults.baseURL = server;
 const router = new VueRouter({
   mode: "history",
@@ -74,7 +78,6 @@ Vue.use(GlobalDirectives);
 Vue.use(i18n, VueI18n);
 Vue.use(FlagIcon);
 Vue.use(Vuelidate);
-Vue.use(BootstrapVue, IconsPlugin);
 // Vue.use(Pagination)
 
 // axios.defaults.baseURL = "http://edalili.e-dalely.com/public";

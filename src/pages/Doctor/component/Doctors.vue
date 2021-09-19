@@ -29,23 +29,23 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "Doctors",
   props: ["id", "first_name", "last_name", "image", "is_active", "description"],
 
-     methods: {
-        delDoctor() {
-            axios.put(
-                `http://edalili.e-dalely.com/public/api/doctor/trash/${this.id}`,
-                this.details
-            );
-            console.log(JSON.stringify(this.is_active));
-        },
+  methods: {
+    delDoctor() {
+      axios.put(
+        `http://edalili.e-dalely.com/public/api/doctor/trash/${this.id}`,
+        this.details
+      );
+      console.log(JSON.stringify(this.is_active));
     },
+  },
 };
 </script>
-<style>
+<style scoped>
 .md-field:not(.md-disabled)::after {
   display: none;
 }

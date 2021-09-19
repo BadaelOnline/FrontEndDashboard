@@ -24,21 +24,23 @@
       </svg>
       <div
         id="m"
+        style="cursor:pointer"
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
+        @click="close()"
       >
         {{ Massage_warning }} .
-        <button
+        <!-- <button
           type="button"
           class="btn-close"
           @click="close()"
           aria-label="Close"
-        ></button>
+        ></button> -->
       </div>
       <!-- tab -->
       <div class="title_form">
         <div class="lng">
-          <h4>Category Form</h4>
+          <h4>Section Form</h4>
           <div class="divlang">
             <select name="" id="" v-model="lang" @change="handleChange($event)">
               <option value="en">EN</option>
@@ -55,7 +57,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="categories.category[1].name"
+            v-model="sections.section[1].name"
             v-if="lang == 'ar'"
             required
           />
@@ -63,7 +65,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="categories.category[0].name"
+            v-model="sections.section[0].name"
             required
             v-else
           />
@@ -78,14 +80,14 @@
             type="text"
             class="form-control"
             id="validationCustom02"
-            v-model="categories.slug"
+            v-model="sections.slug"
             required
           />
           <div class="valid-feedback">
             Looks good!
           </div>
         </div>
-
+        <!--
         <div class="col-md-6">
           <label for="validationCustom04" class="form-label">section_id</label>
           <select
@@ -123,7 +125,7 @@
           <div class="invalid-feedback">
             Please select a valid state.
           </div>
-        </div>
+        </div> -->
       </form>
 
       <form
@@ -142,7 +144,7 @@
       <div class="child_4">
         <md-button
           :data-background-color="'blue'"
-          @click="updateCategory()"
+          @click="updateSection()"
           class="toggle-disabled"
           id="btnAdd"
           >Update</md-button
@@ -156,7 +158,7 @@ import { mapState } from "vuex";
 import axios from "axios";
 import UploadImages from "vue-upload-drop-images";
 export default {
-  name: "EditCategoryForm",
+  name: "EditSectionForm",
   components: {
     UploadImages,
   },
@@ -176,22 +178,22 @@ export default {
       lang: lang,
       file: [],
       Progress: 0,
-      categories: {
-        category: [
+      sections: {
+        section: [
           {
             name: "",
             local: "en",
+            description: "asasaasdasds",
           },
           {
             name: "",
             local: "ar",
+            description: "asasdasdasas",
           },
         ],
-        image: "",
-        slug: "",
+        slug: "fahed",
         is_active: 1,
-        section_id: "",
-        parent_id: "",
+        image: "",
       },
       // CategoryId,
     };
@@ -206,9 +208,8 @@ export default {
   // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
   computed: {
     ...mapState({
-      Categories: (state) => state.All.Categories,
-      CategoryID: (state) => state.All.CategoryID,
-      sections: (state) => state.All.sections,
+      SectionID: (state) => state.All.SectionID,
+      Sections: (state) => state.All.sections,
     }),
   },
   mounted() {
@@ -260,7 +261,7 @@ export default {
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
-        .post(`/api/categories/upload`, data, {
+        .post(`/api/sections/upload`, data, {
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress : " +
@@ -275,14 +276,14 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.categories.image =
+            self.sections.image =
               localStorage.getItem("server") + "/" + res.data;
             console.log(
               "image",
               localStorage.getItem("server") + "/" + res.data
             );
             document.getElementById("sp").classList.toggle("cvs");
-            self.Massage_success = "Upload Success ";
+            self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
@@ -306,16 +307,14 @@ export default {
     // fetch data to insert in label for viewer
     fetch() {
       axios
-        .get(`/api/categories/getById/${this.$route.params.id}?lang=en`)
+        .get(`/api/sections/getById/${this.$route.params.id}?lang=en`)
         .then((res) => {
-          this.categories.category[0].name = res.data.Category.name;
-          this.categories.section_id = res.data.Category.section_id;
-          this.categories.parent_id = res.data.Category.parent_id;
+          this.sections.section[0].name = res.data.Section.name;
         });
       axios
-        .get(`/api/categories/getById/${this.$route.params.id}?lang=ar`)
+        .get(`/api/sections/getById/${this.$route.params.id}?lang=ar`)
         .then((res) => {
-          this.categories.category[1].name = res.data.Category.name;
+          this.sections.section[1].name = res.data.Section.name;
         })
         .catch(function(error) {
           if (error) {
@@ -324,42 +323,45 @@ export default {
             // console.log(error.response.headers);
 
             alert(
-              `error !! Sorry category by id request had error we can not return old data.. work soon`
+              `error !! Sorry section by id request had error we can not return old data.. work soon`
             );
           }
         });
     },
     // post Category to server
-    updateCategory() {
+    updateSection() {
       var self = this;
 
-      if (this.categories.category[1].name == "") {
-        this.Massage_warning = "arabic name is required you must enter name";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.category[0].name == "") {
-        this.Massage_warning = "english name is required you must enter name";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.section_id == "") {
+      if (this.sections.section[1].name == "") {
         this.Massage_warning =
-          "section_id is required you must enter section_id";
+          "Please enter the name field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.parent_id == "") {
-        this.Massage_warning = "parent_id is required you must enter parent_id";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.slug == "") {
-        this.Massage_warning = "slug is required you must enter slug";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.image == "") {
+      } else if (this.sections.section[0].name == "") {
         this.Massage_warning =
-          "select img is required you must select img and upload it.";
+          "Please enter the name field in English because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      }
+      //  else if (this.categories.section_id == "") {
+      //   this.Massage_warning =
+      //     "Please select the section because it is required";
+      //   document.getElementById(`m`).classList.toggle("cvs");
+      // } else if (this.categories.parent_id == "") {
+      //   this.Massage_warning =
+      //     "Please select the parent category because it is required";
+      //   document.getElementById(`m`).classList.toggle("cvs");
+      // }
+      else if (this.sections.slug == "") {
+        this.Massage_warning =
+          "Please enter the slug field because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.sections.image == "") {
+        this.Massage_warning =
+          "Please choose a picture and upload it because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
         document.getElementById("sp").classList.toggle("cvs");
         axios
-          .put(
-            `/api/categories/update/${this.$route.params.id}`,
-            this.categories
-          )
+          .put(`/api/sections/update/${this.$route.params.id}`, this.sections)
           .then(function(response) {
             console.log(response.data);
             if (
@@ -368,9 +370,9 @@ export default {
             ) {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
-              self.Massage_success = "update Category Request Success";
+              self.Massage_success = "update Sections Request Success";
               setTimeout(() => {
-                self.$router.push({ name: "Categories" });
+                self.$router.push({ name: "section" });
               }, 2000);
             } else {
               document.getElementById("sp").classList.toggle("cvs");

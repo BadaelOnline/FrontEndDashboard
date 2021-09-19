@@ -61,16 +61,30 @@
             </div>
           </div>
 
-          <brands
-            v-for="brand in filteredName"
-            :key="brand.id"
-            :id="brand.id"
-            :name="brand.name"
-            :image="brand.image"
-            :is_active="brand.is_active"
-            :description="brand.description"
-          >
-          </brands>
+          <main>
+            <div style=" height:auto; overflow:auto">
+              <brands
+                v-for="brand in filteredName"
+                :key="brand.id"
+                :id="brand.id"
+                :name="brand.name"
+                :image="brand.image"
+                :is_active="brand.is_active"
+                :description="brand.description"
+              >
+              </brands>
+            </div>
+            <div class="pagenation">
+              <div
+                class="page"
+                v-for="pag in per_Brands"
+                :key="pag.pr"
+                :class="{ page_active: pageInfo == pag }"
+              >
+                <div @click="getPage(pag)">{{ pag }}</div>
+              </div>
+            </div>
+          </main>
           <!--     -->
         </div>
         <div class="unavaible_category" v-else>
@@ -91,18 +105,24 @@
 <script>
 import { mapState } from "vuex";
 import brands from "../component/brand.vue";
+const page = window.localStorage.getItem("page");
+
 export default {
   components: { brands },
   data() {
     return {
+      page: page,
       searchID: "",
       searchName: "",
       selectedFilter: "",
+      pageInfo: page,
     };
   },
   computed: {
     ...mapState({
       Brands: (state) => state.All.Brands,
+      total_Brands: (state) => state.All.total_Brands,
+      per_Brands: (state) => state.All.per_Brands,
     }),
     filteredName() {
       if (this.searchName != "") {
@@ -124,6 +144,13 @@ export default {
       }
     },
   },
+  methods: {
+    getPage(i) {
+      localStorage.setItem("page", i);
+      this.$store.dispatch("loadBrands");
+      window.location.reload();
+    },
+  },
   mounted() {
     this.$store.dispatch("loadBrands");
   },
@@ -131,7 +158,40 @@ export default {
 </script>
 
 <style scoped>
-title_form {
+/* .paginate {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.paginate span {
+  cursor: pointer;
+  border: solid 3px #36bdca;
+  background-color: #36bdca;
+} */
+.pagenation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+.page {
+  padding: 5px;
+  width: 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #efefee;
+}
+.page_active {
+  background-color: #16bbd0;
+  padding: 5px;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.title_form {
   display: flex;
   justify-content: center;
   gap: 60%;
@@ -167,7 +227,7 @@ title_form {
 .nav_tabel .child6,
 .nav_tabel .child7,
 .nav_tabel .child8 {
-  height: 10em;
+  height: 6em;
   align-items: center;
   text-align: center;
   color: #fff;
@@ -181,10 +241,23 @@ title_form {
 .nav_tabel .child7 .child,
 .nav_tabel .child8 .child {
   background-color: #36bdca;
-  height: 4em;
+  height: 3em;
   font-weight: 900;
-  margin: auto;
   margin: 10px 0;
+}
+.nav_tabel .child1 .child span,
+.nav_tabel .child2 .child span,
+.nav_tabel .child3 .child span,
+.nav_tabel .child4 .child span,
+.nav_tabel .child5 .child span,
+.nav_tabel .child6 .child span,
+.nav_tabel .child7 .child span,
+.nav_tabel .child8 .child span {
+  margin: auto;
+  align-items: center;
+}
+main {
+  margin: 20px 0;
 }
 .search {
   width: 70px;
@@ -277,6 +350,13 @@ title_form {
 .unavaible_product h2 {
   font-size: 3em;
   color: gray;
+}
+/*  */
+li.ivu-page-next.ivu-page-disabled {
+  background-color: #000;
+}
+li.ivu-page-prev {
+  background-color: #000;
 }
 </style>
 

@@ -26,11 +26,13 @@
       Active key doesnt exist
     </div> -->
     <div class="child7">
-      <router-link :to="{ path: `brand/update/${id}`, params: { id: id } }">
-        <button :data-background-color="'blue'">
-          <i class="fas fa-edit"></i>
-        </button>
-      </router-link>
+      <div class="delet">
+        <router-link :to="{ path: `brand/update/${id}`, params: { id: id } }">
+          <button :data-background-color="'blue'">
+            <i class="fas fa-edit"></i>
+          </button>
+        </router-link>
+      </div>
       <div
         @click="deletBrand(id)"
         class="delet"
@@ -244,7 +246,7 @@ export default {
   margin: auto;
   opacity: 0.7;
 }
-.parent .child8 {
+/* .parent .child8 {
   border: 1px #36bdca solid;
   background: #fefefe;
   overflow-y: auto;
@@ -252,8 +254,8 @@ export default {
   height: 80px;
   scrollbar-color: #6969dd #e0e0e0;
   scrollbar-width: thin;
-}
-.parent .child8::-webkit-scrollbar {
+} */
+/* .parent .child8::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -265,7 +267,7 @@ export default {
   border-radius: 100px;
   background-image: linear-gradient(180deg, #36bdca 0%, #708ad4 99%);
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-}
+} */
 .parent .child6 {
   width: 30% !important;
   display: flex;
@@ -288,6 +290,7 @@ export default {
 .parent .child4 {
   width: 20% !important;
   display: flex;
+  text-align: center;
   justify-content: center;
   margin: auto;
   opacity: 0.7;
@@ -300,6 +303,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: auto;
+  gap: 10px;
 }
 .parent .child7 button {
   width: 30px;

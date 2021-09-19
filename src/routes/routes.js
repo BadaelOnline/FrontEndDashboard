@@ -170,7 +170,7 @@ const routes = [
         component: AllSections,
       },
       {
-        path: "section/create",
+        path: "/admin/section/create",
         name: "newsection",
         component: NewSection,
       },
