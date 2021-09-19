@@ -24,21 +24,23 @@
       </svg>
       <div
         id="m"
+        style="cursor:pointer"
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
+        @click="close()"
       >
         {{ Massage_warning }} .
-        <button
+        <!-- <button
           type="button"
           class="btn-close"
           @click="close()"
           aria-label="Close"
-        ></button>
+        ></button> -->
       </div>
       <!-- tab -->
       <div class="title_form">
         <div class="lng">
-          <h4>Category Form</h4>
+          <h4>Section Form</h4>
           <div class="divlang">
             <select name="" id="" v-model="lang" @change="handleChange($event)">
               <option value="en">EN</option>
@@ -56,7 +58,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="categories.category[1].name"
+            v-model="sections.section[1].name"
             v-if="lang == 'ar'"
             required
           />
@@ -64,7 +66,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="categories.category[0].name"
+            v-model="sections.section[0].name"
             required
             v-else
           />
@@ -79,7 +81,7 @@
             type="text"
             class="form-control"
             id="validationCustom02"
-            v-model="categories.slug"
+            v-model="sections.slug"
             required
           />
           <div class="valid-feedback">
@@ -87,7 +89,7 @@
           </div>
         </div>
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label for="validationCustom05" class="form-label">section_id</label>
           <select
             class="form-select"
@@ -103,9 +105,9 @@
           <div class="invalid-feedback">
             Please select a valid state.
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label for="validationCustom04" class="form-label">parent_id </label>
           <select
             class="form-select"
@@ -124,7 +126,7 @@
           <div class="invalid-feedback">
             Please select a valid state.
           </div>
-        </div>
+        </div> -->
       </form>
       <form
         @submit="formSubmit"
@@ -142,7 +144,7 @@
       <div class="child_4">
         <md-button
           :data-background-color="'blue'"
-          @click="postCategory()"
+          @click="postSection()"
           class="btn"
           id="btnAdd"
           >Add</md-button
@@ -157,7 +159,7 @@ import { mapState } from "vuex";
 import axios from "axios";
 import UploadImages from "vue-upload-drop-images";
 export default {
-  name: "NewCategoryForm",
+  name: "NewSectionForm",
   components: {
     UploadImages,
   },
@@ -179,24 +181,23 @@ export default {
       file: [],
       lang1: lang1,
       lang: lang,
-      categories: {
-        category: [
+      sections: {
+        section: [
           {
             name: "",
             local: "en",
+            description: "asasaasdasds",
           },
           {
             name: "",
             local: "ar",
+            description: "asasdasdasas",
           },
         ],
-        image: "",
         slug: "",
         is_active: 1,
-        section_id: "",
-        parent_id: "",
+        image: "",
       },
-      // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
   props: {
@@ -208,13 +209,11 @@ export default {
   },
   computed: {
     ...mapState({
-      Categories: (state) => state.All.Categories,
-      sections: (state) => state.All.sections,
+      // sections: (state) => state.All.sections,
     }),
   },
   mounted() {
-    this.$store.dispatch("loadCategories");
-    this.$store.dispatch("loadSections");
+    // this.$store.dispatch("loadSections");
 
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -252,7 +251,7 @@ export default {
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
-        .post(`/api/categories/upload`, data, {
+        .post(`/api/sections/upload`, data, {
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress : " +
@@ -267,14 +266,14 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.categories.image =
+            self.sections.image =
               localStorage.getItem("server") + "/" + res.data;
             console.log(
               "image",
               localStorage.getItem("server") + "/" + res.data
             );
             document.getElementById("sp").classList.toggle("cvs");
-            self.Massage_success = "Upload Success ";
+            self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
@@ -300,45 +299,48 @@ export default {
     handleChange(event) {
       localStorage.setItem("lang", event.target.value);
     },
-    postCategory() {
+    postSection() {
       var self = this;
 
-      if (this.categories.category[1].name == "") {
-        this.Massage_warning = "arabic name is required you must enter name";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.category[0].name == "") {
-        this.Massage_warning = "english name is required you must enter name";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.section_id == "") {
+      if (this.sections.section[1].name == "") {
         this.Massage_warning =
-          "section_id is required you must enter section_id";
+          "Please enter the name field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.parent_id == "") {
-        this.Massage_warning = "parent_id is required you must enter parent_id";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.slug == "") {
-        this.Massage_warning = "slug is required you must enter slug";
-        document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.categories.images == "") {
+      } else if (this.sections.section[0].name == "") {
         this.Massage_warning =
-          "select img is required you must select img and upload it.";
+          "Please enter the name field in English because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      }
+      //  else if (this.categories.section_id == "") {
+      //   this.Massage_warning =
+      //     "Please select the section because it is required";
+      //   document.getElementById(`m`).classList.toggle("cvs");
+      // } else if (this.categories.parent_id == "") {
+      //   this.Massage_warning =
+      //     "Please select the parent category because it is required";
+      //   document.getElementById(`m`).classList.toggle("cvs");
+      // }
+      else if (this.sections.slug == "") {
+        this.Massage_warning =
+          "Please enter the slug field because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.sections.images == "") {
+        this.Massage_warning =
+          "Please choose a picture and upload it because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
         document.getElementById("sp").classList.toggle("cvs");
         axios
-          .post(
-            "http://edalili.e-dalely.com/public/api/categories/create",
-            this.categories
-          )
+          .post("/api/sections/create", this.sections)
           .then(function(response) {
             console.log(response.data);
             if (response.data.stateNum == 201 || self.statusnumber == 200) {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
-              self.Massage_success = "Create Category Request Success";
+              self.Massage_success = "Create Section Request Success";
               document.getElementById("su").classList.toggle("cvs");
               setTimeout(() => {
-                self.$router.push({ name: "Categories" });
+                self.$router.push({ name: "section" });
               }, 2000);
             } else {
               document.getElementById("sp").classList.toggle("cvs");

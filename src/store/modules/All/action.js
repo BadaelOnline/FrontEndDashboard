@@ -7,13 +7,15 @@ const lang = window.localStorage.getItem("lang");
 const page = window.localStorage.getItem("page");
 export const loadCategories = ({ commit }) => {
   axios
-    .get(`/api/categories/getAll?page=${page}`)
+    .get(`/api/categories/getAll?page=${page}&lang=${lang}`)
     .then((res) => {
       console.warn("Categories :", res.data.Category);
       let Categories = res.data.Category.data;
       let total_page = res.data.Category.total;
+      let per_page = res.data.Category.per_page;
       commit("SET_Categories", Categories);
       commit("SET_total_page", total_page);
+      commit("SET_per_page", per_page);
       console.log("page :", page);
     })
     .catch(function(error) {
@@ -91,11 +93,16 @@ export const deleteSection = ({ commit }, items) => {
 };
 export const loadBrands = ({ commit }) => {
   axios
-    .get(`/api/brands/getAll?lang=${lang}`)
+    .get(`/api/brands/getAll?page=${page}&lang=${lang}`)
     .then((res) => {
-      console.warn("Brands :", res.data.Brand.data);
+      console.warn("Brands :", res.data.Brand);
       let Brands = res.data.Brand.data;
+      let total_Brands = res.data.Brand.total;
+      let per_Brands = res.data.Brand.per_page;
+      commit("SET_total_Brands", total_Brands);
+      commit("SET_per_Brands", per_Brands);
       commit("SET_Brands", Brands);
+      console.log("page :", page);
     })
     .catch(function(error) {
       console.log("Error: ", error);

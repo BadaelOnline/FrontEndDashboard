@@ -153,7 +153,7 @@ import { mapState } from "vuex";
 import axios from "axios";
 import UploadImages from "vue-upload-drop-images";
 export default {
-  name: "NewCategoryForm",
+  name: "NewBrandForm",
   components: {
     UploadImages,
   },

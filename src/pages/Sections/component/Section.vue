@@ -7,15 +7,15 @@
       </div>
     </div>
     <div class="child3">{{ name }}</div>
-    <div class="child4">{{ slug }}</div>
-    <div class="child5">{{ section.name }}</div>
-    <div class="child8">
+    <!-- <div class="child4">category</div>
+    <div class="child5">product</div> -->
+    <!-- <div class="child8">
       {{ parent.name }}
-    </div>
+    </div> -->
     <div
       class="child6"
       v-if="is_active"
-      @click="statusCategory(id)"
+      @click="statusSection(id)"
       style="cursor:pointer;"
     >
       <i
@@ -35,13 +35,15 @@
       Active key doesnt exist
     </div>
     <div class="child7">
-      <router-link :to="{ path: `category/update/${id}`, params: { id: id } }">
-        <button :data-background-color="'blue'">
-          <i class="fas fa-edit"></i>
-        </button>
-      </router-link>
+      <div class="delet">
+        <router-link :to="{ path: `section/update/${id}`, params: { id: id } }">
+          <button :data-background-color="'blue'">
+            <i class="fas fa-edit"></i>
+          </button>
+        </router-link>
+      </div>
       <div
-        @click="deletCategory(id)"
+        @click="deletSection(id)"
         class="delet"
         :class="{ non_active_delete: !is_active }"
       >
@@ -74,14 +76,16 @@
       :id="`m${id}`"
       class="alert alert-danger alert-dismissible fade show"
       role="alert"
+      @click="close()"
+      style="cursor:pointer"
     >
       {{ Massage_warning }} .
-      <button
+      <!-- <button
         type="button"
         class="btn-close"
         @click="close()"
         aria-label="Close"
-      ></button>
+      ></button> -->
     </div>
   </div>
 </template>
@@ -99,23 +103,23 @@ export default {
   // :section="item.section"
   // :slug="item.slug"
   //
-  props: ["id", "name", "image", "is_active", "parent", "section", "slug"],
+  props: ["id", "name", "image", "is_active", "category", "product"],
   methods: {
     close() {
       document.getElementById(`m${this.id}`).classList.toggle("cvs");
     },
-    deletCategory(i) {
+    deletSection(i) {
       var self = this;
       if (this.is_active == "Not Active") {
         this.Massage_warning =
-          "This not Active element you can not delete it please choose restore item on the left side";
+          "You cannot delete this item because it has already been deleted. If you want to restore it, click on the status of the item";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
-        var r = confirm(`Are you sure you want to delete Categoty id ${i}`);
+        var r = confirm(`Are you sure you want to delete Section id ${i}`);
         if (r == true) {
           document.getElementById(`sp${i}`).classList.toggle("cvs");
           axios
-            .put(`/api/categories/trash/${this.id}`)
+            .put(`/api/sections/trash/${this.id}`)
             .then(function(response) {
               if (response.statusText == "OK") {
                 self.Massage_success = "Success Item Delete";
@@ -124,7 +128,7 @@ export default {
                 setTimeout(() => {
                   document.getElementById(`s${i}`).classList.toggle("cvs");
                 }, 3000);
-                self.$store.dispatch("loadCategories");
+                self.$store.dispatch("loadSections");
                 setTimeout(() => {
                   document
                     .getElementById(`NonActive${i}`)
@@ -154,18 +158,18 @@ export default {
         }
       }
     },
-    statusCategory(i) {
+    statusSection(i) {
       var self = this;
       if (this.is_active == "Active") {
         this.Massage_warning =
-          "This Active element you can not restore it please choose delete item on the right side";
+          "Sorry, this active item cannot be restored. Please choose Delete Item on the right side";
         document.getElementById(`m${i}`).classList.toggle("cvs");
       } else {
-        let res = confirm(`Are you sure you want to restore Categoty id ${i}`);
+        let res = confirm(`Are you sure you want to restore Section id ${i}`);
         if (res) {
           document.getElementById(`sp${i}`).classList.toggle("cvs");
           axios
-            .put(`/api/categories/restoreTrashed/${this.id}`)
+            .put(`/api/sections/restoreTrashed/${this.id}`)
             .then(function(response) {
               if (response.statusText == "OK") {
                 document.getElementById(`sp${i}`).classList.toggle("cvs");
@@ -175,7 +179,7 @@ export default {
                 setTimeout(() => {
                   document.getElementById(`s${i}`).classList.toggle("cvs");
                 }, 3000);
-                self.$store.dispatch("loadCategories");
+                self.$store.dispatch("loadSections");
                 setTimeout(() => {
                   document.getElementById(`Active${i}`).classList.add("anim");
                 }, 3000);
@@ -203,6 +207,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .anim {
   animation: mymove 1.5s infinite;
@@ -300,6 +305,7 @@ export default {
 .parent .child4 {
   width: 20% !important;
   display: flex;
+  text-align: center;
   justify-content: center;
   margin: auto;
   opacity: 0.7;
@@ -312,6 +318,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: auto;
+  gap: 10px;
 }
 .parent .child7 button {
   width: 30px;

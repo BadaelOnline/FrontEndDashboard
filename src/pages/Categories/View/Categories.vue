@@ -13,6 +13,19 @@
         <hr style="color: #fff;opacity: 0.5;" />
 
         <div class="table" v-if="Categories.length > 0">
+          <!-- <div class="col-span-4 md:col-span-2">
+            <label for="per_page">
+              Per page
+            </label>
+            <div class="relative">
+              <select id="per_page">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div> -->
           <div class="nav_tabel">
             <div class="child1">
               <div class="child">
@@ -95,13 +108,75 @@
               >
               </Categories>
             </div>
+            <!-- <form class="paginate">
+              double angle_left
+              <span>
+                <svg
+                  style="height:20px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M153.1 247.5l117.8-116a12 12 0 0117 0l7.1 7.1a12 12 0 010 17L192.7 256l102.2 100.4a12 12 0 010 17l-7.1 7.1a12 12 0 01-17 0L153 264.5a12.1 12.1 0 01.1-17zm-128 17l117.8 116a12 12 0 0017 0l7.1-7.1a12 12 0 000-17L64.7 256l102.2-100.4a12 12 0 000-17l-7.1-7.1a12 12 0 00-17 0L25 247.5a12.1 12.1 0 00.1 17z"
+                  />
+                </svg>
+              </span>
+              angle_left
+              <span>
+                <svg
+                  style="height:20px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 192 512"
+                >
+                  <path
+                    d="M25.1 247.5l117.8-116a12 12 0 0117 0l7.1 7.1a12 12 0 010 17L64.7 256l102.2 100.4a12 12 0 010 17l-7.1 7.1a12 12 0 01-17 0L25 264.5a12.1 12.1 0 01.1-17z"
+                  />
+                </svg>
+              </span>
+              <div class="pagenation">
+                <div
+                  class="page"
+                  v-for="pag in per_page"
+                  :key="pag.pr"
+                  :class="{ page_active: pageInfo == pag }"
+                >
+                  <div @click="getPage(pag)">{{ pag }}</div>
+                </div>
+              </div>
+              angle_right
+              <span>
+                <svg
+                  style="height:20px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 192 512"
+                >
+                  <path
+                    d="M166.9 264.5l-117.8 116a12 12 0 01-17 0l-7.1-7.1a12 12 0 010-17L127.3 256 25.1 155.6a12 12 0 010-17l7.1-7.1a12 12 0 0117 0l117.8 116a12.1 12.1 0 01-.1 17z"
+                  />
+                </svg>
+              </span>
+              double angle_right
+              <span>
+                <svg
+                  style="height:20px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M166.9 264.5l-117.8 116a12 12 0 01-17 0l-7.1-7.1a12 12 0 010-17L127.3 256 25.1 155.6a12 12 0 010-17l7.1-7.1a12 12 0 0117 0l117.8 116a12.1 12.1 0 01-.1 17zm128-17l-117.8-116a12 12 0 00-17 0l-7.1 7.1a12 12 0 000 17L255.3 256 153.1 356.4a12 12 0 000 17l7.1 7.1a12 12 0 0017 0l117.8-116a12.1 12.1 0 00-.1-17z"
+                  />
+                </svg>
+              </span>
+            </form> -->
             <div class="pagenation">
-            <page class="page" 
-              v-for="pag in total_page" :key="pag.pr"
-              :class="{ page_active : pageInfo == pag}"
-            >
-            <span @click="getPage(pag)">{{pag}}</span>
-            </page>
+              <div
+                class="page"
+                v-for="pag in per_page"
+                :key="pag.pr"
+                :class="{ page_active: pageInfo == pag }"
+              >
+                <div @click="getPage(pag)">{{ pag }}</div>
+              </div>
             </div>
           </main>
         </div>
@@ -125,16 +200,14 @@ import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
 // import axios from "axios";
 const page = window.localStorage.getItem("page");
-const perPageOptions = [5, 20, 50, 100];
 export default {
   data() {
     return {
-      page:page,
+      page: page,
       searchID: "",
       searchName: "",
       searchSection: "",
       selectedFilter: "",
-      perPageOptions,
       pageInfo: page,
     };
   },
@@ -142,9 +215,9 @@ export default {
   name: "AllCategories",
   computed: {
     ...mapState({
-       Categories: (state) => state.All.Categories,
+      Categories: (state) => state.All.Categories,
       total_page: (state) => state.All.total_page,
-      // CategoriesTrash: (state) => state.All.CategoriesTrash,
+      per_page: (state) => state.All.per_page,
       name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
@@ -176,13 +249,11 @@ export default {
     },
   },
   methods: {
-      getPage(i) {
-        localStorage.setItem("page", i);
+    getPage(i) {
+      localStorage.setItem("page", i);
       this.$store.dispatch("loadCategories");
       window.location.reload();
-    
     },
- 
   },
   mounted() {
     this.$store.dispatch("loadCategories");
@@ -192,16 +263,31 @@ export default {
 </script>
 
 <style scoped>
-.pagenation{
+/* .paginate {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.paginate span {
+  cursor: pointer;
+  border: solid 3px #36bdca;
+  background-color: #36bdca;
+} */
+.pagenation {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
-.page{
+.page {
   padding: 5px;
+  width: 25px;
   cursor: pointer;
+  border-radius: 5px;
+  background-color: #efefee;
 }
-.page_active{
+.page_active {
   background-color: #16bbd0;
   padding: 5px;
   color: #fff;
@@ -244,7 +330,7 @@ export default {
 .nav_tabel .child6,
 .nav_tabel .child7,
 .nav_tabel .child8 {
-  height: 10em;
+  height: 3em;
   align-items: center;
   text-align: center;
   color: #fff;
@@ -258,10 +344,20 @@ export default {
 .nav_tabel .child7 .child,
 .nav_tabel .child8 .child {
   background-color: #36bdca;
-  height: 4em;
+  height: 3em;
   font-weight: 900;
-  margin: auto;
   margin: 10px 0;
+}
+.nav_tabel .child1 .child span,
+.nav_tabel .child2 .child span,
+.nav_tabel .child3 .child span,
+.nav_tabel .child4 .child span,
+.nav_tabel .child5 .child span,
+.nav_tabel .child6 .child span,
+.nav_tabel .child7 .child span,
+.nav_tabel .child8 .child span {
+  margin: auto;
+  align-items: center;
 }
 main {
   margin: 20px 0;

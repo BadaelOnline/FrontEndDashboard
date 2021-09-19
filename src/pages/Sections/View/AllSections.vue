@@ -3,16 +3,16 @@
     <form>
       <md-card>
         <div class="title_form">
-          <h4>Category Tabel</h4>
-          <router-link :to="`/admin/category/create`"
+          <h4>Sections Tabel</h4>
+          <router-link :to="`/admin/section/create`"
             ><md-button class="md-accent" :data-background-color="'blue'">
-              New Category</md-button
+              New Sections</md-button
             ></router-link
           >
         </div>
         <hr style="color: #fff;opacity: 0.5;" />
 
-        <div class="table" v-if="Categories.length > 0">
+        <div class="table" v-if="sections.length > 0">
           <div class="nav_tabel">
             <div class="child1">
               <div class="child">
@@ -39,14 +39,14 @@
                 required
               />
             </div>
-            <div class="child4">
+            <!-- <div class="child4">
               <div class="child">
-                <span>Slug</span>
+                <span>category</span>
               </div>
             </div>
             <div class="child5">
               <div class="child">
-                <span>Section</span>
+                <span>product</span>
               </div>
               <input
                 type="text"
@@ -57,12 +57,7 @@
                 autofocus
                 required
               />
-            </div>
-            <div class="child8">
-              <div class="child">
-                <span>Parent Category</span>
-              </div>
-            </div>
+            </div> -->
             <div class="child6">
               <div class="child">
                 <span>Status</span>
@@ -79,30 +74,29 @@
               </div>
             </div>
           </div>
-          <!-- 
-          <Categories
-            v-for="item in filteredName"
+
+          <Section
+            v-for="item in filtered"
             :key="item.pr"
             :id="item.id"
             :name="item.name"
-            :parent="item.parent"
-            :section="item.section"
-            :slug="item.slug"
+            :category="item.category"
+            :product="item.product"
             :image="item.image"
             :is_active="item.is_active"
             style="margin: 10px 0"
           >
-          </Categories> -->
+          </Section>
           <!--     -->
         </div>
         <div class="unavaible_category" v-else>
-          <router-link :to="`/admin/category/create`"
+          <router-link :to="`/admin/section/create`"
             ><md-button class="md-accent" :data-background-color="'blue'">
-              New Category</md-button
+              New Sections</md-button
             ></router-link
           >
           <div class="unavaible">
-            <h2>Ops... Categories doesnt exist yet.</h2>
+            <h2>Ops... Sections doesnt exist yet.</h2>
           </div>
         </div>
       </md-card>
@@ -112,8 +106,9 @@
 
 <script>
 import { mapState } from "vuex";
-// import Categories from "../component/Categories.vue";
+import Section from "../component/Section.vue";
 export default {
+  name: "section",
   data() {
     return {
       searchID: "",
@@ -122,51 +117,76 @@ export default {
       selectedFilter: "",
     };
   },
-  // components: { Categories },
-  // name: "AllCategories",
+  components: { Section },
   computed: {
     ...mapState({
-      Categories: (state) => state.All.Categories,
-      CategoriesTrash: (state) => state.All.CategoriesTrash,
-      name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
 
-    filteredName() {
+    filtered() {
       if (this.searchName != "") {
-        return this.Categories.filter((el) => {
+        return this.sections.filter((el) => {
           var regex = new RegExp(this.searchName, "i");
           return el.name.match(regex);
         });
       }
-      if (this.searchSection != "") {
-        return this.Categories.filter((el) => {
-          var regex = new RegExp(this.searchSection, "i");
-          return el.section.name.match(regex);
-        });
-      }
+      // if (this.searchSection != "") {
+      //   return this.Categories.filter((el) => {
+      //     var regex = new RegExp(this.searchSection, "i");
+      //     return el.section.name.match(regex);
+      //   });
+      // }
       if (this.selectedFilter == "notActive") {
-        return this.Categories.filter((el) => {
+        return this.sections.filter((el) => {
           return el.is_active == "Not Active";
         });
       } else if (this.selectedFilter == "active") {
-        return this.Categories.filter((el) => {
+        return this.sections.filter((el) => {
           return el.is_active == "Active";
         });
       } else {
-        return this.Categories;
+        return this.sections;
       }
     },
   },
   mounted() {
-    this.$store.dispatch("loadCategories");
-    this.$store.dispatch("loadCategoriesTrash");
     this.$store.dispatch("loadSections");
   },
 };
 </script>
 
 <style scoped>
+/* .paginate {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.paginate span {
+  cursor: pointer;
+  border: solid 3px #36bdca;
+  background-color: #36bdca;
+} */
+.pagenation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.page {
+  padding: 5px;
+  width: 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #efefee;
+}
+.page_active {
+  background-color: #16bbd0;
+  padding: 5px;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+}
 .title_form {
   display: flex;
   justify-content: center;
@@ -194,6 +214,7 @@ export default {
 }
 .nav_tabel {
   display: flex;
+  margin: 20px 0;
 }
 .nav_tabel .child1,
 .nav_tabel .child2,
@@ -203,7 +224,7 @@ export default {
 .nav_tabel .child6,
 .nav_tabel .child7,
 .nav_tabel .child8 {
-  height: 10em;
+  height: 7em;
   align-items: center;
   text-align: center;
   color: #fff;
@@ -217,10 +238,23 @@ export default {
 .nav_tabel .child7 .child,
 .nav_tabel .child8 .child {
   background-color: #36bdca;
-  height: 4em;
+  height: 3em;
   font-weight: 900;
-  margin: auto;
   margin: 10px 0;
+}
+.nav_tabel .child1 .child span,
+.nav_tabel .child2 .child span,
+.nav_tabel .child3 .child span,
+.nav_tabel .child4 .child span,
+.nav_tabel .child5 .child span,
+.nav_tabel .child6 .child span,
+.nav_tabel .child7 .child span,
+.nav_tabel .child8 .child span {
+  margin: auto;
+  align-items: center;
+}
+main {
+  margin: 20px 0;
 }
 .search {
   width: 70px;
@@ -313,6 +347,13 @@ export default {
 .unavaible_product h2 {
   font-size: 3em;
   color: gray;
+}
+/*  */
+li.ivu-page-next.ivu-page-disabled {
+  background-color: #000;
+}
+li.ivu-page-prev {
+  background-color: #000;
 }
 </style>
 

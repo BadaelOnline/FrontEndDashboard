@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .new_product {
   margin: 5px 0;
 }
