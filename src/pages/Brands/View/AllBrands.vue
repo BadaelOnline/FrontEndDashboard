@@ -74,16 +74,31 @@
               >
               </brands>
             </div>
-            <div class="pagenation">
-              <div
-                class="page"
-                v-for="pag in per_Brands"
-                :key="pag.pr"
-                :class="{ page_active: pageInfo == pag }"
-              >
-                <div @click="getPage(pag)">{{ pag }}</div>
-              </div>
-            </div>
+
+        <nav v-if="filteredName.length > 0">
+  <ul class="pagination" style="justify-content: center;margin-top: 30px;">
+    <li class="page-item" :class="{ disabled : page == 1}" @click="Previous">
+      <span class="page-link">Previous</span>
+    </li>
+    
+    <li class="page-item" :class="{ active : page == pag}"  v-show="pag == page || pag == ( parseInt(page )+2) || pag == ( parseInt(page)+1) || pag == ( parseInt(page)-1)"
+    v-for="pag in total_page" :key="pag">
+        <span class="page-link" @click="getPage(pag)"> {{pag}}</span>
+    </li>
+   <span style="display: grid;align-content: center;">
+        <span style="color: #9d1c9b;font-weight: bold; "> /  total : {{total_page}}</span>
+    </span>
+    <li class="page-item" @click="Next">
+      <span class="page-link">Next</span>
+    </li>
+  </ul>
+</nav>
+             <div class="unavaible_category" v-else>
+         
+          <div class="unavaible">
+            <h2>No Items Founded</h2>
+          </div>
+        </div>
           </main>
           <!--     -->
         </div>
@@ -121,8 +136,8 @@ export default {
   computed: {
     ...mapState({
       Brands: (state) => state.All.Brands,
-      total_Brands: (state) => state.All.total_Brands,
-      per_Brands: (state) => state.All.per_Brands,
+      total_page: (state) => state.All.total_page,
+  
     }),
     filteredName() {
       if (this.searchName != "") {
@@ -150,6 +165,17 @@ export default {
       this.$store.dispatch("loadBrands");
       window.location.reload();
     },
+      Next(){
+            localStorage.setItem("page", parseInt(this.page)+1);
+             window.location.reload();
+        },
+       Previous(){
+           if(localStorage.getItem("page") > 1){
+            localStorage.setItem("page",parseInt(this.page)-1);
+             window.location.reload();
+           }
+
+        },
   },
   mounted() {
     this.$store.dispatch("loadBrands");
@@ -158,38 +184,11 @@ export default {
 </script>
 
 <style scoped>
-/* .paginate {
-  width: 40%;
-  margin: auto;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-.paginate span {
+.page-item{
   cursor: pointer;
-  border: solid 3px #36bdca;
-  background-color: #36bdca;
-} */
-.pagenation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  gap: 10px;
 }
-.page {
-  padding: 5px;
-  width: 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #efefee;
-}
-.page_active {
-  background-color: #16bbd0;
-  padding: 5px;
-  color: #fff;
-  border-radius: 5px;
-  font-weight: bold;
+.disabled{
+   cursor: auto;
 }
 .title_form {
   display: flex;
@@ -358,6 +357,15 @@ li.ivu-page-next.ivu-page-disabled {
 li.ivu-page-prev {
   background-color: #000;
 }
+ .nav_tabel .child6::before {
+  content: "(click to restore)";
+  opacity: 0.7;
+  font-size: 13px;
+  position: absolute;
+  bottom: 30px;
+  width: 200px;
+  left: 10px;
+} 
 </style>
 
 <style lang="scss" scoped>

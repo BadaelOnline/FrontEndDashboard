@@ -374,7 +374,7 @@ export default {
             ) {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
-              self.Massage_success = "update Category Request Success";
+              self.Massage_success = "update Product Request Success";
               setTimeout(() => {
                 self.$router.push({ name: "Categories" });
               }, 2000);

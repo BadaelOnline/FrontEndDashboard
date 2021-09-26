@@ -261,10 +261,9 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.Brands.image = localStorage.getItem("server") + "/" + res.data;
+            self.Brands.image =   "http://edalili.e-dalely.com/public/" + res.data;
             console.log(
-              "image",
-              localStorage.getItem("server") + "/" + res.data
+               self.Brands.image
             );
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Success ";
@@ -362,6 +361,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+ display: flex;
+justify-content: center;
+}
 input {
   border: 1px solid #ddd;
 }

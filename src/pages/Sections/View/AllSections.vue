@@ -355,6 +355,15 @@ li.ivu-page-next.ivu-page-disabled {
 li.ivu-page-prev {
   background-color: #000;
 }
+ .nav_tabel .child6 .child::before {
+  content: "(click to restore)";
+  opacity: 0.7;
+  font-size: 13px;
+  position: absolute;
+  bottom: 45px;
+  width: 200px;
+  left: 30px;
+} 
 </style>
 
 <style lang="scss" scoped>

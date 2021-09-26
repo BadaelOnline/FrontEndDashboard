@@ -50,6 +50,7 @@ import allOffers from "@/pages/Offers/View/allOffers.vue";
 // custome feilds
 import customefeilds from "@/pages/Custome/View/customefeilds.vue";
 import NewCustome from "@/pages/Custome/View/NewCustome.vue";
+import EditCutome from "@/pages/Custome/View/EditCutome.vue";
 const routes = [
   {
     path: "/",
@@ -194,6 +195,11 @@ const routes = [
         path: "custome/create",
         name: "NewCustome",
         component: NewCustome,
+      },
+      {
+        path: "custome/update/:id",
+        name: "editcustome",
+        component: EditCutome,
       },
       //
       // Doctors

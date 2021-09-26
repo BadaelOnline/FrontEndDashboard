@@ -73,7 +73,7 @@
             </div>
             <div class="child8">
               <div class="child">
-                <span>Parent Category</span>
+                <span style="font-size:13px">Parent Category</span>
               </div>
             </div>
             <div class="child6">
@@ -168,16 +168,30 @@
                 </svg>
               </span>
             </form> -->
-            <div class="pagenation">
-              <div
-                class="page"
-                v-for="pag in per_page"
-                :key="pag.pr"
-                :class="{ page_active: pageInfo == pag }"
-              >
-                <div @click="getPage(pag)">{{ pag }}</div>
-              </div>
-            </div>
+                <nav v-if="filteredName.length > 0">
+  <ul class="pagination" style="justify-content: center;margin-top: 30px;">
+    <li class="page-item" :class="{ disabled : page == 1}" @click="Previous">
+      <span class="page-link">Previous</span>
+    </li>
+    
+    <li class="page-item" :class="{ active : page == pag}"  v-show="pag == page || pag == ( parseInt(page )+2) || pag == ( parseInt(page)+1) || pag == ( parseInt(page)-1)"
+    v-for="pag in total_page" :key="pag">
+        <span class="page-link" @click="getPage(pag)"> {{pag}}</span>
+    </li>
+   <span style="display: grid;align-content: center;">
+        <span style="color: #9d1c9b;font-weight: bold; "> /  total : {{total_page}}</span>
+    </span>
+    <li class="page-item" @click="Next">
+      <span class="page-link">Next</span>
+    </li>
+  </ul>
+</nav>
+             <div class="unavaible_category" v-else>
+         
+          <div class="unavaible">
+            <h2>No Items Founded</h2>
+          </div>
+        </div>
           </main>
         </div>
         <div class="unavaible_category" v-else>
@@ -217,7 +231,6 @@ export default {
     ...mapState({
       Categories: (state) => state.All.Categories,
       total_page: (state) => state.All.total_page,
-      per_page: (state) => state.All.per_page,
       name_Categories: (state) => state.All.name_Categories,
       sections: (state) => state.All.sections,
     }),
@@ -254,6 +267,17 @@ export default {
       this.$store.dispatch("loadCategories");
       window.location.reload();
     },
+     Next(){
+            localStorage.setItem("page", parseInt(this.page)+1);
+             window.location.reload();
+        },
+       Previous(){
+           if(localStorage.getItem("page") > 1){
+            localStorage.setItem("page",parseInt(this.page)-1);
+             window.location.reload();
+           }
+
+        },
   },
   mounted() {
     this.$store.dispatch("loadCategories");
@@ -263,36 +287,11 @@ export default {
 </script>
 
 <style scoped>
-/* .paginate {
-  width: 40%;
-  margin: auto;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-.paginate span {
+.page-item{
   cursor: pointer;
-  border: solid 3px #36bdca;
-  background-color: #36bdca;
-} */
-.pagenation {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
 }
-.page {
-  padding: 5px;
-  width: 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #efefee;
-}
-.page_active {
-  background-color: #16bbd0;
-  padding: 5px;
-  color: #fff;
-  border-radius: 5px;
-  font-weight: bold;
+.disabled{
+   cursor: auto;
 }
 .title_form {
   display: flex;
@@ -421,13 +420,15 @@ main {
 .nav_tabel .child7 {
   width: 20% !important;
 }
-/* .nav_tabel .child6::before {
+ .nav_tabel .child6::before {
   content: "(click to restore)";
-  opacity: 0.6;
+  opacity: 0.7;
   font-size: 13px;
   position: absolute;
-  bottom: -15px;
-} */
+  bottom: -10px;
+  width: 200px;
+  left: -10px;
+} 
 .search {
 }
 .new_product {

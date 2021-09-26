@@ -30,8 +30,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 // import 'normalize.css';
 // import "../public/fontawesome-free-5.15.1-web/css/all.css";
-// import 'bootstrap/'
-// import "bootstrap/dist/css/bootstrap.min";
 
 Vue.use(BootstrapVue, IconsPlugin);
 
