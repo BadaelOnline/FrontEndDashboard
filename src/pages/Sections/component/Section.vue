@@ -22,13 +22,13 @@
         v-if="is_active == 'Active'"
         :id="`Active${id}`"
         class="fa fa-check"
-        style="color: green;"
+        style="color: green;padding:10px"
       ></i>
       <i
         v-else
         :id="`NonActive${id}`"
         class="fa fa-times"
-        style="color: #f20b07;"
+        style="color: #f20b07;padding:10px"
       ></i>
     </div>
     <div class="child6" v-else>

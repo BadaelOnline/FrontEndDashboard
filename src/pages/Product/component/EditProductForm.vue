@@ -1,140 +1,253 @@
 <template>
   <md-card>
     <div class="create">
-<div  id="su" class="alert alert-success" role="alert">
- {{Massage_success}} .
-</div> 
-<svg  id="sp" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-</svg>
-<div id="m" class="alert alert-danger alert-dismissible fade show" role="alert">
-  {{Massage_warning}} .
-  <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
-</div>
+      <div id="su" class="alert alert-success" role="alert">
+        {{ Massage_success }} .
+      </div>
+      <svg
+        id="sp"
+        class="spinner"
+        width="65px"
+        height="65px"
+        viewBox="0 0 66 66"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          class="path"
+          fill="none"
+          stroke-width="6"
+          stroke-linecap="round"
+          cx="33"
+          cy="33"
+          r="30"
+        ></circle>
+      </svg>
+      <div
+        id="m"
+        style="cursor:pointer"
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+        @click="close()"
+      >
+        {{ Massage_warning }} .
+        <!-- <button
+          type="button"
+          class="btn-close"
+          @click="close()"
+          aria-label="Close"
+        ></button> -->
+      </div>
       <!-- tab -->
-           <div class="title_form">
-         <div class="lng">
-      <h4>Products Form</h4>
-      <div class="divlang">
-              <select
-                name=""
-                id=""
-                v-model="lang"
-                @change="handleChange($event)"
-              >
-                <option value="en">EN</option>
-                <option value="ar">AR</option>
-              </select>
-            </div>
-              </div>
+      <div class="title_form">
+        <div class="lng">
+          <h4>Product Form</h4>
+          <div class="divlang">
+            <select name="" id="" v-model="lang" @change="handleChange($event)">
+              <option value="en">EN</option>
+              <option value="ar">AR</option>
+            </select>
+          </div>
+        </div>
       </div>
       <hr style="color: #fff;opacity: 0.5;" />
-      <div class="parent"> 
-      </div>
-<form class="row g-3 needs-validation" novalidate>
-  <div class="col-md-6">
-     <label for="validationCustom01" class="form-label">Name </label>
-    <input type="text" class="form-control" id="validationCustom01" 
-    v-model="products.product[0].name"  v-if="lang == 'ar'" required>
-     <input type="text" class="form-control" id="validationCustom01"   
-     v-model="products.product[1].name" required  v-else>
-  
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="validationCustom02" class="form-label">slug</label>
-    <input type="text" class="form-control" id="validationCustom02" 
-    v-model="products.slug" required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  
-  <div class="col-md-6">
-    <label for="validationCustom02" class="form-label">long description</label>
-    <input type="text" class="form-control" id="validationCustom02" 
-    v-model="products.product[0].long_des"  v-if="lang == 'ar'" required>
-    <input type="text" class="form-control" id="validationCustom02"
-       v-model="products.product[1].long_des"  v-else required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-<div class="col-md-6">
-    <label for="validationCustom02" class="form-label">short description</label>
-    <input type="text" class="form-control" id="validationCustom02" 
-    v-model="products.product[0].short_des"  v-if="lang == 'ar'" required>
-    <input type="text" class="form-control" id="validationCustom02" 
-    v-model="products.product[1].short_des"  v-else required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-8">
-    <label for="validationCustom04" class="form-label">section_id</label>
-    <select class="form-select" id="validationCustom04"  v-model="products.sections[0].section_id" required>
-      <option selected disabled value="">Choose...</option>
-       <option
-                  v-for="item in sections"
-                  :key="item.pr"
-                  :value="item.id"
-                  >{{ item.name }}
-      </option >
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-  </div>
- 
-  <!-- <div class="col-md-8">
-    <label for="validationCustom04" class="form-label">brand_id </label>
-    <select class="form-select" id="validationCustom04" v-model="products.brand_id" required>
-      <option selected disabled value="">Choose...</option>
-      <option 
-                  v-for="items in Brands"
-                  :key="items.pr"
-                  :value="items.id"
-                  >{{ items.name }}
-      </option>
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-  </div> -->
+      <div class="parent"></div>
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+          <label for="validationCustom01" class="form-label">Name </label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[0].name"
+            v-if="lang == 'ar'"
+            required
+          />
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[1].name"
+            required
+            v-else
+          />
 
-</form>
- 
-      <md-button
-        :data-background-color="'blue'"
-        @click="postProduct()"
-        class="btn"
-        id="btnAdd"
-        >Add</md-button
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustom02" class="form-label">Slug</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom02"
+            v-model="products.slug"
+            required
+          />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustom01" class="form-label">Long Discription </label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[0].long_des"
+            v-if="lang == 'ar'"
+            required
+          />
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[1].long_des"
+            required
+            v-else
+          />
+
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+                <div class="col-md-6">
+          <label for="validationCustom01" class="form-label">Short Discription  </label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[0].short_des"
+            v-if="lang == 'ar'"
+            required
+          />
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="products.product[1].short_des"
+            required
+            v-else
+          />
+
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom05" class="form-label">Section_id</label>
+          <select
+            class="form-select"
+            id="validationCustom05"
+            v-model="products.sections[0].section_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option v-for="sec in sections" :key="sec.ps" :value="sec.id"
+              >{{ sec.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label for="validationCustom04" class="form-label">Category_id </label>
+          <select
+            class="form-select"
+            id="validationCustom04"
+            v-model="products.category[0].category_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option
+              v-for="category in Categories"
+              :key="category.pd"
+              :value="category.id"
+              >{{ category.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
+                <div class="col-md-4">
+          <label for="validationCustom04" class="form-label">CustomeFelids_id </label>
+          <select
+            class="form-select"
+            id="validationCustom04"
+            v-model="products.CustomFieldValue[0].custom_field_value_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option
+              v-for="item in Custome"
+              :key="item.pr"
+              :value="item.id"
+              >{{ item.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
+      </form>
+      <h4 class="title_img">Existing Img</h4>
+      <div class="old_img ">
+        <div class="item_img" :class="{ is_cover: item.is_cover == 1 }" 
+        v-for="item in image_prod" :key="item.wq"><img :src="item.image" alt="">
+        <div class="icon_close" @click="deletimg(item.id)"><i class="fa fa-window-close"></i></div>
+        <label v-if="item.is_cover == 0" for="cover" style="margin: 0 5px;">Select As Cover </label>
+        <input v-if="item.is_cover == 0" name="cover" type="radio"  @click="setCover(item.id)">
+        </div>
+      </div>
+      <form
+        @submit="formSubmit"
+        enctype="multipart/form-data"
+        style="margin-top: 10px;"
       >
-    
+        <UploadImages @changed="handleImages" />
+        <button class="btn btn-primary btn-block" style="margin-top: 10px;">
+          Upload
+        </button>
+        <h2 v-if="Progress !== 0" style="opacity: .7;">
+          Progress : <span style="color: green;">{{ Progress }} %</span>
+        </h2>
+      </form>
+      <div class="child_4">
+        <md-button
+          :data-background-color="'blue'"
+          @click="putProduct()"
+          class="btn"
+          id="btnAdd"
+          >Add</md-button
+        >
+      </div>
     </div>
   </md-card>
 </template>
+
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-
+import UploadImages from "vue-upload-drop-images";
 export default {
   name: "CreateProductForm",
   components: {
-  
-  },
-  props: {
-   
+  UploadImages
   },
   data() {
    const lang = localStorage.getItem("lang") || "en";
     return {
-      Massage_success: "",
-     Massage_warning:"",
+        Massage_success: "",
+      Massage_warning: "",
+      statusnumber: null,
+      error: "",
+      Progress: 0,
+      file: [],
       lang: lang,
+      image_prod:[],
       products: {
     "product": [
         {
@@ -166,77 +279,47 @@ export default {
     "is_appear": 1,
     "category": [
         {
-            "category_id": 1
-        },
-        {
-            "category_id": 2
-        },
-        {
-            "category_id": 3
+            "category_id": ""
         }
     ],
     "sections": [
         {
             "section_id": ""
-        },
-        {
-            "section_id": 2
-        },
-        {
-            "section_id": 3
-        },
-                {
-            "section_id": 4
-        },
-                {
-            "section_id": 5
-        },
-                {
-            "section_id": 6
         }
     ],
     "CustomFieldValue": [
         {
-            "custom_field_value_id": 1
-        },
-        {
-            "custom_field_value_id": 2
-        },
-        {
-            "custom_field_value_id": 3
+            "custom_field_value_id": ""
         }
     ],
     "images": [
         {
-            "image": "{{fahed3}}",
-            "is_cover": 1
-        },
-        {
-            "image": "{{fahed2}}",
-            "is_cover": 0
-        },
-        {
-            "image": "{{feahd1}}",
+            "image": "",
             "is_cover": 0
         }
     ]
 },
     };
   },
+   props: {
+    max: Number,
+    uploadMsg: String,
+    maxError: String,
+    fileError: String,
+    clearAll: String,
+  },
   computed: {
     ...mapState({
-      // Categories: (state) => state.All.Categories,
-      Product: (state) => state.All.Product,
-      // Brands: (state) => state.All.Brands,
       sections: (state) => state.All.sections,
+      Categories: (state) => state.All.Categories,
+      Custome: (state) => state.All.Custome,
     }),
   },
   mounted() {
-    // this.$store.dispatch("loadCategories");
-    this.$store.dispatch("loadProducts");
-    // this.$store.dispatch("loadBrands");
     this.$store.dispatch("loadSections");
-    this. fetch();
+    this.$store.dispatch("loadCategories");
+    this.$store.dispatch("loadCustome");
+    this.fetch();
 
         // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
@@ -262,19 +345,28 @@ export default {
 })()
   },
   methods: {
-      close(){
-          document.getElementById(`m`).classList.toggle('cvs');
-     },
         fetch() {
      axios
     .get(`/api/products/getById/${this.$route.params.id}?lang=en`)
     .then((res) => {
+     this.image_prod = res.data.product.product_image;
+      this.products.product[1].name = res.data.product.name;
+     this.products.product[1].long_des =  res.data.product.long_des;
+     this.products.product[1].short_des =  res.data.product.short_des;
+     if(res.data.product.product_image == 0){
+      this.products.images[0].is_cover = 1;
+     }
      
-      this.products.product[1].name = res.data.Products.name;
-     this.products.product[1].long_des =  res.data.Products.long_des;
-     this.products.product[1].short_des =  res.data.Products.short_des;
-     
-    })   .catch(function(error) {
+    }) ;  
+      axios
+    .get(`/api/products/getById/${this.$route.params.id}?lang=ar`)
+    .then((res) => {
+      this.products.product[0].name = res.data.product.name;
+     this.products.product[0].long_des =  res.data.product.long_des;
+     this.products.product[0].short_des =  res.data.product.short_des;
+     this.products.slug =  res.data.product.slug;
+    })
+      .catch(function(error) {
           if (error) {
              console.log("error:",error);
             // console.log(error.response.status);
@@ -283,78 +375,221 @@ export default {
              alert(`error !! Sorry produt by id request had error we can not return old data.. work soon`);
           }
         })
-      axios
-    .get(`/api/products/getById/${this.$route.params.id}?lang=ar`)
-    .then((res) => {
-      this.products.product[0].name = res.data.Products.name;
-     this.products.product[0].long_des =  res.data.Products.long_des;
-     this.products.product[0].short_des =  res.data.Products.short_des;
-     this.products.slug =  res.data.Products.slug;
-    })
-      
 
     },
-   handleChange(event) {
-      localStorage.setItem("lang", event.target.value);
-      // window.location.reload();
-    },
-   postProduct() {
-    var self = this;
-      //  if (this.categories.images[0].image == "") {
-      // alert('select img is required');
-      // } 
-      if (this.products.product[0].name == "" || this.products.product[0].long_des == "" || this.products.product[0].short_des == "") {
-     this.Massage_warning ='Arabic data is required you must enter data';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else if (this.products.product[1].name == "" || this.products.product[1].long_des == "" || this.products.product[1].short_des == "") {
-      this.Massage_warning ='English data is required you must enter data';
-      document.getElementById(`m`).classList.toggle('cvs');
-      }   
-       else if (this.products.slug == "") {
-      this.Massage_warning ='slug is required you must enter slug data';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-       else if (this.products.sections[0].section_id == "") {
-      this.Massage_warning ='section_id is required you must enter section_id data';
-      document.getElementById(`m`).classList.toggle('cvs');
-      } 
-      else {
-         document.getElementById('sp').classList.toggle('cvs');
-        axios
-        .put(
-           `/api/products/update/${this.$route.params.id}`,
-          this.products
-        )
-        .then(function(response) {
-           console.log(response.data.stateNum);
-          if(response.data.stateNum == 201 || self.statusnumber == 200){
-               document.getElementById('sp').classList.toggle('cvs');
-            self.statusnumber = response.data.stateNum;
-         self.Massage_success ='update product Request Success do you want go to product tabel';
-         document.getElementById("su").classList.toggle('cvs');
-             setTimeout(() => {
-    self.$router.push({ name: 'Products' });    
-        }, 2000);
-          }
-        else{
-            document.getElementById('sp').classList.toggle('cvs');
-            self.Massage_warning = "Error : " + response.data.msg;
-            document.getElementById('m').classList.toggle('cvs'); 
+    setCover(i){
+        var self = this;
+           document.getElementById("sp").classList.toggle("cvs");
+       axios
+        .put(`api/upload/get_is_cover/${this.$route.params.id}/${i}`)
+        .then(function(res) {
+          console.log(res);
+              if (res.status == 201 || res.status == 200) {
+            
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_success = "update cover Image Success ";
+            document.getElementById("su").classList.toggle("cvs");
+            setTimeout(() => {
+              document.getElementById("su").classList.toggle("cvs");
+            }, 2000);
+            setTimeout(() => {
+             window.location.reload();
+            }, 3000);
+          } else {
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_warning = "Error : " + res.statusText;
+            document.getElementById("m").classList.toggle("cvs");
           }
         })
-               .catch(function(error) {
+        .catch(function(error) {
           if (error.response) {
-             document.getElementById('sp').classList.toggle('cvs');
+            document.getElementById("sp").classList.toggle("cvs");
             console.log(error.response.data);
-            // console.log(error.response.status);
-            // console.log(error.response.headers);
             self.Massage_warning = "Error : " + error.response.data.message;
-            document.getElementById('m').classList.toggle('cvs'); 
-            
+            document.getElementById("m").classList.toggle("cvs");
           }
         });
-       
+    },
+    deletimg(i){
+      var self = this;
+       document.getElementById("sp").classList.toggle("cvs");
+ axios
+        .delete(`api/upload/delete/${i}`)
+        .then(function(res) {
+          console.log(res);
+             if (res.status == 201 || res.status == 200) {
+            
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_success = "delete Image Success ";
+            document.getElementById("su").classList.toggle("cvs");
+            setTimeout(() => {
+              document.getElementById("su").classList.toggle("cvs");
+            }, 2000);
+            setTimeout(() => {
+             window.location.reload();
+            }, 3000);
+          } else {
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_warning = "Error : " + res.statusText;
+            document.getElementById("m").classList.toggle("cvs");
+          }
+          
+        })
+        .catch(function(error) {
+          if (error.response) {
+            document.getElementById("sp").classList.toggle("cvs");
+            console.log(error.response.data);
+            self.Massage_warning = "Error : " + error.response.data.message;
+            document.getElementById("m").classList.toggle("cvs");
+          }
+        });
+    },
+    handleImages(e) {
+      this.file = e[0];
+      console.log(e[0]);
+    },
+    formSubmit(e) {
+      var self = this;
+      e.preventDefault();
+      let data = new FormData();
+      data.append("images[]", this.file);
+
+      document.getElementById("sp").classList.toggle("cvs");
+      axios
+        .post(`/api/products/upload-multi/${this.$route.params.id}`, data, {
+          onUploadProgress: (uploadEvent) => {
+            console.log(
+              "Upload Progress : " +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
+            );
+            self.Progress = Math.round(
+              (uploadEvent.loaded / uploadEvent.total) * 100
+            );
+          },
+        })
+        .then(function(res) {
+          console.log(res.data);
+           if (res.status == 201 || res.status == 200) {
+             
+              self.products.images[0].image =
+              // localStorage.getItem("server") + "/" + res.data;
+                "http://edalili.e-dalely.com/public/" + res.data;
+           
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_success = "Upload Image Success ";
+            document.getElementById("su").classList.toggle("cvs");
+            setTimeout(() => {
+              document.getElementById("su").classList.toggle("cvs");
+            }, 2000);
+          } else {
+            document.getElementById("sp").classList.toggle("cvs");
+            self.Massage_warning = "Error : " + res.statusText;
+            document.getElementById("m").classList.toggle("cvs");
+          }
+        })
+        .catch(function(error) {
+          if (error.response) {
+            document.getElementById("sp").classList.toggle("cvs");
+            console.log(error.response.data);
+            self.Massage_warning = "Error : " + error.response.data.message;
+            document.getElementById("m").classList.toggle("cvs");
+          }
+        });
+    },
+    close() {
+      document.getElementById(`m`).classList.toggle("cvs");
+    },
+    handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+    },
+   putProduct() {
+      var self = this;
+
+      if (this.products.product[0].name == "") {
+        this.Massage_warning =
+          "Please enter the name field in Arabic because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.products.product[1].name == "") {
+        this.Massage_warning =
+          "Please enter the name field in English because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+      else if (this.products.slug == "") {
+        this.Massage_warning =
+          "Please enter the slug field because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+        else if (this.products.product[0].long_des == "") {
+        this.Massage_warning =
+          "Please enter the long_des field in Arabic because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+        else if (this.products.product[1].long_des == "") {
+        this.Massage_warning =
+         "Please enter the long_des field in English because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+        else if (this.products.product[0].short_des == "") {
+        this.Massage_warning =
+          "Please enter the short_des field in Arabic because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+        else if (this.products.product[1].short_des == "") {
+        this.Massage_warning =
+         "Please enter the short_des field in English because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+      else if (this.products.sections[0].section_id == "") {
+        this.Massage_warning =
+          "Please select the section because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } else if (this.products.category[0].category_id == "") {
+        this.Massage_warning =
+          "Please select the category  because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      }
+      else if (this.products.CustomFieldValue[0].custom_field_value_id == "") {
+        this.Massage_warning =
+          "Please select the custom_field_value because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+        // else if (this.products.images[0].image == "") { 
+          // this.Massage_warning =
+          // "Please choose a picture and upload it because it is required";
+          // document.getElementById(`m`).classList.toggle("cvs");
+      //  } 
+      else {
+        document.getElementById("sp").classList.toggle("cvs");
+        axios
+          .put(
+            `/api/products/update/${this.$route.params.id}`,
+            this.products
+          )
+          .then(function(response) {
+            console.log(response.data);
+            if (response.data.stateNum == 201 || self.statusnumber == 200) {
+              document.getElementById("sp").classList.toggle("cvs");
+              self.statusnumber = response.data.stateNum;
+              self.Massage_success = "Update Product Request Success";
+              document.getElementById("su").classList.toggle("cvs");
+              setTimeout(() => {
+                self.$router.push({ name: "Products" });
+              }, 2000);
+            } else {
+              document.getElementById("sp").classList.toggle("cvs");
+              self.Massage_warning = "Error : " + response.data.msg;
+              document.getElementById("m").classList.toggle("cvs");
+            }
+          })
+          .catch(function(error) {
+            if (error.response) {
+              document.getElementById("sp").classList.toggle("cvs");
+              console.log(error.response.data);
+              self.Massage_warning = "Error : " + error.response.data.message;
+              document.getElementById("m").classList.toggle("cvs");
+            }
+          });
       }
     },
 
@@ -363,21 +598,71 @@ export default {
 </script>
 
 <style scoped>
-
-input{
+.is_cover{
+  border: 3px solid green;
+}
+.title_img{
+  font-weight: bold;
+  color: brown;
+  text-decoration-line: underline;
+  padding-top: 10px;
+}
+.old_img{
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  flex-flow: wrap;
+}
+.old_img .item_img{
+  width: 150px;
+height: 150px;
+cursor: pointer;
+position: relative;
+}
+.old_img .item_img .icon_close{
+position: absolute;
+top: -2px;
+font-size: 25px;
+display: none;
+transition: all .5s;
+}
+.old_img .item_img .icon_close:hover{
+color: rgb(228, 33, 33);
+padding-left: 5px;
+}
+.old_img .item_img:hover .icon_close{
+  display: block;
+}
+.old_img .item_img img{
+  width: 100%;
+  height: 100%;
+}
+.container{
+ display: flex;
+justify-content: center;
+}
+input {
   border: 1px solid #ddd;
 }
-
-.lng{
-    display: flex;
+.child_4 {
+  box-shadow: 1px 1px 10px #09b2c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  transition: all 0.5s;
+}
+.child_4:hover {
+  box-shadow: 2px 2px 20px #0d6efd;
+}
+.lng {
+  display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.lng h4{
+.lng h4 {
   font-size: 20px;
-font-weight: bold;
-border: 1px solid #158a8ade;
-padding: 10px;
+  font-weight: bold;
+  border: 1px solid #158a8ade;
+  padding: 10px;
 }
 .create {
   padding: 20px;
@@ -519,70 +804,85 @@ padding: 10px;
 }
 </style>
 <style lang="scss" scoped>
- $offset: 187;
- $duration: 1.4s;
+$offset: 187;
+$duration: 1.4s;
 
- .spinner {
-   animation: rotator $duration linear infinite;
-   position: absolute;
-   z-index: 50;
-   top: 50%;
+.spinner {
+  animation: rotator $duration linear infinite;
+  position: absolute;
+  z-index: 50;
+  top: 50%;
   left: 50%;
-   visibility: hidden;
- }
- .spin-hide{
-     display: none;
- }
- @keyframes rotator {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(270deg); }
- }
+  visibility: hidden;
+}
+.spin-hide {
+  display: none;
+}
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
 
- .path {
-   stroke-dasharray: $offset;
-   stroke-dashoffset: 0;
-   transform-origin: center;
-   animation:
-     dash $duration ease-in-out infinite, 
-     colors ($duration*4) ease-in-out infinite;
- }
+.path {
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash $duration ease-in-out infinite,
+    colors ($duration * 4) ease-in-out infinite;
+}
 
- @keyframes colors {
-   0% { stroke: #4285F4; }
-   25% { stroke: #DE3E35; }
-   50% { stroke: #F7C223; }
-   75% { stroke: #1B9A59; }
-   100% { stroke: #4285F4; }
- }
+@keyframes colors {
+  0% {
+    stroke: #4285f4;
+  }
+  25% {
+    stroke: #de3e35;
+  }
+  50% {
+    stroke: #f7c223;
+  }
+  75% {
+    stroke: #1b9a59;
+  }
+  100% {
+    stroke: #4285f4;
+  }
+}
 
- @keyframes dash {
-  0% { stroke-dashoffset: $offset; }
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
   50% {
     stroke-dashoffset: $offset/4;
-    transform:rotate(135deg);
+    transform: rotate(135deg);
   }
   100% {
     stroke-dashoffset: $offset;
-    transform:rotate(450deg);
+    transform: rotate(450deg);
   }
- }
- .alert-danger{
-position: fixed !important;
-width: 75%;
-height: 150px;
-visibility: hidden;
-display: flex;
-justify-content: center;
-font-size: 20px;
-align-items: center;
-left: 20%;
- z-index: 5;
 }
-.alert-success{
+.alert-danger {
+  position: fixed !important;
+  width: 75%;
+  height: 150px;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  align-items: center;
+  left: 20%;
+  z-index: 5;
+}
+.alert-success {
   visibility: hidden;
   position: fixed !important;
- width: 75%;
-height: 150px;
+  width: 75%;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -590,7 +890,7 @@ height: 150px;
   font-size: 20px;
   left: 20%;
 }
-.cvs{
-visibility: visible !important;
+.cvs {
+  visibility: visible !important;
 }
 </style>

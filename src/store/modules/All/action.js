@@ -11,56 +11,34 @@ export const loadCategories = ({ commit }) => {
     .then((res) => {
       console.warn("Categories :", res.data.Category);
       let Categories = res.data.Category.data;
-      let total_page = res.data.Category.total;
-      let per_page = res.data.Category.per_page;
+      let total_page = res.data.Category.last_page ;
       commit("SET_Categories", Categories);
       commit("SET_total_page", total_page);
-      commit("SET_per_page", per_page);
+     
       console.log("page :", page);
+      console.log("total_page :", total_page);
     })
     .catch(function(error) {
       console.log("Error: ", error);
     });
 };
-export const loadCategoriesTrash = ({ commit }) => {
-  axios
-    .get(`api/categories/getTrashed?lang=${lang}`)
-    .then((res) => {
-      console.warn("CategoriesTrash :", res.data.Category);
-      let CategoriesTrash = res.data.Category;
-      commit("SET_CategoriesTrash", CategoriesTrash);
-    })
-    .catch(function(error) {
-      console.log("Error: ", error);
-    });
-};
+
 export const loadCategory = ({ commit }, CategoryID) => {
   axios
     .get(`/api/categories/getById/${CategoryID}?lang=${lang}`)
     .then((res) => {
       console.warn("CategoryID :", res.data.Category);
       let CategoryID = res.data.Category;
+   
+      commit("SET_total_page", total_page);
       commit("SET_CategoryID", CategoryID);
+      console.log("total_page :", total_page);
     })
     .catch(function(error) {
       console.log("Error: ", error);
     });
 };
-export const editCategory = ({ commit }, CategoryID) => {
-  let res = axios.put(
-    `/api/categories/update/${CategoryID.id}?lang=${lang}`,
-    CategoryID
-  );
-  let newCategory = res.data.Category;
-  commit("Edit_Category", newCategory);
-  return newCategory;
-};
-export const deleteCategory = ({ commit }, CategoryID) => {
-  axios.put(
-    `/api/categories/trash/${CategoryID}`,
-    commit("Delete_Category", CategoryID)
-  );
-};
+
 export const loadSections = ({ commit }) => {
   axios
     .get(`/api/sections/getAll?lang=${lang}`)
@@ -85,24 +63,18 @@ export const loadSection = ({ commit }, SectionID) => {
       console.log("Error: ", error);
     });
 };
-export const deleteSection = ({ commit }, items) => {
-  axios.put(
-    `/api/sections/trash/${items.id}`,
-    commit("Delete_Section", items.id)
-  );
-};
+
 export const loadBrands = ({ commit }) => {
   axios
     .get(`/api/brands/getAll?page=${page}&lang=${lang}`)
     .then((res) => {
       console.warn("Brands :", res.data.Brand);
       let Brands = res.data.Brand.data;
-      let total_Brands = res.data.Brand.total;
-      let per_Brands = res.data.Brand.per_page;
-      commit("SET_total_Brands", total_Brands);
-      commit("SET_per_Brands", per_Brands);
+      let total_page = res.data.Brand.last_page ;
+      commit("SET_total_page", total_page);
       commit("SET_Brands", Brands);
       console.log("page :", page);
+      console.log("total_page :", total_page);
     })
     .catch(function(error) {
       console.log("Error: ", error);
@@ -120,15 +92,15 @@ export const loadBrand = ({ commit }, BrandID) => {
       console.log("Error: ", error);
     });
 };
-export const deleteBrand = ({ commit }, items) => {
-  axios.put(`/api/brands/trash/${items.id}`, commit("Delete_Brand", items.id));
-};
+
 export const loadProducts = ({ commit }) => {
   axios
-    .get(`/api/products/getAll?lang=${lang}`)
+    .get(`/api/products/getAll?page=${page}&lang=${lang}`)
     .then((res) => {
       console.warn("Product :", res.data.Products.data);
       let Product = res.data.Products.data;
+      let total_page = res.data.Products.last_page ;
+      commit("SET_total_page", total_page);
       commit("SET_Products", Product);
     })
     .catch(function(error) {
@@ -151,8 +123,10 @@ export const loadCustome = ({ commit }) => {
   axios
     .get(`/api/customfields/getAll?lang=${lang}`)
     .then((res) => {
-      console.warn("Custome :", res.data.Custom_fields.data);
-      let Custome = res.data.Custom_fields.data;
+      console.warn("Custome :", res.data.Custom_fields);
+      let Custome = res.data.Custom_fields;
+     
+    
       commit("SET_Custome", Custome);
     })
     .catch(function(error) {

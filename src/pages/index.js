@@ -53,9 +53,11 @@ import offers from "../pages/Offers/component/offers.vue";
 // Custome
 import custome from "../pages/Custome/component/custome.vue";
 import CreateCustomeForm from "../pages/Custome/component/CreateCustomeForm.vue";
+import EditCutomeForm from "../pages/Custome/component/EditCutomeForm.vue";
 export {
   custome,
   CreateCustomeForm,
+  EditCutomeForm,
   offers,
   UploadImagesStore,
   UpImagStrProd,

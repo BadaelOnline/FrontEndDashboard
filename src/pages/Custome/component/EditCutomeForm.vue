@@ -40,7 +40,7 @@
       <!-- tab -->
       <div class="title_form">
         <div class="lng">
-          <h4>Section Form</h4>
+          <h4>Category Form</h4>
           <div class="divlang">
             <select name="" id="" v-model="lang" @change="handleChange($event)">
               <option value="en">EN</option>
@@ -58,7 +58,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="sections.section[1].name"
+            v-model="custom_fields.custom_field[0].description"
             v-if="lang == 'ar'"
             required
           />
@@ -66,7 +66,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="sections.section[0].name"
+            v-model="custom_fields.custom_field[1].description"
             required
             v-else
           />
@@ -76,75 +76,48 @@
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationCustom02" class="form-label">Slug</label>
+          <label for="validationCustom01" class="form-label"> Description</label>
           <input
             type="text"
             class="form-control"
-            id="validationCustom02"
-            v-model="sections.slug"
+            id="validationCustom01"
+            v-model="custom_fields.custom_field[0].name"
+            v-if="lang == 'ar'"
             required
           />
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="custom_fields.custom_field[1].name"
+            required
+            v-else
+          />
+
           <div class="valid-feedback">
             Looks good!
           </div>
         </div>
-
-        <!-- <div class="col-md-6">
-          <label for="validationCustom05" class="form-label">section_id</label>
-          <select
-            class="form-select"
-            id="validationCustom05"
-            v-model="categories.section_id"
+        <div class="col-md-6">
+          <label for="validationCustom01" class="form-label"> Value</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            v-model="custom_fields.CustomFieldValues[0].value"
             required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option v-for="sec in sections" :key="sec.id" :value="sec.id"
-              >{{ sec.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
+          />
+         
+          <div class="valid-feedback">
+            Looks good!
           </div>
-        </div> -->
-
-        <!-- <div class="col-md-6">
-          <label for="validationCustom04" class="form-label">parent_id </label>
-          <select
-            class="form-select"
-            id="validationCustom04"
-            v-model="categories.parent_id"
-            required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option
-              v-for="category in Categories"
-              :key="category.id"
-              :value="category.id"
-              >{{ category.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
-          </div>
-        </div> -->
+        </div>     
       </form>
-      <form
-        @submit="formSubmit"
-        enctype="multipart/form-data"
-        style="margin-top: 10px;"
-      >
-        <UploadImages @changed="handleImages" />
-        <button class="btn btn-primary btn-block" style="margin-top: 10px;">
-          Upload
-        </button>
-        <h2 v-if="Progress !== 0" style="opacity: .7;">
-          Progress : <span style="color: green;">{{ Progress }} %</span>
-        </h2>
-      </form>
+   
       <div class="child_4">
         <md-button
           :data-background-color="'blue'"
-          @click="postSection()"
+          @click="postCustom_fields()"
           class="btn"
           id="btnAdd"
           >Add</md-button
@@ -155,13 +128,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+
 import axios from "axios";
-import UploadImages from "vue-upload-drop-images";
+
 export default {
-  name: "NewSectionForm",
+  name: "EditCustomeForm",
   components: {
-    UploadImages,
+   
   },
   props: {
     dataBackgroundColor: {
@@ -171,33 +144,43 @@ export default {
   },
   data() {
     const lang = localStorage.getItem("lang") || "en";
-    let lang1 = localStorage.getItem("lang1");
     return {
       Massage_success: "",
       Massage_warning: "",
       statusnumber: null,
       error: "",
       Progress: 0,
-      file: [],
-      lang1: lang1,
       lang: lang,
-      sections: {
-        section: [
-          {
-            name: "",
-            local: "en",
-            description: "asasaasdasds",
-          },
-          {
-            name: "",
-            local: "ar",
-            description: "asasdasdasas",
-          },
-        ],
-        slug: "",
-        is_active: 1,
-        image: "",
-      },
+      custom_fields: {
+    "custom_field": [
+        {
+            "local": "ar",
+            "name": "",
+            "description": ""
+        },
+        {
+            "local": "en",
+            "name": "",
+            "description": ""
+        },
+        {
+            "local": "fr",
+            "name": "color",
+            "description": "efGSDFGSfBsrn"
+        }
+    ],
+    "CustomFieldValues": [
+        {
+            "value": ""
+        },
+        {
+            "value": "asa"
+        }
+    ],
+    "image": "images/customfields/1631707816.صوري 027.jpg",
+    "is_active": 1
+},
+      // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
   props: {
@@ -208,13 +191,10 @@ export default {
     clearAll: String,
   },
   computed: {
-    ...mapState({
-      // sections: (state) => state.All.sections,
-    }),
+    
   },
   mounted() {
-    // this.$store.dispatch("loadSections");
-
+        this.fetch();
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
       "use strict";
@@ -239,107 +219,82 @@ export default {
     })();
   },
   methods: {
-    handleImages(e) {
-      this.file = e[0];
-      console.log(e[0]);
-    },
-    formSubmit(e) {
-      var self = this;
-      e.preventDefault();
-      let data = new FormData();
-      data.append("image", this.file, this.file.name);
-
-      document.getElementById("sp").classList.toggle("cvs");
+           fetch() {
       axios
-        .post(`/api/sections/upload`, data, {
-          onUploadProgress: (uploadEvent) => {
-            console.log(
-              "Upload Progress : " +
-                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                "%"
-            );
-            self.Progress = Math.round(
-              (uploadEvent.loaded / uploadEvent.total) * 100
-            );
-          },
-        })
-        .then(function(res) {
-          console.log(res);
-          if (res.status == 201 || res.status == 200) {
-            self.sections.image =
-             "http://edalili.e-dalely.com/public/" + res.data;
-            console.log(
-              self.sections.image
-            );
-            document.getElementById("sp").classList.toggle("cvs");
-            self.Massage_success = "Upload Image Success ";
-            document.getElementById("su").classList.toggle("cvs");
-            setTimeout(() => {
-              document.getElementById("su").classList.toggle("cvs");
-            }, 2000);
-          } else {
-            document.getElementById("sp").classList.toggle("cvs");
-            self.Massage_warning = "Error : " + res.statusText;
-            document.getElementById("m").classList.toggle("cvs");
-          }
+        .get(`/api/customfields/getById/${this.$route.params.id}?lang=en`)
+        .then((res) => {
+        this.custom_fields.custom_field[1].name = res.data.Custom_field.name;
+        this.custom_fields.custom_field[1].description = res.data.Custom_field.name;
+        this.custom_fields.CustomFieldValues[0].value  = res.data.Custom_field.custom__field__value[0].value;
+        });
+      axios
+        .get(`/api/customfields/getById/${this.$route.params.id}?lang=ar`)
+        .then((res) => {
+           this.custom_fields.custom_field[0].name = res.data.Custom_field.name;
+            this.custom_fields.custom_field[0].description = res.data.Custom_field.name;
         })
         .catch(function(error) {
-          if (error.response) {
-            document.getElementById("sp").classList.toggle("cvs");
-            console.log(error.response.data);
-            self.Massage_warning = "Error : " + error.response.data.message;
-            document.getElementById("m").classList.toggle("cvs");
+          if (error) {
+            console.log("error:", error);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+
+            alert(
+              `error !! Sorry category by id request had error we can not return old data.. work soon`
+            );
           }
         });
+    },
+     handleChange(event) {
+      localStorage.setItem("lang", event.target.value);
+      // window.location.reload();
     },
     close() {
       document.getElementById(`m`).classList.toggle("cvs");
     },
-    handleChange(event) {
-      localStorage.setItem("lang", event.target.value);
-    },
-    postSection() {
+    postCustom_fields() {
       var self = this;
 
-      if (this.sections.section[1].name == "") {
+      if (this.custom_fields.custom_field[0].name == "") {
         this.Massage_warning =
           "Please enter the name field in Arabic because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.sections.section[0].name == "") {
+      } else if (this.custom_fields.custom_field[1].name == "") {
         this.Massage_warning =
           "Please enter the name field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       }
-      //  else if (this.categories.section_id == "") {
-      //   this.Massage_warning =
-      //     "Please select the section because it is required";
-      //   document.getElementById(`m`).classList.toggle("cvs");
-      // } else if (this.categories.parent_id == "") {
-      //   this.Massage_warning =
-      //     "Please select the parent category because it is required";
-      //   document.getElementById(`m`).classList.toggle("cvs");
-      // }
-      else if (this.sections.slug == "") {
+      else if (this.custom_fields.custom_field[0].description == "") {
         this.Massage_warning =
-          "Please enter the slug field because it is required";
+          "Please enter the description field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else if (this.sections.images == "") {
+      }
+      else if (this.custom_fields.custom_field[1].description == "") {
         this.Massage_warning =
-          "Please choose a picture and upload it because it is required";
+          "Please enter the description field in English because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
-      } else {
+      } 
+       else if (this.custom_fields.CustomFieldValues[0].value  == "") {
+        this.Massage_warning =
+          "Please enter the Value field because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+      else {
         document.getElementById("sp").classList.toggle("cvs");
         axios
-          .post("/api/sections/create", this.sections)
+         .put(
+            `/api/customfields/update/${this.$route.params.id}`,
+            this.categories
+          )
           .then(function(response) {
             console.log(response.data);
             if (response.data.stateNum == 201 || self.statusnumber == 200) {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
-              self.Massage_success = "Create Section Request Success";
+              self.Massage_success = "update CustomeFeilds Request Success";
               document.getElementById("su").classList.toggle("cvs");
               setTimeout(() => {
-                self.$router.push({ name: "section" });
+                self.$router.push({ name: "CustomeFeilds" });
               }, 2000);
             } else {
               document.getElementById("sp").classList.toggle("cvs");

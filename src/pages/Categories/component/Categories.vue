@@ -22,13 +22,13 @@
         v-if="is_active == 'Active'"
         :id="`Active${id}`"
         class="fa fa-check"
-        style="color: green;"
+        style="color: green;padding:10px"
       ></i>
       <i
         v-else
         :id="`NonActive${id}`"
         class="fa fa-times"
-        style="color: #f20b07;"
+        style="color: #f20b07;padding:10px"
       ></i>
     </div>
     <div class="child6" v-else>
@@ -143,7 +143,7 @@ export default {
                 }, 7500);
               } else {
                 document.getElementById(`sp${i}`).classList.toggle("cvs");
-                this.Massage_warning = ` error !! Sorry we will work for this error soon `;
+                self.Massage_warning = ` error !! Sorry we will work for this error soon `;
                 document.getElementById(`m${i}`).classList.toggle("cvs");
               }
             })
@@ -153,7 +153,7 @@ export default {
                 console.log(error.response.status);
                 // console.log(error.response.headers);
                 document.getElementById(`sp${i}`).classList.toggle("cvs");
-                this.Massage_warning = ` error !! Sorry we will work for this error soon `;
+                self.Massage_warning = ` error !! Sorry we will work for this error soon `;
                 document.getElementById(`m${i}`).classList.toggle("cvs");
               }
             });

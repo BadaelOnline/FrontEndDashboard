@@ -171,7 +171,6 @@ export default {
   },
   data() {
     const lang = localStorage.getItem("lang") || "en";
-    let lang1 = localStorage.getItem("lang1");
     return {
       Massage_success: "",
       Massage_warning: "",
@@ -179,7 +178,6 @@ export default {
       error: "",
       Progress: 0,
       file: [],
-      lang1: lang1,
       lang: lang,
       categories: {
         category: [
@@ -270,10 +268,10 @@ export default {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
             self.categories.image =
-              localStorage.getItem("server") + "/" + res.data;
+              // localStorage.getItem("server") + "/" + res.data;
+                "http://edalili.e-dalely.com/public/" + res.data;
             console.log(
-              "image",
-              localStorage.getItem("server") + "/" + res.data
+              self.categories.image
             );
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Image Success ";
@@ -367,6 +365,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+ display: flex;
+justify-content: center;
+}
 input {
   border: 1px solid #ddd;
 }
