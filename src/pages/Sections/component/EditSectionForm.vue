@@ -87,45 +87,7 @@
             Looks good!
           </div>
         </div>
-        <!--
-        <div class="col-md-6">
-          <label for="validationCustom04" class="form-label">section_id</label>
-          <select
-            class="form-select"
-            id="validationCustom04"
-            v-model="categories.section_id"
-            required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option v-for="item in sections" :key="item.id" :value="item.id"
-              >{{ item.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <label for="validationCustom04" class="form-label">parent_id </label>
-          <select
-            class="form-select"
-            id="validationCustom04"
-            v-model="categories.parent_id"
-            required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option
-              v-for="category in Categories"
-              :key="category.id"
-              :value="category.id"
-              >{{ category.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
-          </div>
-        </div> -->
+     
       </form>
 
       <form
@@ -216,30 +178,55 @@ export default {
     this.$store.dispatch("loadSections");
     this.fetch();
     // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-      "use strict";
+   (function () {
+  'use strict'
 
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll(".needs-validation");
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
 
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms).forEach(function(form) {
-        form.addEventListener(
-          "click",
-          function(event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-              form.classList.add("was-validated");
-            }
-          },
-          false
-        );
-      });
-    })();
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('click', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+           form.classList.add('was-validated')
+      
+        }
+
+       
+      }, false)
+    })
+})()
   },
 
   methods: {
+    // fetch data to insert in label for viewer
+    fetch() {
+      axios
+        .get(`/api/sections/getById/${this.$route.params.id}?lang=en`)
+        .then((res) => {
+          this.sections.section[0].name = res.data.Section.name;
+        });
+      axios
+        .get(`/api/sections/getById/${this.$route.params.id}?lang=ar`)
+        .then((res) => {
+          this.sections.section[1].name = res.data.Section.name;
+        })
+        .catch(function(error) {
+          if (error) {
+            console.log("error:", error);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+
+            alert(
+              `error !! Sorry section by id request had error we can not return old data.. work soon`
+            );
+          }
+        });
+    },
+    
     close() {
       document.getElementById(`m`).classList.toggle("cvs");
     },
@@ -304,30 +291,6 @@ export default {
         });
     },
 
-    // fetch data to insert in label for viewer
-    fetch() {
-      axios
-        .get(`/api/sections/getById/${this.$route.params.id}?lang=en`)
-        .then((res) => {
-          this.sections.section[0].name = res.data.Section.name;
-        });
-      axios
-        .get(`/api/sections/getById/${this.$route.params.id}?lang=ar`)
-        .then((res) => {
-          this.sections.section[1].name = res.data.Section.name;
-        })
-        .catch(function(error) {
-          if (error) {
-            console.log("error:", error);
-            // console.log(error.response.status);
-            // console.log(error.response.headers);
-
-            alert(
-              `error !! Sorry section by id request had error we can not return old data.. work soon`
-            );
-          }
-        });
-    },
     // post Category to server
     updateSection() {
       var self = this;
@@ -397,6 +360,14 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
+.container{
+ display: flex;
+justify-content: center;
+}
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
   border-radius: 5px;
@@ -408,12 +379,21 @@ export default {
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
 }
-
+.was-validated input{
+  border-bottom: 1px solid;
+}
 .lng {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

@@ -172,20 +172,20 @@
             Please select a valid state.
           </div>
         </div>
-                <div class="col-md-4">
-          <label for="validationCustom04" class="form-label">CustomeFelids_id </label>
+                 <div class="col-md-4">
+          <label for="validationCustom04" class="form-label">Brand_id </label>
           <select
             class="form-select"
             id="validationCustom04"
-            v-model="products.CustomFieldValue[0].custom_field_value_id"
+            v-model="products.brand_id"
             required
           >
             <option selected disabled value="">Choose...</option>
             <option
-              v-for="item in Custome"
-              :key="item.pr"
-              :value="item.id"
-              >{{ item.name }}
+              v-for="Bran in Brands"
+              :key="Bran.pd"
+              :value="Bran.id"
+              >{{ Bran.name }}
             </option>
           </select>
           <div class="invalid-feedback">
@@ -193,13 +193,31 @@
           </div>
         </div>
       </form>
+       <h4 class="title_custome">Custome</h4>
+        <div class="contain_custome">
+        
+         <div v-for="item in Custome"
+              :key="item.pr"
+              class="item_custome"
+              >
+               <h4 class="name_custome">{{ item.name }}</h4>
+              <div v-for="val in item.custom__field__value" :key="val.qw">
+               
+                <label class="name_value">{{val.value}}</label>
+            
+            <input type="checkbox" class="val_check" @click="addCustom(val.id)">
+              </div>
+           
+           
+           </div>
+           </div>
       <h4 class="title_img">Existing Img</h4>
       <div class="old_img ">
         <div class="item_img" :class="{ is_cover: item.is_cover == 1 }" 
-        v-for="item in image_prod" :key="item.wq"><img :src="item.image" alt="">
+        v-for="item in image_prod" :key="item.wq"><img :src="`http://edalili.e-dalely.com/public/${item.image}`" alt="">
         <div class="icon_close" @click="deletimg(item.id)"><i class="fa fa-window-close"></i></div>
-        <label v-if="item.is_cover == 0" for="cover" style="margin: 0 5px;">Select As Cover </label>
-        <input v-if="item.is_cover == 0" name="cover" type="radio"  @click="setCover(item.id)">
+        <label  for="cover" style="margin: 0 5px;">Select As Cover </label>
+        <input name="cover" type="radio"  @click="setCover(item.id)">
         </div>
       </div>
       <form
@@ -240,7 +258,7 @@ export default {
   data() {
    const lang = localStorage.getItem("lang") || "en";
     return {
-        Massage_success: "",
+      Massage_success: "",
       Massage_warning: "",
       statusnumber: null,
       error: "",
@@ -272,7 +290,7 @@ export default {
             "long_des": "fr fr"
         }
     ],
-    "brand_id": 1,
+    "brand_id": "",
     "barcode": "mobiles",
     "slug": "",
     "is_active": 1,
@@ -288,15 +306,10 @@ export default {
         }
     ],
     "CustomFieldValue": [
-        {
-            "custom_field_value_id": ""
-        }
+        
     ],
     "images": [
-        {
-            "image": "",
-            "is_cover": 0
-        }
+      
     ]
 },
     };
@@ -313,14 +326,15 @@ export default {
       sections: (state) => state.All.sections,
       Categories: (state) => state.All.Categories,
       Custome: (state) => state.All.Custome,
+        Brands: (state) => state.All.Brands,
     }),
   },
   mounted() {
     this.$store.dispatch("loadSections");
     this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadCustome");
+      this.$store.dispatch("loadBrands");
     this.fetch();
-
         // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
   'use strict'
@@ -336,7 +350,7 @@ export default {
           event.preventDefault()
           event.stopPropagation()
            form.classList.add('was-validated')
-          
+      
         }
 
        
@@ -345,7 +359,10 @@ export default {
 })()
   },
   methods: {
-        fetch() {
+    addCustom(i){
+          this.products.CustomFieldValue.push({'custom_field_value_id':i});
+        },
+    fetch() {
      axios
     .get(`/api/products/getById/${this.$route.params.id}?lang=en`)
     .then((res) => {
@@ -353,9 +370,7 @@ export default {
       this.products.product[1].name = res.data.product.name;
      this.products.product[1].long_des =  res.data.product.long_des;
      this.products.product[1].short_des =  res.data.product.short_des;
-     if(res.data.product.product_image == 0){
-      this.products.images[0].is_cover = 1;
-     }
+ 
      
     }) ;  
       axios
@@ -392,9 +407,7 @@ export default {
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
             }, 2000);
-            setTimeout(() => {
-             window.location.reload();
-            }, 3000);
+            self.fetch();
           } else {
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_warning = "Error : " + res.statusText;
@@ -425,9 +438,7 @@ export default {
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
             }, 2000);
-            setTimeout(() => {
-             window.location.reload();
-            }, 3000);
+           self.fetch();
           } else {
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_warning = "Error : " + res.statusText;
@@ -445,14 +456,15 @@ export default {
         });
     },
     handleImages(e) {
-      this.file = e[0];
-      console.log(e[0]);
+      this.file = e;
+    
     },
     formSubmit(e) {
       var self = this;
       e.preventDefault();
       let data = new FormData();
-      data.append("images[]", this.file);
+      for(var i = 0;i < self.file.length;i++)
+      data.append( `images[${i}]`, this.file[i]);
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
@@ -470,18 +482,14 @@ export default {
         })
         .then(function(res) {
           console.log(res.data);
-           if (res.status == 201 || res.status == 200) {
-             
-              self.products.images[0].image =
-              // localStorage.getItem("server") + "/" + res.data;
-                "http://edalili.e-dalely.com/public/" + res.data;
-           
+           if (res.status == 201 || res.status == 200) { 
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
             }, 2000);
+                self.fetch();
           } else {
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_warning = "Error : " + res.statusText;
@@ -491,8 +499,8 @@ export default {
         .catch(function(error) {
           if (error.response) {
             document.getElementById("sp").classList.toggle("cvs");
-            console.log(error.response.data);
-            self.Massage_warning = "Error : " + error.response.data.message;
+            console.log(error.response);
+            self.Massage_warning = "Error : " + error.response.data[0];
             document.getElementById("m").classList.toggle("cvs");
           }
         });
@@ -549,7 +557,12 @@ export default {
           "Please select the category  because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       }
-      else if (this.products.CustomFieldValue[0].custom_field_value_id == "") {
+        else if (this.products.brand_id== "") {
+        this.Massage_warning =
+          "Please select the brand_id because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
+      else if (this.products.CustomFieldValue.length == 0) {
         this.Massage_warning =
           "Please select the custom_field_value because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
@@ -598,6 +611,39 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
+.title_custome{
+  width: 280px;
+  margin: 20px auto;
+  font-weight: bold;
+  color: gray;
+  text-decoration-line: underline;
+}
+.contain_custome{
+margin-bottom: 40px;
+}
+.item_custome{
+  display: flex;
+  justify-content: space-around;
+  background-color: #eee;
+  border-bottom: 3px solid #fff;
+  flex-flow: wrap;
+}
+.item_custome div{
+  display: flex;
+  align-items: center;
+}
+.item_custome .name_custome{
+font-weight: bold;
+color: #117fdf;
+}
+.item_custome .name_value{
+ margin-right: 5px;
+font-weight: bold;
+}
 .is_cover{
   border: 3px solid green;
 }
@@ -643,6 +689,10 @@ justify-content: center;
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
+}
+.was-validated input{
+  border-bottom: 1px solid;
 }
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
@@ -657,6 +707,12 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

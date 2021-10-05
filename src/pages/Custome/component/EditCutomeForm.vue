@@ -98,20 +98,25 @@
             Looks good!
           </div>
         </div>
-        <div class="col-md-6">
+      <div class="col-md-6">
+        <div v-for="(item,index) in custom_fields.CustomFieldValues.length" :key="index.ps"> 
+           
           <label for="validationCustom01" class="form-label"> Value</label>
           <input
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.CustomFieldValues[0].value"
+            v-model="custom_fields.CustomFieldValues[custom_fields.CustomFieldValues.length-(index+1)].value"
             required
           />
+          <button v-if="custom_fields.CustomFieldValues.length - index == 1"
+          class="add_value" @click="addValue">Add New Vlue</button>
+          </div> 
          
           <div class="valid-feedback">
             Looks good!
           </div>
-        </div>     
+        </div>    
       </form>
    
       <div class="child_4">
@@ -151,7 +156,7 @@ export default {
       error: "",
       Progress: 0,
       lang: lang,
-      custom_fields: {
+        custom_fields:{
     "custom_field": [
         {
             "local": "ar",
@@ -170,16 +175,11 @@ export default {
         }
     ],
     "CustomFieldValues": [
-        {
-            "value": ""
-        },
-        {
-            "value": "asa"
-        }
+       
     ],
-    "image": "images/customfields/1631707816.صوري 027.jpg",
+    "image": "asdasdasd",
     "is_active": 1
-},
+}
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
     };
   },
@@ -219,13 +219,21 @@ export default {
     })();
   },
   methods: {
+       addValue(){
+          this.custom_fields.CustomFieldValues.push({'value':''});
+          
+        },
            fetch() {
       axios
         .get(`/api/customfields/getById/${this.$route.params.id}?lang=en`)
         .then((res) => {
         this.custom_fields.custom_field[1].name = res.data.Custom_field.name;
         this.custom_fields.custom_field[1].description = res.data.Custom_field.name;
-        this.custom_fields.CustomFieldValues[0].value  = res.data.Custom_field.custom__field__value[0].value;
+        for(var i=0;i < res.data.Custom_field.custom__field__value.length ;i++){
+          this.custom_fields.CustomFieldValues.push({'value':''});
+        this.custom_fields.CustomFieldValues[i].value  = res.data.Custom_field.custom__field__value[i].value;
+        }
+       
         });
       axios
         .get(`/api/customfields/getById/${this.$route.params.id}?lang=ar`)
@@ -284,7 +292,7 @@ export default {
         axios
          .put(
             `/api/customfields/update/${this.$route.params.id}`,
-            this.categories
+            this.custom_fields
           )
           .then(function(response) {
             console.log(response.data);
@@ -317,12 +325,28 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
+.add_value{
+  border: none;
+  color: #fff;
+  background-color: blueviolet;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
 .container{
  display: flex;
 justify-content: center;
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
+}
+.was-validated input{
+  border-bottom: 1px solid;
 }
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
@@ -337,6 +361,12 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

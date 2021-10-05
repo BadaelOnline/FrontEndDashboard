@@ -7,8 +7,8 @@ export const SET_total_page = (state, total_page) => {
 export const SET_CategoryID = (state, CategoryID) => {
   state.CategoryID = CategoryID;
 };
-export const SET_Sections = (state, sections) => {
-  state.sections = sections;
+export const SET_Sections = (state, Sections) => {
+  state.Sections = Sections;
 };
 export const SET_SectionID = (state, SectionID) => {
   state.SectionID = SectionID;

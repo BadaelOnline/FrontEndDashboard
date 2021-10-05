@@ -88,45 +88,6 @@
             Looks good!
           </div>
         </div>
-
-        <!-- <div class="col-md-6">
-          <label for="validationCustom05" class="form-label">section_id</label>
-          <select
-            class="form-select"
-            id="validationCustom05"
-            v-model="categories.section_id"
-            required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option v-for="sec in sections" :key="sec.id" :value="sec.id"
-              >{{ sec.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
-          </div>
-        </div> -->
-
-        <!-- <div class="col-md-6">
-          <label for="validationCustom04" class="form-label">parent_id </label>
-          <select
-            class="form-select"
-            id="validationCustom04"
-            v-model="categories.parent_id"
-            required
-          >
-            <option selected disabled value="">Choose...</option>
-            <option
-              v-for="category in Categories"
-              :key="category.id"
-              :value="category.id"
-              >{{ category.name }}
-            </option>
-          </select>
-          <div class="invalid-feedback">
-            Please select a valid state.
-          </div>
-        </div> -->
       </form>
       <form
         @submit="formSubmit"
@@ -362,12 +323,20 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
 .container{
  display: flex;
 justify-content: center;
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
+}
+.was-validated input{
+  border-bottom: 1px solid;
 }
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
@@ -382,6 +351,12 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

@@ -134,7 +134,7 @@
 import { Products } from "@/pages";
 import { mapState } from "vuex";
 // import axios from "axios";
-const page = window.localStorage.getItem("page");
+const page = window.localStorage.getItem("page") || 1;
 export default {
    data() {
     return {

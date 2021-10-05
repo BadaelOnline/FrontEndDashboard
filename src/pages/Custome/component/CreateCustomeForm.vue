@@ -58,7 +58,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[0].description"
+            v-model="custom_fields.custom_field[0].name"
             v-if="lang == 'ar'"
             required
           />
@@ -66,7 +66,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[1].description"
+            v-model="custom_fields.custom_field[1].name"
             required
             v-else
           />
@@ -81,7 +81,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[0].name"
+            v-model="custom_fields.custom_field[0].description"
             v-if="lang == 'ar'"
             required
           />
@@ -89,7 +89,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[1].name"
+            v-model="custom_fields.custom_field[1].description"
             required
             v-else
           />
@@ -157,7 +157,8 @@ export default {
       error: "",
       Progress: 0,
       lang: lang,
-      custom_fields: {
+      
+      custom_fields:{
     "custom_field": [
         {
             "local": "ar",
@@ -180,7 +181,7 @@ export default {
             "value": ""
         }
     ],
-    "image": "images/customfields/1631707816.صوري 027.jpg",
+    "image": "asdasdasd",
     "is_active": 1
 },
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
@@ -296,6 +297,10 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
 .add_value{
   border: none;
   color: #fff;
@@ -310,6 +315,10 @@ justify-content: center;
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
+}
+.was-validated input{
+  border-bottom: 1px solid;
 }
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
@@ -324,6 +333,12 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

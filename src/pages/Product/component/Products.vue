@@ -4,7 +4,7 @@
     <div class="child2">
       <div class="imag">
         <div v-for="im in product_image" :key="im.pr">
-          <img v-if="im.is_cover == 1" :src="im.image" />
+          <img v-if="im.is_cover == 1" :src="`http://edalili.e-dalely.com/public/${im.image}`" />
         </div>
       </div>
     </div>
@@ -262,36 +262,12 @@ export default {
   justify-content: center;
   text-align: center;
   margin: auto;
-  opacity: 0.7;
 }
-/* .parent .child8 {
-  border: 1px #36bdca solid;
-  background: #fefefe;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 80px;
-  scrollbar-color: #6969dd #e0e0e0;
-  scrollbar-width: thin;
-} */
-/* .parent .child8::-webkit-scrollbar {
-  width: 10px;
-}
-
-.parent .child8::-webkit-scrollbar-track {
-  background-color: #e4e4e4;
-  border-radius: 100px;
-}
-.parent .child8::-webkit-scrollbar-thumb {
-  border-radius: 100px;
-  background-image: linear-gradient(180deg, #36bdca 0%, #708ad4 99%);
-  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-} */
 .parent .child6 {
   width: 30% !important;
   display: flex;
   justify-content: center;
   margin: auto;
-  opacity: 0.7;
 }
 .parent .child2 {
   width: 30% !important;
@@ -311,7 +287,6 @@ export default {
   text-align: center;
   justify-content: center;
   margin: auto;
-  opacity: 0.7;
 }
 .parent .child3 {
   font-weight: 600;

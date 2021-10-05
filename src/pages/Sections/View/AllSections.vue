@@ -39,25 +39,7 @@
                 required
               />
             </div>
-            <!-- <div class="child4">
-              <div class="child">
-                <span>category</span>
-              </div>
-            </div>
-            <div class="child5">
-              <div class="child">
-                <span>product</span>
-              </div>
-              <input
-                type="text"
-                class="search"
-                name="search"
-                v-model="searchSection"
-                placeholder="Section"
-                autofocus
-                required
-              />
-            </div> -->
+   
             <div class="child6">
               <div class="child">
                 <span>Status</span>
@@ -87,7 +69,30 @@
             style="margin: 10px 0"
           >
           </Section>
-          <!--     -->
+ <nav v-if="filtered.length > 0">
+  <ul class="pagination" style="justify-content: center;margin-top: 30px;">
+    <li class="page-item" :class="{ disabled : page == 1}" @click="Previous">
+      <span class="page-link">Previous</span>
+    </li>
+    
+    <li class="page-item" :class="{ active : page == pag}"  v-show="pag == page || pag == ( parseInt(page )+2) || pag == ( parseInt(page)+1) || pag == ( parseInt(page)-1)"
+    v-for="pag in total_page" :key="pag">
+        <span class="page-link" @click="getPage(pag)"> {{pag}}</span>
+    </li>
+   <span style="display: grid;align-content: center;">
+        <span style="color: #9d1c9b;font-weight: bold; "> /  total : {{total_page}}</span>
+    </span>
+    <li class="page-item" @click="Next">
+      <span class="page-link">Next</span>
+    </li>
+  </ul>
+</nav>
+      <div class="unavaible_category" v-else>
+         
+          <div class="unavaible">
+            <h2>No Items Founded</h2>
+          </div>
+        </div>
         </div>
         <div class="unavaible_category" v-else>
           <router-link :to="`/admin/section/create`"
@@ -107,10 +112,12 @@
 <script>
 import { mapState } from "vuex";
 import Section from "../component/Section.vue";
+const page = window.localStorage.getItem("page") || 1;
 export default {
   name: "section",
   data() {
     return {
+      page: page,
       searchID: "",
       searchName: "",
       searchSection: "",
@@ -118,9 +125,28 @@ export default {
     };
   },
   components: { Section },
+  methods: {
+    getPage(i) {
+      localStorage.setItem("page", i);
+      this.$store.dispatch("loadCategories");
+      window.location.reload();
+    },
+     Next(){
+            localStorage.setItem("page", parseInt(this.page)+1);
+             window.location.reload();
+        },
+       Previous(){
+           if(localStorage.getItem("page") > 1){
+            localStorage.setItem("page",parseInt(this.page)-1);
+             window.location.reload();
+           }
+
+        },
+  },
   computed: {
     ...mapState({
       sections: (state) => state.All.sections,
+       total_page: (state) => state.All.total_page,
     }),
 
     filtered() {
