@@ -134,7 +134,7 @@
             Looks good!
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label for="validationCustom05" class="form-label">Section_id</label>
           <select
             class="form-select"
@@ -152,7 +152,7 @@
           </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label for="validationCustom04" class="form-label">Category_id </label>
           <select
             class="form-select"
@@ -172,18 +172,43 @@
             Please select a valid state.
           </div>
         </div>
-     
+             <div class="col-md-4">
+          <label for="validationCustom04" class="form-label">Brand_id </label>
+          <select
+            class="form-select"
+            id="validationCustom04"
+            v-model="products.brand_id"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option
+              v-for="Bran in Brands"
+              :key="Bran.pw"
+              :value="Bran.id"
+              >{{ Bran.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid state.
+          </div>
+        </div>
 
       </form>
-        <h4 style="width: 280px;">Custome</h4>
+        <h4 class="title_custome">Custome</h4>
         <div class="contain_custome">
         
          <div v-for="item in Custome"
               :key="item.pr"
               class="item_custome"
               >
-            <label>{{ item.name }}</label>
-            <input type="checkbox" @click="addCustom(item.id)">
+               <h4 class="name_custome">{{ item.name }}</h4>
+              <div v-for="val in item.custom__field__value" :key="val.qw">
+               
+                <label class="name_value">{{val.value}}</label>
+            
+            <input type="checkbox" class="val_check" @click="addCustom(val.id)">
+              </div>
+           
            
            </div>
            </div>
@@ -262,7 +287,7 @@ export default {
             "long_des": "fr fr"
         }
     ],
-    "brand_id": 1,
+    "brand_id": "",
     "barcode": "mobiles",
     "slug": "",
     "is_active": 1,
@@ -280,19 +305,8 @@ export default {
     "CustomFieldValue": [
         
     ],
-    "images": [
-        {
-            "image": "",
-            "is_cover": 1
-        },
-        {
-            "image": "{{fahed2}}",
-            "is_cover": 0
-        },
-        {
-            "image": "{{feahd1}}",
-            "is_cover": 0
-        }
+   "images": [
+       
     ]
 },
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
@@ -311,6 +325,7 @@ export default {
       sections: (state) => state.All.sections,
       Categories: (state) => state.All.Categories,
       Custome: (state) => state.All.Custome,
+      Brands: (state) => state.All.Brands,
     }),
   },
   mounted() {
@@ -318,6 +333,7 @@ export default {
     this.$store.dispatch("loadSections");
     this.$store.dispatch("loadCategories");
     this.$store.dispatch("loadCustome");
+     this.$store.dispatch("loadBrands");
 
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -347,14 +363,42 @@ export default {
           this.products.CustomFieldValue.push({'custom_field_value_id':i});
         },
     handleImages(e) {
-       this.file = e[0];
-      console.log(e[0]);
+      //  this.file = e;
+        this.products.images = new FormData();
+          this.products.images.append('images[]', e[0]);
+
+//           this.products.images.push({'image':[]});
+//           this.products.images.push({'is_cover':1});
+//           const data = new FormData();
+//       data.append('images[]', e[0])
+//       this.products.images[0].image.push(data);
+//       // Display the key/value pairs
+// var formEntries = Array.from(data.entries());
+// console.log("formEntries " , formEntries); 
+        
+      /*  for(var i =0;i <this.file.length;i++){
+          var t = 0;
+         if(i == 0){
+           t = 1;
+         }
+         else if(i !== 0){
+            t = 0;
+         }
+          this.products.images.push({'image':this.file[i],'is_cover': t});
+
+              this.products.images.push({'image':[]});
+          this.products.images.push({'is_cover':1});
+      this.products.images[0].image.push({'name':e[0].name,'lastModified':e[0].lastModified,'size':e[0].size,'type':e[0].type});
+         
+          
+       }*/
+     
     },
     formSubmit(e) {
       var self = this;
       e.preventDefault();
       let data = new FormData();
-      data.append("images[]", this.file, this.file.name);
+      data.append("images[]", this.file);
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
@@ -461,12 +505,17 @@ export default {
           "Please select the category  because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       }
+       else if (this.products.brand_id== "") {
+        this.Massage_warning =
+          "Please select the brand_id because it is required";
+        document.getElementById(`m`).classList.toggle("cvs");
+      } 
       else if (this.products.CustomFieldValue.length == 0) {
         this.Massage_warning =
           "Please select the custom_field_value because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } 
-         else if (this.products.images[0].image == "") { 
+         else if (this.products.images.length == 0) { 
           this.Massage_warning =
           "Please choose a picture and upload it because it is required";
           document.getElementById(`m`).classList.toggle("cvs");
@@ -509,17 +558,38 @@ export default {
 </script>
 
 <style scoped>
-.contain_custome{
+label{
+  font-weight: bold;
+  opacity: .8;
+}
+.title_custome{
   width: 280px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  height: 100px;
+  margin: 20px auto;
+  font-weight: bold;
+  color: gray;
+  text-decoration-line: underline;
+}
+.contain_custome{
+margin-bottom: 40px;
 }
 .item_custome{
   display: flex;
   justify-content: space-around;
+  background-color: #eee;
+  border-bottom: 3px solid #fff;
+  flex-flow: wrap;
+}
+.item_custome div{
+  display: flex;
+  align-items: center;
+}
+.item_custome .name_custome{
+font-weight: bold;
+color: #117fdf;
+}
+.item_custome .name_value{
+ margin-right: 5px;
+font-weight: bold;
 }
 .container{
  display: flex;
@@ -527,6 +597,10 @@ justify-content: center;
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
+}
+.was-validated input{
+  border-bottom: 1px solid;
 }
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
@@ -541,6 +615,12 @@ input {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;
@@ -776,5 +856,7 @@ $duration: 1.4s;
 }
 .cvs {
   visibility: visible !important;
+  
 }
+
 </style>

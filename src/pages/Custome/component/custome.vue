@@ -6,31 +6,31 @@
     <div class="child3">{{ description }}</div>
     <!-- custom__field__value -->
       <div class="child4">
-        <div v-for="item in custom__field__value" :key="item.ps">
-           {{item.id}} _ {{item.value}}
+        <div style="background-color: #eee;border-bottom: 2px solid #fff;"
+         v-for="item in custom__field__value" :key="item.ps">
+          {{item.value}}
         </div>
       </div>
     <div
       class="child5"
       v-if="is_active"
-      @click="statusCategory(id)"
+    
       style="cursor:pointer;"
     >
       <i
-        v-if="is_active == 'Active'"
+        v-if="is_active == 1"
         :id="`Active${id}`"
         class="fa fa-check"
         style="color: green;padding:10px"
       ></i>
+    </div>
+    <div class="child5"  @click="statusCategory(id)"
+    v-else>
       <i
-        v-else
         :id="`NonActive${id}`"
         class="fa fa-times"
         style="color: #f20b07;padding:10px"
       ></i>
-    </div>
-    <div class="child5" v-else>
-      Active key doesnt exist
     </div>
     <div class="child6">
        <div class="delet">
@@ -45,7 +45,7 @@
       <div
         @click="deletCategory(id)"
         class="delet"
-        :class="{ non_active_delete: is_active != 'Active' }"
+        :class="{ non_active_delete: is_active != 1 }"
       >
         <i class="fa fa-trash"></i>
       </div>
@@ -93,12 +93,12 @@
 import axios from "axios";
 export default {
   name: "Stores",
-  props: ["id", "name", "description",'custom__field__value'],
+  props: ["id", "name", "description",'is_active','custom__field__value'],
   data() {
     return {
-      details: {
-        id: this.id,
-      },
+     deleted: null,
+      Massage_success: "",
+      Massage_warning: "",
     };
   },
   methods: {
@@ -252,23 +252,21 @@ export default {
   font-weight: 700;
 }
 .parent .child1,
-.parent .child3{
+.parent .child2{
  width: 10% !important;
   display: flex;
   text-align: center;
   justify-content: center;
   margin: auto;
-  opacity: 0.7;
 }
-.parent .child2,
+.parent .child3,
 .parent .child5,
 .parent .child6 {
   width: 20% !important;
   display: flex;
   text-align: center;
   justify-content: center;
-  margin: auto;
-  opacity: 0.7;
+  margin: auto; 
 }
 .parent .child4{
   width: 20% !important;
@@ -276,12 +274,14 @@ export default {
   text-align: center;
   justify-content: center;
   margin: auto;
-  opacity: 0.7;
   flex-direction: column;
   overflow-y: scroll;
   scrollbar-width: thin;
   border: 1px solid #ddd;
   height: 50px;
+}
+.parent .child5 i{
+  cursor: pointer;
 }
 .parent .child6{
   gap: 20px;

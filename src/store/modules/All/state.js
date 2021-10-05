@@ -3,7 +3,7 @@ export default {
   total_page: null,
   CategoryID: null,
   SectionID: null,
-  sections: [],
+  Sections: [],
   Brands: [],
   BrandID: null,
   Product: [],

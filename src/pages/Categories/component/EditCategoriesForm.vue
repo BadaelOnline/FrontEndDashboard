@@ -401,6 +401,14 @@ export default {
 </script>
 
 <style scoped>
+label{
+  font-weight: bold;
+  opacity: .8;
+}
+.container{
+ display: flex;
+justify-content: center;
+}
 .child_4 {
   box-shadow: 1px 1px 10px #09b2c7;
   border-radius: 5px;
@@ -412,12 +420,21 @@ export default {
 }
 input {
   border: 1px solid #ddd;
+  border-bottom: none;
 }
-
+.was-validated input{
+  border-bottom: 1px solid;
+}
 .lng {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+.lng {
+  display: grid;
+}
 }
 .lng h4 {
   font-size: 20px;

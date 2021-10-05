@@ -120,7 +120,7 @@
 <script>
 import { mapState } from "vuex";
 import brands from "../component/brand.vue";
-const page = window.localStorage.getItem("page");
+const page = window.localStorage.getItem("page") || 1;
 
 export default {
   components: { brands },

@@ -2,7 +2,6 @@
 import Products from "../pages/Product/component/Products.vue";
 import EditProductForm from "../pages/Product/component/EditProductForm.vue";
 import CreateProductForm from "../pages/Product/component/CreateProductForm.vue";
-import UploadImagesProduct from "../pages/Product/component/UploadImagesProduct.vue";
 
 // Store
 import Stores from "../pages/Store/component/Stores.vue";
@@ -61,7 +60,6 @@ export {
   offers,
   UploadImagesStore,
   UpImagStrProd,
-  UploadImagesProduct,
   UploadImagesDoctor,
   EditProductForm,
   CreateProductForm,

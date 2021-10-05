@@ -108,66 +108,6 @@
               >
               </Categories>
             </div>
-            <!-- <form class="paginate">
-              double angle_left
-              <span>
-                <svg
-                  style="height:20px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 320 512"
-                >
-                  <path
-                    d="M153.1 247.5l117.8-116a12 12 0 0117 0l7.1 7.1a12 12 0 010 17L192.7 256l102.2 100.4a12 12 0 010 17l-7.1 7.1a12 12 0 01-17 0L153 264.5a12.1 12.1 0 01.1-17zm-128 17l117.8 116a12 12 0 0017 0l7.1-7.1a12 12 0 000-17L64.7 256l102.2-100.4a12 12 0 000-17l-7.1-7.1a12 12 0 00-17 0L25 247.5a12.1 12.1 0 00.1 17z"
-                  />
-                </svg>
-              </span>
-              angle_left
-              <span>
-                <svg
-                  style="height:20px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 192 512"
-                >
-                  <path
-                    d="M25.1 247.5l117.8-116a12 12 0 0117 0l7.1 7.1a12 12 0 010 17L64.7 256l102.2 100.4a12 12 0 010 17l-7.1 7.1a12 12 0 01-17 0L25 264.5a12.1 12.1 0 01.1-17z"
-                  />
-                </svg>
-              </span>
-              <div class="pagenation">
-                <div
-                  class="page"
-                  v-for="pag in per_page"
-                  :key="pag.pr"
-                  :class="{ page_active: pageInfo == pag }"
-                >
-                  <div @click="getPage(pag)">{{ pag }}</div>
-                </div>
-              </div>
-              angle_right
-              <span>
-                <svg
-                  style="height:20px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 192 512"
-                >
-                  <path
-                    d="M166.9 264.5l-117.8 116a12 12 0 01-17 0l-7.1-7.1a12 12 0 010-17L127.3 256 25.1 155.6a12 12 0 010-17l7.1-7.1a12 12 0 0117 0l117.8 116a12.1 12.1 0 01-.1 17z"
-                  />
-                </svg>
-              </span>
-              double angle_right
-              <span>
-                <svg
-                  style="height:20px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 320 512"
-                >
-                  <path
-                    d="M166.9 264.5l-117.8 116a12 12 0 01-17 0l-7.1-7.1a12 12 0 010-17L127.3 256 25.1 155.6a12 12 0 010-17l7.1-7.1a12 12 0 0117 0l117.8 116a12.1 12.1 0 01-.1 17zm128-17l-117.8-116a12 12 0 00-17 0l-7.1 7.1a12 12 0 000 17L255.3 256 153.1 356.4a12 12 0 000 17l7.1 7.1a12 12 0 0017 0l117.8-116a12.1 12.1 0 00-.1-17z"
-                  />
-                </svg>
-              </span>
-            </form> -->
                 <nav v-if="filteredName.length > 0">
   <ul class="pagination" style="justify-content: center;margin-top: 30px;">
     <li class="page-item" :class="{ disabled : page == 1}" @click="Previous">
@@ -213,7 +153,7 @@
 import { mapState } from "vuex";
 import Categories from "../component/Categories.vue";
 // import axios from "axios";
-const page = window.localStorage.getItem("page");
+const page = window.localStorage.getItem("page") || 1;
 export default {
   data() {
     return {
@@ -221,8 +161,7 @@ export default {
       searchID: "",
       searchName: "",
       searchSection: "",
-      selectedFilter: "",
-      pageInfo: page,
+      selectedFilter: ""
     };
   },
   components: { Categories },
