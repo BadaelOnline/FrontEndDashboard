@@ -212,7 +212,17 @@
            
            </div>
            </div>
-      <form
+  
+      <div class="child_4">
+        <md-button
+          :data-background-color="'blue'"
+          @click="postCategory()"
+          class="btn"
+          id="btnAdd"
+          >Add</md-button
+        >
+      </div>
+          <form v-if="new_product_id !== null"
         @submit="formSubmit"
         enctype="multipart/form-data"
         style="margin-top: 10px;"
@@ -225,15 +235,6 @@
           Progress : <span style="color: green;">{{ Progress }} %</span>
         </h2>
       </form>
-      <div class="child_4">
-        <md-button
-          :data-background-color="'blue'"
-          @click="postCategory()"
-          class="btn"
-          id="btnAdd"
-          >Add</md-button
-        >
-      </div>
     </div>
   </md-card>
 </template>
@@ -259,6 +260,7 @@ export default {
       Massage_success: "",
       Massage_warning: "",
       statusnumber: null,
+      new_product_id: null,
       error: "",
       Progress: 0,
       file: [],
@@ -305,8 +307,8 @@ export default {
     "CustomFieldValue": [
         
     ],
-   "images": [
-       
+    "images": [
+      
     ]
 },
       // "https://img.lovepik.com/photo/50015/8348.jpg_wh860.jpg"
@@ -363,46 +365,19 @@ export default {
           this.products.CustomFieldValue.push({'custom_field_value_id':i});
         },
     handleImages(e) {
-      //  this.file = e;
-        this.products.images = new FormData();
-          this.products.images.append('images[]', e[0]);
-
-//           this.products.images.push({'image':[]});
-//           this.products.images.push({'is_cover':1});
-//           const data = new FormData();
-//       data.append('images[]', e[0])
-//       this.products.images[0].image.push(data);
-//       // Display the key/value pairs
-// var formEntries = Array.from(data.entries());
-// console.log("formEntries " , formEntries); 
-        
-      /*  for(var i =0;i <this.file.length;i++){
-          var t = 0;
-         if(i == 0){
-           t = 1;
-         }
-         else if(i !== 0){
-            t = 0;
-         }
-          this.products.images.push({'image':this.file[i],'is_cover': t});
-
-              this.products.images.push({'image':[]});
-          this.products.images.push({'is_cover':1});
-      this.products.images[0].image.push({'name':e[0].name,'lastModified':e[0].lastModified,'size':e[0].size,'type':e[0].type});
-         
-          
-       }*/
-     
+     this.file = e;
+  
     },
-    formSubmit(e) {
+        formSubmit(e) {
       var self = this;
       e.preventDefault();
       let data = new FormData();
-      data.append("images[]", this.file);
+      for(var i = 0;i < self.file.length;i++)
+      data.append( `images[${i}]`, this.file[i]);
 
       document.getElementById("sp").classList.toggle("cvs");
       axios
-        .post(`/api/products/upload-multi/1`, data, {
+        .post(`/api/products/upload-multi/${self.new_product_id}`, data, {
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress : " +
@@ -415,29 +390,17 @@ export default {
           },
         })
         .then(function(res) {
-          console.log(res);
-          if (res.status == 201 || res.status == 200) {
-            for(var i = 0; i <=  self.file.length;i++){
-              if(i=0){
-                   self.products.images[i].is_cover = 1;
-              }
-              else{
-                 self.products.images[i].is_cover = 0;
-              }
-              self.products.images[i].image =
-              // localStorage.getItem("server") + "/" + res.data;
-                "http://edalili.e-dalely.com/public/" + res.data;
-            }
-            
-            console.log(
-              self.products
-            );
+          console.log(res.data);
+           if (res.status == 201 || res.status == 200) { 
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
             setTimeout(() => {
               document.getElementById("su").classList.toggle("cvs");
             }, 2000);
+               setTimeout(() => {
+                self.$router.push({ name: "Products" });
+              }, 3000);
           } else {
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_warning = "Error : " + res.statusText;
@@ -447,8 +410,8 @@ export default {
         .catch(function(error) {
           if (error.response) {
             document.getElementById("sp").classList.toggle("cvs");
-            console.log(error.response.data);
-            self.Massage_warning = "Error : " + error.response.data.message;
+            console.log(error.response);
+            self.Massage_warning = "Error : " + error.response.data[0];
             document.getElementById("m").classList.toggle("cvs");
           }
         });
@@ -515,27 +478,23 @@ export default {
           "Please select the custom_field_value because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } 
-         else if (this.products.images.length == 0) { 
-          this.Massage_warning =
-          "Please choose a picture and upload it because it is required";
-          document.getElementById(`m`).classList.toggle("cvs");
-       } 
       else {
         document.getElementById("sp").classList.toggle("cvs");
         axios
           .post(
-            "http://edalili.e-dalely.com/public/api/products/create",
+            "/api/products/create",
             this.products
           )
           .then(function(response) {
             console.log(response.data);
+             self.new_product_id = response.data.Product[0] ;
             if (response.data.stateNum == 201 || self.statusnumber == 200) {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
-              self.Massage_success = "Create Category Request Success";
+              self.Massage_success = "Create product Request Success..Now you can upload img";
               document.getElementById("su").classList.toggle("cvs");
-              setTimeout(() => {
-                self.$router.push({ name: "Products" });
+             setTimeout(() => {
+               document.getElementById("su").classList.toggle("cvs");
               }, 2000);
             } else {
               document.getElementById("sp").classList.toggle("cvs");

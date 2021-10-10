@@ -58,7 +58,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[0].description"
+            v-model="custom_fields.custom_field[0].name"
             v-if="lang == 'ar'"
             required
           />
@@ -66,7 +66,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[1].description"
+            v-model="custom_fields.custom_field[1].name"
             required
             v-else
           />
@@ -81,7 +81,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[0].name"
+            v-model="custom_fields.custom_field[0].description"
             v-if="lang == 'ar'"
             required
           />
@@ -89,7 +89,7 @@
             type="text"
             class="form-control"
             id="validationCustom01"
-            v-model="custom_fields.custom_field[1].name"
+            v-model="custom_fields.custom_field[1].description"
             required
             v-else
           />

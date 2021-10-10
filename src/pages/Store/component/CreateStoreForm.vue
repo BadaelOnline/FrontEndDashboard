@@ -9,25 +9,22 @@
 
       <md-card-content>
         <div class="md-layout">
-
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Name</label>
-              <md-input v-model="stores.store[1].title" ></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-button data-background-color="green" @click="postStore()"
-              >Add</md-button
-            >
-          </div>
+<form @submit="formSubmit" enctype="multipart/form-data">
+                        <!-- <strong>Name:</strong>
+                        <input type="text" class="form-control" v-model="name">
+                        <strong>File:</strong>
+                        <input type="file" class="form-control" v-on:change="onFileChange"> -->
+    
+                        <button class="btn btn-success">Submit</button>
+        </form>
+         
         </div>
       </md-card-content>
     </md-card>
   </form>
 </template>
 <script>
-import { mapState } from "vuex";
+
 import axios from 'axios';
 export default {
   name: "CreateStoreForm",
@@ -42,52 +39,116 @@ export default {
   },
   data() {
     return {
-     stores: {
-    "store": 
-    [
+     products: {
+    "product": [
         {
-            "local":"ar",
-            "title":"باسل"
+            "local": "ar",
+            "name": "afefr",
+            "meta": "arefe",
+            "short_des": "ar ar",
+            "long_des": "ar ar"
         },
         {
-            "local":"en",
-            "title": null
+            "local": "en",
+            "name": "efen",
+            "meta": "efefen",
+            "short_des": "en en",
+            "long_des": "en en"
         },
         {
-            "local":"fr",
-            "title":"basel"
+            "local": "fr",
+            "name": "ffer",
+            "meta": "ffefr",
+            "short_des": "fr fr",
+            "long_des": "fr fr"
         }
     ],
-    "loc_id": "1",
-    "country_id": "1",
-    "gov_id": "1",
-    "city_id": "1",
-    "street_id": "1",
-    "offer_id": "1",
-    "socialMedia_id": "1",
-    "followers_id": "1",
+    "brand_id": "1",
+    "barcode": "mobiles",
+    "slug": "mobiles",
+    "rating_id": 1,
+    "offer_id": 1,
     "is_active": 1,
-    "is_approved": 1,
-    "delivery": 1,
-    "edalilyPoint": "edalilyPoint",
-    "rating": "rating",
-    "workingHours": "workingHours",
-    "logo": "mobiles"
+    "is_appear": 1,
+    "category": [
+        {
+            "category_id": 1
+        },
+        {
+            "category_id": 2
+        },
+        {
+            "category_id": 3
+        }
+    ],
+        "sections": [
+        {
+            "section_id": 1
+        },
+        {
+            "section_id": 2
+        },
+        {
+            "section_id": 3
+        },
+                {
+            "section_id": 4
+        },
+                {
+            "section_id": 5
+        },
+                {
+            "section_id": 6
+        },
+                        {
+            "section_id": 7
+        },
+                        {
+            "section_id": 8
+        },
+                        {
+            "section_id": 9
+        }
+    ],
+    "CustomFieldValue": [
+        {
+            "custom_field_value_id": 1
+        },
+        {
+            "custom_field_value_id": 2
+        },
+        {
+            "custom_field_value_id": 3
+        }
+    ],
+    "images": [
+        {
+            "image": "{{fahed3}}",
+            "is_cover": 1
+        },
+        {
+            "image": "{{fahed2}}",
+            "is_cover": 0
+        },
+        {
+            "image": "{{feahd1}}",
+            "is_cover": 0
+        }
+    ]
 }
     };
   },
-          postStore() {
-            axios.post('/api/stores/create', this.stores);
+          submit() {
+            axios.post( "/api/products/create",
+            this.products);
 
             console.log(JSON.stringify(this.stores));
         },
   computed: {
-    ...mapState({
-      Stores: (state) => state.Stores.Stores,
-    }),
+   
   },
   mounted() {
-    this.$store.dispatch("loadStores");
+  
   },
 };
 </script>

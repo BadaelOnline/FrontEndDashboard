@@ -213,7 +213,7 @@
            </div>
       <h4 class="title_img">Existing Img</h4>
       <div class="old_img ">
-        <div class="item_img" :class="{ is_cover: item.is_cover == 1 }" 
+        <div class="item_img" :class="{ is_cover: item.is_cover == 'cover' }" 
         v-for="item in image_prod" :key="item.wq"><img :src="`http://edalili.e-dalely.com/public/${item.image}`" alt="">
         <div class="icon_close" @click="deletimg(item.id)"><i class="fa fa-window-close"></i></div>
         <label  for="cover" style="margin: 0 5px;">Select As Cover </label>

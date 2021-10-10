@@ -133,7 +133,7 @@
         enctype="multipart/form-data"
         style="margin-top: 10px;"
       >
-        <UploadImages @changed="handleImages" />
+        <UploadImages @changed="handleImages" :max="1"/>
         <button class="btn btn-primary btn-block" style="margin-top: 10px;">
           Upload
         </button>
