@@ -4,7 +4,7 @@
     <div class="child2">
       <div class="imag">
         <div v-for="im in product_image" :key="im.pr">
-          <img v-if="im.is_cover == 1" :src="`http://edalili.e-dalely.com/public/${im.image}`" />
+          <img v-if="im.is_cover == 'cover'" :src="`http://edalili.e-dalely.com/public/${im.image}`" />
         </div>
       </div>
     </div>

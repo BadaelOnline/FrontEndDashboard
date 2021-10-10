@@ -11,26 +11,27 @@
           {{item.value}}
         </div>
       </div>
-    <div
+          <div
       class="child5"
       v-if="is_active"
-    
+      @click="statusCategory(id)"
       style="cursor:pointer;"
     >
       <i
-        v-if="is_active == 1"
+        v-if="is_active == 'Active'"
         :id="`Active${id}`"
         class="fa fa-check"
         style="color: green;padding:10px"
       ></i>
-    </div>
-    <div class="child5"  @click="statusCategory(id)"
-    v-else>
       <i
+        v-else
         :id="`NonActive${id}`"
         class="fa fa-times"
         style="color: #f20b07;padding:10px"
       ></i>
+    </div>
+    <div class="child5" v-else>
+      Active key doesnt exist
     </div>
     <div class="child6">
        <div class="delet">
@@ -45,7 +46,7 @@
       <div
         @click="deletCategory(id)"
         class="delet"
-        :class="{ non_active_delete: is_active != 1 }"
+        :class="{ non_active_delete: is_active != 'Active' }"
       >
         <i class="fa fa-trash"></i>
       </div>

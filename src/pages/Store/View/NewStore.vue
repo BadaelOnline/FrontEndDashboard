@@ -4,21 +4,18 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <CreateStoreForm data-background-color="green"> </CreateStoreForm>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
-        <UploadImagesStore> </UploadImagesStore>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { CreateStoreForm, UploadImagesStore } from "@/pages";
+import { CreateStoreForm } from "@/pages";
 
 export default {
   name: "newStore",
   components: {
     CreateStoreForm,
-    UploadImagesStore,
+  
   },
 };
 </script>
