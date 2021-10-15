@@ -12,7 +12,7 @@
         </div>
         <hr style="color: #fff;opacity: 0.5;" />
 
-        <div class="table" v-if="sections.length > 0">
+        <div class="table" v-if="Sections.length > 0">
           <div class="nav_tabel">
             <div class="child1">
               <div class="child">
@@ -145,13 +145,13 @@ export default {
   },
   computed: {
     ...mapState({
-      sections: (state) => state.All.sections,
+      Sections: (state) => state.All.Sections,
        total_page: (state) => state.All.total_page,
     }),
 
     filtered() {
       if (this.searchName != "") {
-        return this.sections.filter((el) => {
+        return this.Sections.filter((el) => {
           var regex = new RegExp(this.searchName, "i");
           return el.name.match(regex);
         });
@@ -163,15 +163,15 @@ export default {
       //   });
       // }
       if (this.selectedFilter == "notActive") {
-        return this.sections.filter((el) => {
+        return this.Sections.filter((el) => {
           return el.is_active == "Not Active";
         });
       } else if (this.selectedFilter == "active") {
-        return this.sections.filter((el) => {
+        return this.Sections.filter((el) => {
           return el.is_active == "Active";
         });
       } else {
-        return this.sections;
+        return this.Sections;
       }
     },
   },

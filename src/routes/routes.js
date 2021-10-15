@@ -1,6 +1,15 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
+// server setting
+import handelserver from "@/pages/Setting plath/handelserver.vue";
+import handelroutes from "@/pages/Setting plath/handelroutes.vue";
+import style from "@/pages/Setting plath/style.vue";
+import logohandel from "@/pages/Setting/logohandel.vue";
+import headerhandel from "@/pages/Setting/headerhandel.vue";
+import footerhandel from "@/pages/Setting/footerhandel.vue";
+
+
 // Products
 import AllProducts from "@/pages/Product/View/AllProducts.vue";
 import NewProduct from "@/pages/Product/View/NewProduct.vue";
@@ -81,6 +90,39 @@ const routes = [
         name: "Dashboard",
         component: Dashboard,
       },
+      // plathform setting
+      {
+        path: "/admin/handelserver",
+        name: "Handel server",
+        component: handelserver,
+      },
+      {
+        path: "/admin/handelroutes",
+        name: "Handel routes",
+        component: handelroutes,
+      },
+      {
+        path: "/admin/style",
+        name: "Style Plathform",
+        component: style,
+      },
+      {
+        path: "/admin/logohandel",
+        name: "Logo Handel ",
+        component: logohandel,
+      },
+      {
+        path: "/admin/headerhandel",
+        name: "Footer Handel",
+        component: headerhandel,
+      },
+      {
+        path: "/admin/footerhandel",
+        name: "Footer Handel  ",
+        component: footerhandel,
+      },
+      
+      
       // Products
       {
         path: "/admin/products",

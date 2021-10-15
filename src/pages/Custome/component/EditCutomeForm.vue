@@ -587,6 +587,8 @@ $duration: 1.4s;
   align-items: center;
   left: 20%;
   z-index: 5;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -599,6 +601,8 @@ $duration: 1.4s;
   z-index: 5;
   font-size: 20px;
   left: 20%;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

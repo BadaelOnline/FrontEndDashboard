@@ -98,7 +98,7 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option v-for="sec in sections" :key="sec.id" :value="sec.id"
+            <option v-for="sec in Sections" :key="sec.id" :value="sec.id"
               >{{ sec.name }}
             </option>
           </select>
@@ -209,7 +209,7 @@ export default {
   computed: {
     ...mapState({
       Categories: (state) => state.All.Categories,
-      sections: (state) => state.All.sections,
+      Sections: (state) => state.All.Sections,
     }),
   },
   mounted() {
@@ -269,7 +269,7 @@ export default {
           if (res.status == 201 || res.status == 200) {
             self.categories.image =
               // localStorage.getItem("server") + "/" + res.data;
-                "http://edalili.e-dalely.com/public/" + res.data;
+               res.data;
             console.log(
               self.categories.image
             );
@@ -619,6 +619,8 @@ $duration: 1.4s;
   align-items: center;
   left: 20%;
   z-index: 5;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -631,6 +633,8 @@ $duration: 1.4s;
   z-index: 5;
   font-size: 20px;
   left: 20%;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

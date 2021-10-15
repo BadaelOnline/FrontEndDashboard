@@ -26,45 +26,88 @@
         <!-- </md-menu-content> -->
       </md-menu>
       <sidebar-link to="/admin/dashboard">
-        <md-icon>dashboard</md-icon>
+         <md-icon>home</md-icon>
         <p>Dashboard</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/products">
+      </sidebar-link> 
+        <drop-down>
+        <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
+         <md-icon>dashboard</md-icon>
+          <p class="setting-title"> Sections</p>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li> <sidebar-link to="/admin/products" >
         <md-icon>person</md-icon>
         <p>Products</p>
       </sidebar-link>
-      <sidebar-link to="/admin/stores">
-        <md-icon>person</md-icon>
-        <p>Stores</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/categories">
+         </li>
+      <li> <sidebar-link to="/admin/categories">
         <md-icon>person</md-icon>
         <p>Categories</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/brands">
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/brands">
         <md-icon>person</md-icon>
         <p>Brands</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/sections">
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/sections">
         <md-icon>person</md-icon>
         <p>Section</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/doctors" class="disable">
-        <md-icon>person</md-icon>
-        <p>Doctors</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/restaurants" class="disable">
-        <md-icon>person</md-icon>
-        <p>Restaurant</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/offers">
-        <md-icon>person</md-icon>
-        <p>Offers</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/customefeilds">
+      </sidebar-link>  </li>
+         <li> <sidebar-link to="/admin/customefeilds">
         <md-icon>person</md-icon>
         <p>Custome Feilds</p>
-      </sidebar-link>
+      </sidebar-link>  </li>
+      <li><sidebar-link to="/admin/stores" class="disable">
+        <md-icon>person</md-icon>
+        <p>Stores</p>
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/doctors" class="disable">
+        <md-icon>person</md-icon>
+        <p>Doctors</p>
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/restaurants" class="disable">
+        <md-icon>person</md-icon>
+        <p>Restaurant</p>
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/offers" class="disable">
+        <md-icon>person</md-icon>
+        <p>Offers</p>
+      </sidebar-link>  </li>
+   
+          
+        </ul>
+      </drop-down>
+         <drop-down>
+        <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-cog"></i>
+          <p class="setting-title">  Plathform Setting</p>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+         <li> <sidebar-link to="/admin/handelserver">
+        <md-icon>content_paste</md-icon>
+        <p>handel server</p>
+      </sidebar-link>  </li>
+      <li> <sidebar-link to="/admin/handelroutes">
+       <md-icon>library_books</md-icon>
+        <p>handel pages</p>
+      </sidebar-link>  </li>
+          <li> <sidebar-link to="/admin/logohandel">
+      <md-icon>bubble_chart</md-icon>
+        <p> site logo</p>
+      </sidebar-link>  </li>
+                <li> <sidebar-link to="/admin/style">
+      <md-icon>bubble_chart</md-icon>
+        <p> style</p>
+      </sidebar-link>  </li>
+                          <li> <sidebar-link to="/admin/headerhandel">
+      <md-icon>bubble_chart</md-icon>
+        <p> Header</p>
+      </sidebar-link>  </li>
+                      <li> <sidebar-link to="/admin/footerhandel">
+      <md-icon>bubble_chart</md-icon>
+        <p> Footer</p>
+      </sidebar-link>  </li>
+        </ul>
+      </drop-down>
     </side-bar>
 
     <div class="main-panel">
@@ -116,6 +159,23 @@ export default {
 </script>
 
 <style scoped>
+.dropdown-toggle::after {
+    display: none;
+}
+.dropdown-toggle{
+  display: flex;
+gap: 20px;
+padding: 10px 35px;
+}
+.setting-title {
+  display: flex !important;
+  justify-content: center !important;
+  color: #fff;
+}
+.dropdown-menu{
+  background-color: #3f4345;
+  padding-bottom: 20px;
+}
 .disable[data-v-6253ecfd] {
   cursor: default;
   pointer-events: none;

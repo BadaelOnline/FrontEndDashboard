@@ -1,15 +1,8 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row" style="justify-content: space-between;">
-      <div class="">
+      <div>
         <h3 class="md-title">{{ $route.name }}</h3>
-        <label>wtite your domain</label>
-        <input
-          type="text"
-          placeholder="http://example/public"
-          v-model="server_change"
-        />
-        <button @click="handleChange()">change</button>
       </div>
 
       <div class="">
@@ -115,13 +108,10 @@
 export default {
   data() {
     const lang = localStorage.getItem("lang") || "en";
-    const server =
-      localStorage.getItem("server") || "http://edalili.e-dalely.com/public";
+
     return {
       lang: lang,
-      selectedEmployee: null,
-      server: server,
-      server_change: null,
+      selectedEmployee: null,  
       employees: [
         "Jim Halpert",
         "Dwight Schrute",
@@ -158,13 +148,6 @@ export default {
     // },
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    },
-
-    handleChange() {
-      this.server = this.server_change;
-      localStorage.setItem("server", this.server);
-      alert("succed change youe new domain is :" + this.server);
-      window.location.reload();
     },
   },
 };

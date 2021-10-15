@@ -83,7 +83,7 @@
           <input
             type="text"
             class="form-control"
-            id="validationCustom02 short"
+            id="validationCustom02 "
             v-model="Brands.brand[1].description"
             minlength="15"
             v-if="lang == 'ar'"
@@ -92,16 +92,13 @@
           <input
             type="text"
             class="form-control"
-            id="validationCustom02 short"
+            id="validationCustom02"
             v-model="Brands.brand[0].description"
             minlength="15"
             required
             v-else
           />
-          <div id="error">
-            Error! The description field must be filled with at least 15
-            characters
-          </div>
+     
           <div class="valid-feedback" id="good">
             Looks good!
           </div>
@@ -268,10 +265,10 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.Brands.image = localStorage.getItem("server") + "/" + res.data;
+            self.Brands.image = res.data;
             console.log(
               "image",
-              localStorage.getItem("server") + "/" + res.data
+              self.Brands.image
             );
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Success ";
@@ -348,10 +345,6 @@ export default {
           "Please choose a picture and upload it because it is required";
         document.getElementById(`m`).classList.toggle("cvs");
       } else {
-        if (document.querySelectorAll("short").length < 15) {
-          document.getElementById("error").style.display = "block";
-          document.getElementById("good").style.display = "none";
-        }
         document.getElementById("sp").classList.toggle("cvs");
         axios
           .put(
@@ -367,9 +360,10 @@ export default {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
               self.Massage_success = "update Brand Request Success";
-              setTimeout(() => {
-                self.$router.push({ name: "Brands" });
-              }, 2000);
+               document.getElementById("su").classList.toggle("cvs");
+               setTimeout(() => {
+                 self.$router.push({ name: "Brands" });
+               }, 2000);
             } else {
               document.getElementById("sp").classList.toggle("cvs");
               self.Massage_warning = "Error : " + response.data.msg;
@@ -649,6 +643,8 @@ $duration: 1.4s;
   align-items: center;
   left: 20%;
   z-index: 5;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -661,6 +657,8 @@ $duration: 1.4s;
   z-index: 5;
   font-size: 20px;
   left: 20%;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

@@ -97,7 +97,7 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option v-for="item in sections" :key="item.id" :value="item.id"
+            <option v-for="item in Sections" :key="item.id" :value="item.id"
               >{{ item.name }}
             </option>
           </select>
@@ -210,7 +210,7 @@ export default {
     ...mapState({
       Categories: (state) => state.All.Categories,
       CategoryID: (state) => state.All.CategoryID,
-      sections: (state) => state.All.sections,
+      Sections: (state) => state.All.Sections,
     }),
   },
   mounted() {
@@ -277,12 +277,10 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
-            self.categories.image =
-              localStorage.getItem("server") + "/" + res.data;
-            console.log(
-              "image",
-              localStorage.getItem("server") + "/" + res.data
-            );
+            self.categories.image =   res.data;
+            // localStorage.getItem("server") + "/" +
+            
+            console.log("image", res.data);
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Image Success ";
             document.getElementById("su").classList.toggle("cvs");
@@ -375,6 +373,7 @@ export default {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
               self.Massage_success = "update Product Request Success";
+               document.getElementById("su").classList.toggle("cvs");
               setTimeout(() => {
                 self.$router.push({ name: "Categories" });
               }, 2000);
@@ -655,6 +654,8 @@ $duration: 1.4s;
   align-items: center;
   left: 20%;
   z-index: 5;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -667,6 +668,8 @@ $duration: 1.4s;
   z-index: 5;
   font-size: 20px;
   left: 20%;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

@@ -3,7 +3,7 @@
     <div class="child1">{{ id }}</div>
     <div class="child2">
       <div class="imag">
-        <img :src="image" />
+        <img :src="`http://edalili.e-dalely.com/public/${image}`" />
       </div>
     </div>
     <div class="child3">{{ name }}</div>
@@ -236,6 +236,8 @@ export default {
   justify-content: center;
   font-size: 20px;
   align-items: center;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -247,6 +249,8 @@ export default {
   align-items: center;
   z-index: 5;
   font-size: 20px;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;
