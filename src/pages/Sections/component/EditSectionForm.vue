@@ -171,7 +171,7 @@ export default {
   computed: {
     ...mapState({
       SectionID: (state) => state.All.SectionID,
-      Sections: (state) => state.All.sections,
+      Sections: (state) => state.All.Sections,
     }),
   },
   mounted() {
@@ -264,10 +264,10 @@ export default {
           console.log(res);
           if (res.status == 201 || res.status == 200) {
             self.sections.image =
-              localStorage.getItem("server") + "/" + res.data;
+              res.data;
             console.log(
               "image",
-              localStorage.getItem("server") + "/" + res.data
+             res.data
             );
             document.getElementById("sp").classList.toggle("cvs");
             self.Massage_success = "Upload Image Success ";
@@ -334,6 +334,7 @@ export default {
               document.getElementById("sp").classList.toggle("cvs");
               self.statusnumber = response.data.stateNum;
               self.Massage_success = "update Sections Request Success";
+               document.getElementById("su").classList.toggle("cvs");
               setTimeout(() => {
                 self.$router.push({ name: "section" });
               }, 2000);
@@ -614,6 +615,8 @@ $duration: 1.4s;
   align-items: center;
   left: 20%;
   z-index: 5;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -626,6 +629,8 @@ $duration: 1.4s;
   z-index: 5;
   font-size: 20px;
   left: 20%;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

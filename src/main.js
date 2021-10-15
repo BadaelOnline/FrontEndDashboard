@@ -28,6 +28,7 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+
 // import 'normalize.css';
 // import "../public/fontawesome-free-5.15.1-web/css/all.css";
 
@@ -76,6 +77,7 @@ Vue.use(GlobalDirectives);
 Vue.use(i18n, VueI18n);
 Vue.use(FlagIcon);
 Vue.use(Vuelidate);
+
 // Vue.use(Pagination)
 
 // axios.defaults.baseURL = "http://edalili.e-dalely.com/public";

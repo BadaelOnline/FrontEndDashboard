@@ -3,14 +3,14 @@
     <div class="child1">{{ id }}</div>
     <div class="child2">
       <div class="imag">
-        <img :src="image" />
+        <img :src="`http://edalili.e-dalely.com/public/${image}`"/>
       </div>
     </div>
     <div class="child3">{{ name }}</div>
     <div class="child4">{{ slug }}</div>
     <div class="child5">{{ section.name }}</div>
-    <div class="child8">
-      {{ parent.name }}
+    <div class="child8" v-if="parent">
+      {{ parent.name}}
     </div>
     <div
       class="child6"
@@ -96,6 +96,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+     
       deleted: null,
       Massage_success: "",
       Massage_warning: "",
@@ -105,7 +106,7 @@ export default {
   // :section="item.section"
   // :slug="item.slug"
   //
-  props: ["id", "name", "image", "is_active", "parent", "section", "slug"],
+  props: ["id", "name", "image", "is_active", "section", "slug",'parent'],
   methods: {
     close() {
       document.getElementById(`m${this.id}`).classList.toggle("cvs");
@@ -237,6 +238,8 @@ export default {
   justify-content: center;
   font-size: 20px;
   align-items: center;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -248,6 +251,8 @@ export default {
   align-items: center;
   z-index: 5;
   font-size: 20px;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;

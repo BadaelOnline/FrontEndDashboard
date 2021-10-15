@@ -171,7 +171,7 @@ export default {
       Categories: (state) => state.All.Categories,
       total_page: (state) => state.All.total_page,
       name_Categories: (state) => state.All.name_Categories,
-      sections: (state) => state.All.sections,
+     
     }),
 
     filteredName() {

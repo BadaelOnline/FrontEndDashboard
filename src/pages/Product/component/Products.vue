@@ -239,6 +239,8 @@ export default {
   justify-content: center;
   font-size: 20px;
   align-items: center;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .alert-success {
   visibility: hidden;
@@ -250,6 +252,8 @@ export default {
   align-items: center;
   z-index: 5;
   font-size: 20px;
+  opacity: 0.9;
+  font-weight: bold;
 }
 .cvs {
   visibility: visible !important;
