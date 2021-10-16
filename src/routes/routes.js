@@ -2,10 +2,9 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
 // server setting
-import handelserver from "@/pages/Setting plath/handelserver.vue";
-import handelroutes from "@/pages/Setting plath/handelroutes.vue";
-import style from "@/pages/Setting plath/style.vue";
-import logohandel from "@/pages/Setting/logohandel.vue";
+import handelserver from "@/pages/Setting/handelserver.vue";
+import handelroutes from "@/pages/Setting/handelroutes.vue";
+import style from "@/pages/Setting/style.vue";
 import headerhandel from "@/pages/Setting/headerhandel.vue";
 import footerhandel from "@/pages/Setting/footerhandel.vue";
 
@@ -107,13 +106,8 @@ const routes = [
         component: style,
       },
       {
-        path: "/admin/logohandel",
-        name: "Logo Handel ",
-        component: logohandel,
-      },
-      {
         path: "/admin/headerhandel",
-        name: "Footer Handel",
+        name: "Header Handel",
         component: headerhandel,
       },
       {
