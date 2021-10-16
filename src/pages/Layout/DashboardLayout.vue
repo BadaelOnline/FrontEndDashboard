@@ -90,10 +90,6 @@
        <md-icon>library_books</md-icon>
         <p>handel pages</p>
       </sidebar-link>  </li>
-          <li> <sidebar-link to="/admin/logohandel">
-      <md-icon>bubble_chart</md-icon>
-        <p> site logo</p>
-      </sidebar-link>  </li>
                 <li> <sidebar-link to="/admin/style">
       <md-icon>bubble_chart</md-icon>
         <p> style</p>
@@ -164,13 +160,15 @@ export default {
 }
 .dropdown-toggle{
   display: flex;
-gap: 20px;
-padding: 10px 35px;
-}
+  gap: 20px;
+  padding: 10px 35px;
+  cursor: pointer;
+  }
 .setting-title {
   display: flex !important;
   justify-content: center !important;
   color: #fff;
+  
 }
 .dropdown-menu{
   background-color: #3f4345;

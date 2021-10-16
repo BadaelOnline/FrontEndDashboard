@@ -31,9 +31,13 @@
                 <input type="range" min="1" max="255" step="1"  v-model="blue">  
            </div>
 
-       
-
-         
+               <hr> 
+          <div class="border-button">
+            <label for="">Button Border Radius</label>
+               <md-input v-model.number="radius"></md-input>
+                 <md-button  :style="{ 'border-radius': `${radius}px`}" class="md-info">example</md-button>
+          </div>
+     
 
           </md-card-content>
         </md-card>
@@ -71,6 +75,11 @@
     display: flex;
     gap: 50px;
 }
+.border-button{
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  }
 </style>
 <script>
 export default {
@@ -80,7 +89,7 @@ export default {
     red: 255,
     green:1,
     blue:1,
-    
+    radius:0
       
     };
   },
