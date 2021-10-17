@@ -18,8 +18,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
 
-// validate
-import Vuelidate from "vuelidate";
+// // validate
+// import Vuelidate from "vuelidate";
 // vue-i18n
 import i18n from "./js/i18n";
 import VueI18n from "vue-i18n";
@@ -76,7 +76,7 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(i18n, VueI18n);
 Vue.use(FlagIcon);
-Vue.use(Vuelidate);
+// Vue.use(Vuelidate);
 
 // Vue.use(Pagination)
 

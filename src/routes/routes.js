@@ -1,6 +1,7 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
+
 // server setting
 import handelserver from "@/pages/Setting/handelserver.vue";
 import handelroutes from "@/pages/Setting/handelroutes.vue";
