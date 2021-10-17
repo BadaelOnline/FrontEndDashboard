@@ -10,10 +10,10 @@
             <!-- <p class="category">Here is a subtitle for this table</p> -->
           </md-card-header>
           <md-card-content>
-       <div :style="{ 'box-shadow': `0px 6px 5px rgb(${red},${green},${blue})`}">
-            <div class="testing-color" :style="{ 'background-color': `rgb(${red},${green},${blue})`}">
+    
+            <div class="testing-color" :style="{ 'background-color': `rgb(${color.red},${color.green},${color.blue})`}">
                 <ul v-for="item in colum" :key="item"
-                 :style="{ 'color': `rgb(${re},${gree},${blu})`}"
+                 :style="{ 'color': `rgb(${colorText.red},${colorText.green},${colorText.blue})`}"
                 >
                     <li>item</li>
                     <li>item</li>
@@ -21,8 +21,31 @@
                     <li>item</li>
                 </ul>
            </div>
-           </div>
-               <h3>Colum Switch:</h3>
+         
+             
+           <div class="color-controler">
+               <div>
+           <input disabled class="value"  :value="color.style" placeholder="Background Color">
+          
+           <ColorPicker
+      :color="color"
+      :onStartChange="color => onChange(color, 'start')"
+      :onChange="color => onChange(color, 'change')"
+      :onEndChange="color => onChange(color, 'end')"
+    />
+            </div>
+            <div>
+           <input disabled class="value" :valuer="colorText.style" placeholder="Text Color">
+      <ColorPicker
+      :color="colorText"
+      :onStartChange="color => onChangetext(color, 'start')"
+      :onChange="color => onChangetext(color, 'change')"
+      :onEndChange="color => onChangetext(color, 'end')"
+    />
+            </div>
+        </div>
+         <hr>
+     <h3>Colum Switch:</h3>
            <div class="colum-contoler">
             <div class="switch-color">
                 <md-radio v-model="colum" :value="1">colum 1</md-radio>
@@ -37,41 +60,6 @@
               <md-radio  v-model="colum" :value="4">colum 4</md-radio>
            </div>
            </div>
-           <HR></HR>
-           <div class="color-controler">
-               <div>
-           <h3>Background Color:</h3>
-           <div class="switch-color">
-                <label for="">red</label>
-                <input type="range" min="1" max="255" step="1" v-model="red">
-           </div>
-            <div class="switch-color">
-                <label for="">green</label>
-                <input type="range" min="1" max="255" step="1"  v-model="green">
-           </div>
-            <div class="switch-color">
-                <label for="">blue</label>
-                <input type="range" min="1" max="255" step="1"  v-model="blue">  
-           </div>
-            </div>
-            <div>
-         <h3>Text Color:</h3>
-           <div class="switch-color">
-                <label for="">red</label>
-                <input type="range" min="1" max="255" step="1" v-model="re">
-           </div>
-            <div class="switch-color">
-                <label for="">green</label>
-                <input type="range" min="1" max="255" step="1"  v-model="gree">
-           </div>
-            <div class="switch-color">
-                <label for="">blue</label>
-                <input type="range" min="1" max="255" step="1"  v-model="blu">  
-           </div>
-            </div>
-        </div>
-         
-
           </md-card-content>
         </md-card>
       </div>
@@ -80,6 +68,7 @@
     </div>
   </div>
 </template>
+<style src="vue-color-gradient-picker/dist/index.css" lang="css" ></style>
 <style scoped>
 .testing-color{
     width: 100%;
@@ -100,9 +89,8 @@
     display: flex;
     justify-content: space-around;
 }
-.switch-color{
-    display: flex;
-    gap: 50px;
+.value{
+  margin-left: 25px;
 }
 .colum-contoler{
     display: flex;
@@ -112,23 +100,39 @@
 }
 </style>
 <script>
+import { ColorPicker } from 'vue-color-gradient-picker';
 export default {
   data() {
   
     return {
-    red: 255,
-    green:1,
-    blue:1,
-    re: 1,
-    gree:1,
-    blu:1,
+      color: {
+        red: 255,
+        green: 0,
+        blue: 0,
+        alpha: 1
+      },
+    colorText: {
+        red: 0,
+        green: 0,
+        blue: 255,
+        alpha: 1
+      },
     colum: 1,
-    
       
     };
   },
+     components: {
+  ColorPicker
+  },
   methods: { 
-
+   onChange(attrs) {
+      this.color = { ...attrs };
+      console.log(attrs.style);
+    },
+    onChangetext(attrs) {
+      this.colorText = { ...attrs };
+       console.log(attrs.style);
+    }
   },
   
 };

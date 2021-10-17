@@ -10,8 +10,8 @@
             <!-- <p class="category">Here is a subtitle for this table</p> -->
           </md-card-header>
           <md-card-content>
-       <div :style="{ 'box-shadow': `0px 6px 5px rgb(${red},${green},${blue})`}">
-            <div class="testing-color" :style="{ 'background-color': `rgb(${red},${green},${blue})`}">
+      
+            <div class="testing-color" :style="{ 'background-color': `rgb(${color.red},${color.green},${color.blue},${color.alpha})`}">
                 <div class="contain-logo">
                     <div class="logo">
                         <a href="http://front.e-dalely.com"
@@ -23,12 +23,35 @@
                     
                 </div>
               <div class="contain-item">
-                        <span  :style="{ 'color': `rgb(${re},${gree},${blu})`}" 
+                        <span  :style="{ 'color': `rgb(${colorText.red},${colorText.green},${colorText.blue},${colorText.alpha})`}" 
                         class="routes" v-for="item in colum" :key="item">item</span>
                     </div>
            </div>
-           </div>
-               <h3>Row Item Switch:</h3>
+          
+              
+           <div class="color-controler">
+               <div>
+           <input disabled class="value"  :value="color.style" placeholder="Background Color">
+          
+           <ColorPicker
+      :color="color"
+      :onStartChange="color => onChange(color, 'start')"
+      :onChange="color => onChange(color, 'change')"
+      :onEndChange="color => onChange(color, 'end')"
+    />
+            </div>
+            <div>
+           <input disabled class="value" :value="colorText.style" placeholder="Text Color">
+      <ColorPicker
+      :color="colorText"
+      :onStartChange="color => onChangetext(color, 'start')"
+      :onChange="color => onChangetext(color, 'change')"
+      :onEndChange="color => onChangetext(color, 'end')"
+    />
+            </div>
+        </div>
+         <HR></HR>
+         <h3>Row Item Switch:</h3>
            <div class="colum-contoler">
             <div class="switch-color">
                 <md-radio v-model="colum" :value="1">item 1</md-radio>
@@ -55,39 +78,6 @@
               <md-radio  v-model="colum" :value="8">item 8</md-radio>
            </div>
            </div>
-           <HR></HR>
-           <div class="color-controler">
-               <div>
-           <h3>Background Color:</h3>
-           <div class="switch-color">
-                <label for="">red</label>
-                <input type="range" min="1" max="255" step="1" v-model="red">
-           </div>
-            <div class="switch-color">
-                <label for="">green</label>
-                <input type="range" min="1" max="255" step="1"  v-model="green">
-           </div>
-            <div class="switch-color">
-                <label for="">blue</label>
-                <input type="range" min="1" max="255" step="1"  v-model="blue">  
-           </div>
-            </div>
-            <div>
-         <h3>Text Color:</h3>
-           <div class="switch-color">
-                <label for="">red</label>
-                <input type="range" min="1" max="255" step="1" v-model="re">
-           </div>
-            <div class="switch-color">
-                <label for="">green</label>
-                <input type="range" min="1" max="255" step="1"  v-model="gree">
-           </div>
-            <div class="switch-color">
-                <label for="">blue</label>
-                <input type="range" min="1" max="255" step="1"  v-model="blu">  
-           </div>
-            </div>
-        </div>
             <HR></HR>
           <h3>Change logo:</h3>
   <UploadImages @changed="handleImages" :max="1" />
@@ -101,10 +91,14 @@
     </div>
   </div>
 </template>
+<style src="vue-color-gradient-picker/dist/index.css" lang="css" ></style>
 <style scoped>
 .container{
  display: flex;
 justify-content: center;
+}
+.value{
+  margin-left: 25px;
 }
 .contain-logo{
 width: 15%;
@@ -146,26 +140,44 @@ width: 15%;
 }
 </style>
 <script>
+import { ColorPicker } from 'vue-color-gradient-picker';
 import UploadImages from "vue-upload-drop-images";
 export default {
   data() {
     return {
-    red: 255,
-    green:1,
-    blue:1,
-    re: 1,
-    gree:1,
-    blu:1,
+    file:[0],
     colum: 1,
-    
+    color: {
+        red: 255,
+        green: 0,
+        blue: 0,
+        alpha: 1
+      },
+    colorText: {
+        red: 0,
+        green: 0,
+        blue: 255,
+        alpha: 1
+      }
       
     };
   },
     components: {
-  UploadImages
+  UploadImages, ColorPicker
   },
   methods: { 
-
+       handleImages(e) {
+      this.file = e;
+      console.log(e[0]);
+    },
+    onChange(attrs) {
+      this.color = { ...attrs };
+      console.log(attrs.style);
+    },
+    onChangetext(attrs) {
+      this.colorText = { ...attrs };
+       console.log(attrs.style);
+    }
   },
   
 };
