@@ -71,7 +71,8 @@ export default {
   methods: {
     onChange(attrs) {
       this.color = { ...attrs };
-      //  console.log(attrs.style);     
+       //  console.log(attrs.style);     
+     
     }
   },
 
