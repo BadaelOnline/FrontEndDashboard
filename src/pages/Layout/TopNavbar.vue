@@ -4,7 +4,8 @@
       <div>
         <h3 class="md-title">{{ $route.name }}</h3>
       </div>
-
+        <md-button @click="add" class="md-info">add notifications</md-button>
+      <md-button @click="clean" class="md-primary">clean notifications</md-button>
       <div class="">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
@@ -125,6 +126,26 @@ export default {
     };
   },
   methods: {
+     // this function for notifications
+      add () {
+  this.$notify({
+      group: 'foo', //  group to use multi notifications
+      title: 'notifications',
+      duration: -5000, //  if this option is negative  like -1000 notification will stay forever or until clicked
+      speed: 1000,
+      type: 'info',  // error , warn , success , info 
+      text: 'notifications message example..you can also click on this message for clean it.',
+    });
+    },
+     
+      
+    // methods for clean all notifications
+   clean () {
+     this.$notify({
+        group: 'foo',
+        clean: true
+      })
+    },
     arlang() {
       localStorage.setItem("lang", "ar");
     },
@@ -150,6 +171,7 @@ export default {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     },
   },
+
 };
 </script>
 
