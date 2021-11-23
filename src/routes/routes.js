@@ -1,6 +1,8 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
+// notifications
+import notifications from "@/pages/Notifications/View/notifications.vue";
 
 // server setting
 import handelserver from "@/pages/Setting/handelserver.vue";
@@ -56,6 +58,8 @@ import NewMenu from "@/pages/Restaurant/View/Menus/NewMenu.vue";
 import EditMenu from "@/pages/Restaurant/View/Menus/EditMenu.vue";
 // Offer
 import allOffers from "@/pages/Offers/View/allOffers.vue";
+import NewOffer from "@/pages/Offers/View/NewOffer.vue";
+import EditOffer from "@/pages/Offers/View/EditOffer.vue";
 // custome feilds
 import customefeilds from "@/pages/Custome/View/customefeilds.vue";
 import NewCustome from "@/pages/Custome/View/NewCustome.vue";
@@ -91,6 +95,12 @@ const routes = [
         component: Dashboard,
       },
       // plathform setting
+     //  notifications
+     {
+      path: "/admin/notifications/:id",
+      name: "Notifications",
+      component: notifications,
+    },
       {
         path: "/admin/handelserver",
         name: "Handel server",
@@ -223,6 +233,20 @@ const routes = [
         name: "Offers",
         component: allOffers,
       },
+      {
+        path: "/admin/newOffer",
+        name: "New Offer",
+        component: NewOffer,
+      },
+      
+      {
+        path: "/admin/editOffer/:id",
+        name: "Edit Offer",
+        component: EditOffer,
+      },
+      
+
+           // customefeilds
       {
         path: "/admin/customefeilds",
         name: "CustomeFeilds",

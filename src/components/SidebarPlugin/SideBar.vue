@@ -111,6 +111,9 @@ export default {
 .sidebar {
   overflow: hidden;
 }
+.sidebar-wrapper{
+  scrollbar-width: none;
+}
 .cu5 {
   position: fixed;
   z-index: 10;

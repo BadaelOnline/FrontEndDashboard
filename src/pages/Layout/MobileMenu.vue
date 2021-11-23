@@ -17,15 +17,19 @@
       <drop-down>
         <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
           <i class="material-icons">notifications</i>
-          <span class="notification">5</span>
+          <span class="notification">{{approvedNotification.length}}</span>
           <p>Notifications</p>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a href="#">Mike John responded to your email</a></li>
-          <li><a href="#">You have 5 new tasks</a></li>
-          <li><a href="#">You're now friend with Andrew</a></li>
-          <li><a href="#">Another Notification</a></li>
-          <li><a href="#">Another One</a></li>
+          <li  v-for="item in Notification"
+                        :key="item.pr"
+                        :id="item.id"
+                        :notifiable_type="item.notifiable_type"
+                        :parent="item.parent"
+                        :data="item.data"
+                        @click="readNotification(item.notification_id)"
+          ><a href="#">{{ item.data.message }}</a></li>
+        
         </ul>
       </drop-down>
     </li>
@@ -38,22 +42,54 @@
   </ul>
 </template>
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       search: null,
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone",
-      ],
     };
+  },
+    methods: {
+    // read notification
+     readNotification(i) {  
+       var self = this;   
+          document.getElementById(`sp`).classList.toggle("cvs"); 
+          axios
+            .put(`/api/notification/${i}`)
+            .then(function(response) {
+              if (response.statusText == "OK") {
+              console.log(response);
+               setTimeout(() => {
+           self.$router.push({name:'Notifications', params:{id:i}});
+            document.getElementById(`sp`).classList.toggle("cvs"); 
+             self.$store.dispatch("loadNotification");
+             
+              }, 1000);
+              }
+            })
+            .catch(function(error) {
+              if (error.response) {
+                console.log(error.response.data);
+              }
+            });
+    },
+    },
+    computed: {
+    ...mapState({
+      Notification: (state) => state.All.Notification,
+      total_page: (state) => state.All.total_page,
+    }),
+     approvedNotification() {
+        return this.Notification.filter((el) => {
+         return  el.read_at == null;
+        });
+    },
+ 
+    
+  },
+  mounted() {
+    this.$store.dispatch("loadNotification");
   },
 };
 </script>

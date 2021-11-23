@@ -2,6 +2,7 @@
 import Products from "../pages/Product/component/Products.vue";
 import EditProductForm from "../pages/Product/component/EditProductForm.vue";
 import CreateProductForm from "../pages/Product/component/CreateProductForm.vue";
+//Notifications
 
 // Store
 import Stores from "../pages/Store/component/Stores.vue";
@@ -49,11 +50,15 @@ import EditMenuForm from "../pages/Restaurant/component/Menus/EditMenuForm.vue";
 import UploadImagesMenu from "../pages/Restaurant/component/Menus/UploadImagesMenu.vue";
 // Offers
 import offers from "../pages/Offers/component/offers.vue";
+import NewOfferForm from "../pages/Offers/component/NewOfferForm.vue";
+import EditOfferForm from "../pages/Offers/component/EditOfferForm.vue";
 // Custome
 import custome from "../pages/Custome/component/custome.vue";
 import CreateCustomeForm from "../pages/Custome/component/CreateCustomeForm.vue";
 import EditCutomeForm from "../pages/Custome/component/EditCutomeForm.vue";
 export {
+  NewOfferForm,
+  EditOfferForm,
   custome,
   CreateCustomeForm,
   EditCutomeForm,

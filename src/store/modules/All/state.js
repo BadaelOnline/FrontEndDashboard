@@ -9,4 +9,6 @@ export default {
   Product: [],
   ProductID: null,
   Custome: null,
+  Offers: null,
+  Notification: null
 };
