@@ -51,6 +51,9 @@ export default {
 };
 </script>
 <style>
+.md-list-item-router{
+  padding: 2px 20px !important;
+}
 .nav .md-list-item-router.active {
     background-color: #56af5a !important;
     -webkit-box-shadow: 0 12px 20px -10px #56af5a;

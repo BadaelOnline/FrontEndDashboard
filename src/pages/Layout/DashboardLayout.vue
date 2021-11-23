@@ -26,12 +26,12 @@
         <!-- </md-menu-content> -->
       </md-menu>
       <sidebar-link to="/admin/dashboard">
-         <md-icon>home</md-icon>
+         <md-icon class="icon-home">home</md-icon>
         <p>Dashboard</p>
       </sidebar-link> 
         <drop-down>
         <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-         <md-icon>dashboard</md-icon>
+         <md-icon >dashboard</md-icon>
           <p class="setting-title"> Sections</p>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
@@ -40,6 +40,10 @@
         <p>Products</p>
       </sidebar-link>
          </li>
+      <li> <sidebar-link to="/admin/offers">
+        <md-icon>person</md-icon>
+        <p>Offers</p>
+      </sidebar-link>  </li>
       <li> <sidebar-link to="/admin/categories">
         <md-icon>person</md-icon>
         <p>Categories</p>
@@ -68,12 +72,7 @@
         <md-icon>person</md-icon>
         <p>Restaurant</p>
       </sidebar-link>  </li>
-      <li> <sidebar-link to="/admin/offers" class="disable">
-        <md-icon>person</md-icon>
-        <p>Offers</p>
-      </sidebar-link>  </li>
-   
-          
+      
         </ul>
       </drop-down>
          <drop-down>
@@ -193,5 +192,8 @@ select {
 }
 .md-button .md-button-content {
   cursor: none;
+}
+.icon-home{
+padding-right: 30px;
 }
 </style>

@@ -133,3 +133,33 @@ export const loadCustome = ({ commit }) => {
       console.log("Error: ", error);
     });
 };
+export const loadOffers = ({ commit }) => {
+  axios
+    .get(`/api/offers?page=${page}&lang=${lang}`)
+    .then((res) => {
+      console.log("Offers :", res.data.Offer.data);
+      let Offers = res.data.Offer.data;
+      let total_page = res.data.Offer.last_page ;
+      commit("SET_total_page", total_page);
+      commit("SET_Offers", Offers);
+      console.log("Offers total_page:", total_page);
+    })
+    .catch(function(error) {
+      console.log("Error: ", error);
+    });
+};
+export const loadNotification = ({ commit }) => {
+  axios
+    .get(`/api/notification?page=${page}&lang=${lang}`)
+    .then((res) => {
+      console.log("Notification :", res.data.Notification);
+      let Notification = res.data.Notification;
+      let total_page = res.data.Notification.last_page ;
+      commit("SET_total_page", total_page);
+      commit("SET_Notification", Notification);
+    
+    })
+    .catch(function(error) {
+      console.log("Error: ", error);
+    });
+};

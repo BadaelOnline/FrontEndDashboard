@@ -35,7 +35,7 @@
     />
             </div>
             <div>
-           <input disabled class="value" :valuer="colorText.style" placeholder="Text Color">
+           <input disabled class="value" :value="colorText.style" placeholder="Text Color">
       <ColorPicker
       :color="colorText"
       :onStartChange="color => onChangetext(color, 'start')"

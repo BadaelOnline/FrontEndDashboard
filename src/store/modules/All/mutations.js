@@ -28,4 +28,10 @@ export const SET_ProductID = (state, ProductID) => {
 export const SET_Custome = (state, Custome) => {
   state.Custome = Custome;
 };
+export const SET_Offers = (state, Offers) => {
+  state.Offers = Offers;
+};
+export const SET_Notification = (state, Notification) => {
+  state.Notification = Notification;
+};
 //

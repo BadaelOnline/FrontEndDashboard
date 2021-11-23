@@ -3,7 +3,7 @@
     <form>
       <md-card >
         <div class="title_form">
-          <h4>Category Tabel</h4>
+          <h4>Product Tabel</h4>
           <router-link :to="`product/create`"
             ><md-button class="md-accent" :data-background-color="'blue'">
               New Product</md-button
